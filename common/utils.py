@@ -11,9 +11,12 @@ def process_float(raw_float, baoliu_num=2):
 
 
 def build_date_str(minus_day_count, str_type):
+    """type=cn > 返回 x年x月x日
+    typw = bottom_line > 返回 xxxx_xx_xx"""
     res = datetime.now().date() - timedelta(days=minus_day_count)
     if str_type == "cn":
         res = "%s年%s月%s日" % (res.year, res.month, res.day)
+
     elif str_type == "bottom_line":
         res = "%s_%s_%s" % (res.year, res.month, res.day)
     return res
