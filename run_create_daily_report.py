@@ -37,7 +37,7 @@ class DailyReportCreator(object):
         """处理 总体交易情况"""
         def _overview():
             # 1 时间
-            yesterday_date = build_date_str(minus_day_count=1, str_type="cn")
+            yesterday_date_str = build_date_str(minus_day_count=1, str_type="cn")
             # yesterday_date = datetime.now().date() - timedelta(days=minus_day_count)
             # yesterday_date_str = "%s年%s月%s日" % (yesterday_date.year, yesterday_date.month, yesterday_date.day)
 
