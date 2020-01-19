@@ -34,3 +34,9 @@ class AppInitializer(object):
         @app.errorhandler(500)
         def internal_server_error(e):
             return render_template("internal_server_error.html"), 500
+
+    @classmethod
+    def run_all(cls, app):
+        AppInitializer.route(app)
+        AppInitializer.bootstrap(app)
+        AppInitializer.error(app)
