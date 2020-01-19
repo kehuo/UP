@@ -19,7 +19,7 @@ class AppInitializer(object):
 
         @app.route("/daily_report")
         def daily_report():
-            return render_template("daily_report_new.html")
+            return render_template("daily_report.html")
 
     @classmethod
     def bootstrap(cls, app):
@@ -29,7 +29,7 @@ class AppInitializer(object):
     def error(cls, app):
         @app.errorhandler(404)
         def page_not_found(e):
-            return render_template("404.html"), 404
+            return render_template('404.html'), 404
 
         @app.errorhandler(500)
         def internal_server_error(e):
