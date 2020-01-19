@@ -1,24 +1,45 @@
 import json
 from datetime import datetime, timedelta
 import pandas as pd
-
+from common.utils import build_date_str
+import os
 
 class DailyReportCreator(object):
     """
     该类 用来生成 云闪付APP交易情况日报
     """
 
-    def __init__(self, cfg_path):
+    def __init__(self, cfg_path, model_name=None):
         with open(cfg_path, "r", encoding="utf-8") as f:
             self.cfg = json.load(f)
+        if model_name:
+            self.model_name = model_name
+        self.csv_data = {}
+        return
+
+    def _load_csv_data(self):
+        """根据 model_name, 从cfg.json 中找到自己需要的csv的文件名, 并加载csv数据"""
+        path = self.cfg["raw_csv_path"]
+        today_time_str = build_date_str(minus_day_count=0, str_type="bottom_line")
+        for k, v in self.cfg["csv_data"].items():
+            if k == self.model_name:
+                for target_csv, raw_csv_list in v.items():
+                    # 有一个的读今天的, 有两个的读今天 和 昨天的
+                    if len(raw_csv_list) == 1:
+                        # todo 读的时候，用 raw_csv_list[0] 和 datetime.now() - timedelta(days=1) 2个条件过滤
+                        for root_path, dir_list, os_file_name_list in os.walk(path):
+                            for file_one in os_file_name_list:
+                                if (raw_csv_list[0] in file_one) and (today_time_str in file_one):
+                                    self.csv_data[k] = pd.read_csv(path + raw_csv_list[0])
         return
 
     def model_1_handler(self):
         """处理 总体交易情况"""
-        def _overview(minus_day_count=1):
+        def _overview():
             # 1 时间
-            yesterday_date = datetime.now().date() - timedelta(days=minus_day_count)
-            yesterday_date_str = "%s年%s月%s日" % (yesterday_date.year, yesterday_date.month, yesterday_date.day)
+            yesterday_date = build_date_str(minus_day_count=1, str_type="cn")
+            # yesterday_date = datetime.now().date() - timedelta(days=minus_day_count)
+            # yesterday_date_str = "%s年%s月%s日" % (yesterday_date.year, yesterday_date.month, yesterday_date.day)
 
             # 2 总体交易商户
             all_merchant_cnt = {"yesterday": 269654,
