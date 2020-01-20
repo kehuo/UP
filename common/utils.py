@@ -38,23 +38,24 @@ def can_load(all_raw_csv_name, required_csv_name_one, current_timestamp):
     for i in all_raw_csv_name:
         if required_csv_name_one in i:
             filtered_raw_csv_name.append(i)
-    # print(filtered_raw_csv_name)
-    # print(required_csv_name_one)
-    # print(current_timestamp)
 
     for raw_one in filtered_raw_csv_name:
         if current_timestamp in raw_one:
             res = raw_one
             break
-    # print("res: %s" % res)
-    # print("")
+
     return res
 
 
 def find_df_value(df, col, row):
-    """返回一个df中 某一行 某一列的一个值
-    row 由业务具体定义, 可能是all_merchant, 或者其他
-    比如在 raw_overview.csv 中, row_value='all_merchant', col_value='cnt_yesterday' """
+    """返回一个 dataframe 中 某一行 某一列的一个值
+    示例:
+    df = raw_overview.csv
+    col = cnt_yesterday
+    row = all_merchant
+
+    那么 res = raw_overview.csv 中 "index"等于all_merchant那一行的 "cnt_yesterday"列的值
+    """
     res = None
     the_bingo_idx = None
     for idx in df.index:

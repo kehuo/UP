@@ -1,7 +1,7 @@
 import json
 import pandas as pd
 from common.utils import build_date_str, can_load
-import core.logic.model_1 as model_1_handler
+from core.logic.model_1 import Overview1, TransactionCntByDay
 import os
 
 
@@ -58,13 +58,14 @@ class BaseClass(object):
         参数解释
         required_raw_csv: 需要的原始数据
         """
-        required_raw_csv = ["raw_overview", "raw_transaction_cnt_by_day"]
         res = dict()
         # 1 overview
-        res["overview"] = model_1_handler.overview(self.csv_data, cfg=self.cfg)
+        model_1_overview_handler = Overview1(self.csv_data["raw_overview"], self.cfg)
+        res["overview"] = model_1_overview_handler.run()
 
         # 2 transaction_cnt_by_day
-        res["transaction_cnt_by_day"] = model_1_handler.transaction_cnt_by_day(self.csv_data)
+        transaction_cnt_by_day_handler = TransactionCntByDay(self.csv_data["raw_transaction_cnt_by_day"], self.cfg)
+        res["transaction_cnt_by_day"] = transaction_cnt_by_day_handler.run()
         return res
 
     def _handle_model_2(self):
@@ -107,6 +108,7 @@ class BaseClass(object):
 
         3.5 手机外部支付控件交易金额分布 --> 一段文字 + 一张表 control_out_transaction_by_amount_of_money.csv
             a. 原始csv数据 1 - raw_control_out_transaction_by_amount_of_money.csv"""
+        print(self.cfg)
         res = {}
         return res
 
@@ -116,6 +118,7 @@ class BaseClass(object):
         model_2: 二维码交易情况
         model_3: 手机支付控件交易情况
         """
+
         res_model_1 = self._handle_model_1()
         res_model_2 = self._handle_model_2()
         res_model_3 = self._handle_model_3()
