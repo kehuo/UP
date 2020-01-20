@@ -9,7 +9,7 @@ def main():
     1 总体交易情况
         1.1 概述 --> 这一般是2-3段文字
             a. 涉及的原始csv数据 - raw_overview.csv
-        1.2 支付类交易情况 --> 一段文字 + 一个表格, 表名暂定 支付类交易情况 transaction_cnt_by_day.csv
+        1.2 支付类交易情况 --> 一段文字 + 一个表格, 表名暂定 transaction_cnt_by_day.csv
             a. 原始csv - raw_transaction_cnt_by_day.csv
 
 
@@ -19,13 +19,13 @@ def main():
 
         2.2 主要场景交易情况 --> 一段文字 + 一个表 qr_transaction_cnt_by_scene.csv
             a. 原始csv数据 1 - raw_qr_transaction_cnt_by_scene.csv
-            b. 原始csv数据 2 - raw_qr_transaction_by_merchant.csv
+            b. 原始csv数据 2 - raw_qr_transaction_by_merchant_2020_01_19 02_32_57 PM.csv
 
         2.3 二维码TOP10分公司交易情况 --> 一段文字 + 一个表 qr_transaction_by_area_cd.csv
             a. 原始csv数据 - raw_qr_transaction_by_area_cd.csv
 
         2.4 二维码TOP10商户交易情况 --> 一段文字 + 一张表 qr_transaction_by_merchant.csv
-            a. 原始csv数据 1 - raw_qr_transaction_by_merchant.csv
+            a. 原始csv数据 1 - raw_qr_transaction_by_merchant_2020_01_19 02_32_57 PM.csv
             b. 原始csv数据 2 - raw_qr_transaction_by_merchant_日期-1.csv (注意，是昨天的相同的表)
 
         2.5 二维码交易金额分布 --> 一段文字 + 一个表格 qr_transaction_by_amount_of_money.csv
