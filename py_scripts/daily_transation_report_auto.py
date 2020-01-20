@@ -1,11 +1,12 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[223]:
 
 
 import pandas as pd
 import os
+from datetime import datetime, date, timedelta
 
 
 # In[ ]:
@@ -21,32 +22,20 @@ upw_hive.tmj_daily_trans_report_2表；
 """
 
 
-# In[13]:
+# In[166]:
 
 
 file_path ="C:\\Users\\tuomengjiao\\Desktop\\daily_tranaction_report\\data\\raw_data\\"
 fileList = os.listdir(file_path)
 
 
-# In[14]:
+# In[167]:
 
 
 fileList
 
 
-# In[15]:
-
-
-fileList[0]
-
-
-# In[16]:
-
-
-fileList[6][:-27]
-
-
-# In[18]:
+# In[168]:
 
 
 dfs = {}
@@ -55,30 +44,14 @@ for i in range(len(fileList)):
     dfs[fileList[i][:-27]] = df
 
 
-# In[ ]:
-
-
-df_pv_l=dfs[fileList[0]]
-df_pv_2=dfs[fileList[1]]
-df_pv_3=dfs[fileList[2]]
-df_trans=dfs[fileList[3]]
-df_remain=dfs[fileList[4]]
-
-
-# In[24]:
+# In[169]:
 
 
 for i in dfs:
     print(i)
 
 
-# In[27]:
-
-
-
-
-
-# In[ ]:
+# In[180]:
 
 
 # 总体交易情况
@@ -92,59 +65,120 @@ for i in dfs:
 
 # 可修改的变量
 # 1 日期
-current_date = datetime.now().strftime("%Y-%m-%d").split("-")
-current_date = current_date[0] + "年" + current_date[1] + "月" + current_date[2] + "日"
+#current_date = datetime.now().strftime("%Y-%m-%d").split("-")
+#current_date = current_date[0] + "年" + current_date[1] + "月" + current_date[2] + "日"
 
 # 总体交易商户
+df_overview=dfs['raw_overview']
+df_overview
 
 
-# In[28]:
+# In[243]:
 
 
-# 支付类交易情况
+#当前日期
+today = (date.today() + timedelta(days = -1)).strftime("%Y-%m-%d").split("-")
+current_date = today[0] + "年" + today[1] + "月" + today[2] + "日"
+#总体交易商户
+all_mchnt=df_overview['cnt_today'][df_overview['index']=='all_mchnt_cnt'].values[0]
+all_mchnt_by_yesterday=df_overview['ratio_by_yesterday'][df_overview['index']=='all_mchnt_cnt'].values[0]
+all_mchnt_by_last_year=df_overview['ration_by_last_year'][df_overview['index']=='all_mchnt_cnt'].values[0]
+#新增交易商户
+new_mchnt=df_overview['cnt_today'][df_overview['index']=='new_mchnt_cnt'].values[0]
+new_mchnt_by_yesterday=df_overview['ratio_by_yesterday'][df_overview['index']=='new_mchnt_cnt'].values[0]
+new_mchnt_by_last_year=df_overview['ration_by_last_year'][df_overview['index']=='new_mchnt_cnt'].values[0]
+#二维码交易商户
+qr_mchnt=df_overview['cnt_today'][df_overview['index']=='qr_code_mchnt_cnt'].values[0]
+qr_mchnt_by_yesterday=df_overview['ratio_by_yesterday'][df_overview['index']=='qr_code_mchnt_cnt'].values[0]
+qr_mchnt_by_last_year=df_overview['ration_by_last_year'][df_overview['index']=='qr_code_mchnt_cnt'].values[0]
+#手机控件商户
+control_mchnt=df_overview['cnt_today'][df_overview['index']=='control_mchnt'].values[0]
+control_mchnt_by_yesterday=df_overview['ratio_by_yesterday'][df_overview['index']=='control_mchnt'].values[0]
+control_mchnt_by_last_year=df_overview['ration_by_last_year'][df_overview['index']=='control_mchnt'].values[0]
+#手机外部支付控件商户
+control_out_mchnt=df_overview['cnt_today'][df_overview['index']=='control_out_mchnt'].values[0]
+control_out_mchnt_by_yesterday=df_overview['ratio_by_yesterday'][df_overview['index']=='control_out_mchnt'].values[0]
+control_out_mchnt_by_last_year=df_overview['ration_by_last_year'][df_overview['index']=='control_out_mchnt'].values[0]
+#新增商户地区
+new_mchnt_area="辽宁、重庆、广西"
+
+
+# In[241]:
+
+
+target_text1="总体交易情况：{},云闪付APP总体交易商户{}万，环比增长{}%，同比增长{}%。当日新增交易商户{}家，环比增长{}%，同比增长{}%，新增商户主要集中在{}等地区。".format(current_date, 
+        round(all_mchnt/10000,2),
+        round(all_mchnt_by_yesterday*100,2),
+        round(all_mchnt_by_last_year*100,2),
+        new_mchnt,
+        round(new_mchnt_by_yesterday*100,2),
+        round(new_mchnt_by_last_year*100,2),
+        new_mchnt_area
+                                                                                                
+       )
+
+target_text1
+
+
+# In[244]:
+
+
+target_text2="二维码交易商户{}万，占总交易商户的{}%，环比增长{}%；手机支付控件交易商户{}家，占总交易商户的{}%，环比增长{}%，手机外部支付控件交易商户{}家，环比增长{}%。".format(
+        round(qr_mchnt/10000,2),
+        round(qr_mchnt/all_mchnt*100,2),
+        round(qr_mchnt_by_yesterday*100,2),
+        control_mchnt,
+        round(control_mchnt/all_mchnt*100,2),
+        round(control_mchnt_by_yesterday*100,2),
+        control_out_mchnt,
+        round(control_out_mchnt_by_yesterday*100,2)
+                                                                                                
+       )
+
+target_text2
+
+
+# In[150]:
+
+
+''# 支付类交易情况
 """
 当日，云闪付APP发生支付类交易1133.76万笔，其中被扫、乘车码、远程转账、信用卡还款、一般主扫、快速收款码、小微主扫、手机外部支付控件、
 无感支付、人到人转账交易笔数排名前十，占到交易总量的98.94%。
 """
 df_transaction_cnt_by_day=dfs['raw_transaction_cnt_by_day']
-df_transaction_cnt_by_day
-
-
-# In[34]:
-
-
 df_transaction_cnt_by_day['ratio']=df_transaction_cnt_by_day['ratio'].apply(lambda x: format(float(x), '.2%')) 
-
-
-# In[35]:
-
-
-df_transaction_cnt_by_day
-
-
-# In[39]:
-
-
 df_transaction_cnt_by_day['proportion'] = df_transaction_cnt_by_day['cnt_today'] / df_transaction_cnt_by_day['cnt_today'].sum()
 df_transaction_cnt_by_day['proportion'] = df_transaction_cnt_by_day['proportion'].apply(lambda x: format(float(x), '.2%')) 
-
-
-# In[40]:
-
-
+df_transaction_cnt_by_day=df_transaction_cnt_by_day_print=df_transaction_cnt_by_day.loc[:,['index','cnt_today','proportion','ratio'] ]
 df_transaction_cnt_by_day
 
 
-# In[44]:
+# In[246]:
 
 
-df_transaction_cnt_by_day_print=df_transaction_cnt_by_day.loc[:,['index','cnt_today','proportion','ratio'] ] 
+total=df_transaction_cnt_by_day['cnt_today'].sum()
 
 
-# In[45]:
+# In[251]:
 
 
-df_transaction_cnt_by_day_print
+list_trans=df_transaction_cnt_by_day.head(10)['index']
+
+
+# In[ ]:
+
+
+total=df_transaction_cnt_by_day['cnt_today'].sum
+
+
+target_text3="当日，云闪付APP发生支付类交易{}万笔，其中{}交易笔数排名前十，占到交易总量的{}%。".format(
+        round(total/10000,2),
+        round(qr_mchnt/all_mchnt*100,2),
+        round(qr_mchnt_by_yesterday*100,2)
+                                                                                                
+       )
+target_text3
 
 
 # In[51]:
@@ -162,18 +196,17 @@ df_qr_transaction_cnt_by_scene['proportion'] = df_qr_transaction_cnt_by_scene['p
 df_qr_transaction_cnt_by_scene['ratio'] = df_qr_transaction_cnt_by_scene['ratio'].apply(lambda x: format(float(x), '.2%'))
 
 
-# In[52]:
+# In[161]:
 
 
-df_qr_transaction_cnt_by_scene
-
-
-# In[ ]:
-
-
-
-df_qr_transaction_cnt_by_scene['proportion'] = df_qr_transaction_cnt_by_scene['proportion'].apply(lambda x: format(float(x), '.2%'))
-df_qr_transaction_cnt_by_scene['ratio'] = df_qr_transaction_cnt_by_scene['ratio'].apply(lambda x: format(float(x), '.2%'))
+df_qr_transaction_cnt_by_scene_top100_in_city=dfs['raw_qr_transaction_cnt_by_scene_top100_in_city']
+df_scece_new=pd.merge(df_qr_transaction_cnt_by_scene,df_qr_transaction_cnt_by_scene_top100_in_city,on='scene')
+df_scece_new['proportion_xy'] = df_scece_new['cnt_today_y'] / df_scece_new['cnt_today_x']
+df_scece_new['proportion_xy'] = df_scece_new['proportion_xy'].apply(lambda x: format(float(x), '.2%'))
+df_scece_new['ratio_y'] = df_scece_new['ratio_y'].apply(lambda x: format(float(x), '.2%'))
+df_scece_new=df_scece_new.head(11).loc[:,['scene','cnt_today_x','proportion','ratio_x','cnt_today_y',
+                                                                      'ratio_y','proportion_xy'] ] 
+df_scece_new
 
 
 # In[68]:
@@ -212,12 +245,6 @@ df_qr_transaction_top10_merchant['cnt_ratio'] = df_qr_transaction_top10_merchant
 df_qr_transaction_top10_merchant['dis_proportion'] = df_qr_transaction_top10_merchant['dis_proportion'].apply(lambda x: format(float(x), '.2%'))
 
 
-# In[78]:
-
-
-df_qr_transaction_top10_merchant
-
-
 # In[79]:
 
 
@@ -229,12 +256,6 @@ df_qr_transaction_top10_merchant_print=df_qr_transaction_top10_merchant.loc[:,['
 
 
 df_qr_transaction_top10_merchant_print
-
-
-# In[98]:
-
-
-df_qr_transaction_by_amount_of_money
 
 
 # In[99]:
@@ -251,16 +272,22 @@ df_qr_transaction_by_amount_of_money_print=df_qr_transaction_by_amount_of_money.
 df_qr_transaction_by_amount_of_money_print
 
 
-# In[ ]:
+# In[163]:
 
 
 #手机支付控件TOP100商户交易情况
-df_qr_transaction_by_amount_of_money=dfs['raw_qr_transaction_by_amount_of_money']
-df_qr_transaction_by_amount_of_money['proportion'] = df_qr_transaction_by_amount_of_money['cnt_today'] / df_qr_transaction_by_amount_of_money['cnt_today'].sum()
-df_qr_transaction_by_amount_of_money['avg_cnt'] = df_qr_transaction_by_amount_of_money['cnt_today'] / df_qr_transaction_by_amount_of_money['mchnt_today']
-df_qr_transaction_by_amount_of_money['ratio'] = df_qr_transaction_by_amount_of_money['ratio'].apply(lambda x: format(float(x), '.2%'))
-df_qr_transaction_by_amount_of_money['proportion'] = df_qr_transaction_by_amount_of_money['proportion'].apply(lambda x: format(float(x), '.2%'))
-df_qr_transaction_by_amount_of_money
+df_control_by_merchant_details=dfs['raw_control_by_merchant_details']
+#df_qr_transaction_by_amount_of_money['proportion'] = df_qr_transaction_by_amount_of_money['cnt_today'] / df_qr_transaction_by_amount_of_money['cnt_today'].sum()
+#df_qr_transaction_by_amount_of_money['avg_cnt'] = df_qr_transaction_by_amount_of_money['cnt_today'] / df_qr_transaction_by_amount_of_money['mchnt_today']
+#df_qr_transaction_by_amount_of_money['ratio'] = df_qr_transaction_by_amount_of_money['ratio'].apply(lambda x: format(float(x), '.2%'))
+#df_qr_transaction_by_amount_of_money['proportion'] = df_qr_transaction_by_amount_of_money['proportion'].apply(lambda x: format(float(x), '.2%'))
+#df_qr_transaction_by_amount_of_money
+
+
+# In[164]:
+
+
+df_control_by_merchant_details.head()
 
 
 # In[ ]:
@@ -285,13 +312,38 @@ df_control_out_by_area_cd_print=df_control_out_by_area_cd.head(10).loc[:,['pro',
 df_control_out_by_area_cd_print
 
 
-# In[ ]:
+# In[141]:
 
 
-df_control_out_by_area_cd=dfs['raw_control_out_by_area_cd']
-df_qr_transaction_by_amount_of_money['proportion'] = df_qr_transaction_by_amount_of_money['cnt_today'] / df_qr_transaction_by_amount_of_money['cnt_today'].sum()
-df_qr_transaction_by_amount_of_money['avg_cnt'] = df_qr_transaction_by_amount_of_money['cnt_today'] / df_qr_transaction_by_amount_of_money['mchnt_today']
-df_qr_transaction_by_amount_of_money['ratio'] = df_qr_transaction_by_amount_of_money['ratio'].apply(lambda x: format(float(x), '.2%'))
-df_qr_transaction_by_amount_of_money['proportion'] = df_qr_transaction_by_amount_of_money['proportion'].apply(lambda x: format(float(x), '.2%'))
-df_qr_transaction_by_amount_of_money
+# 外部控件用户侧归属地
+df_control_out_by_user_gps=dfs['raw_control_out_by_user_gps'].sort_values(by="交易笔数" , ascending=False)
+df_control_out_by_user_gps['交易笔数占比'] = df_control_out_by_user_gps['交易笔数'] / df_control_out_by_area_cd['交易笔数'].sum()
+df_control_out_by_user_gps['交易笔数环比'] = df_control_out_by_user_gps['交易笔数环比'].apply(lambda x: format(float(x), '.2%'))
+df_control_out_by_user_gps['优惠笔数环比'] = df_control_out_by_user_gps['优惠笔数环比'].apply(lambda x: format(float(x), '.2%'))
+df_control_out_by_user_gps['交易笔数占比'] = df_control_out_by_user_gps['交易笔数占比'].apply(lambda x: format(float(x), '.2%'))
+df_control_out_by_user_gps['优惠笔数占比'] = df_control_out_by_user_gps['优惠交易笔数'] / df_control_out_by_area_cd['交易笔数']
+df_control_out_by_user_gps['优惠笔数占比'] = df_control_out_by_user_gps['优惠笔数占比'].apply(lambda x: format(float(x), '.2%'))
+df_control_out_by_user_gps=df_control_out_by_user_gps.head(10).loc[:,['branch','交易笔数','交易笔数占比','交易笔数环比','优惠交易笔数',
+                                                                '优惠笔数占比','优惠笔数环比'] ] 
+df_control_out_by_user_gps
+
+
+# In[208]:
+
+
+# 外部控件交易金额分布
+control_out_mchnt=df_overview['cnt_today'][df_overview['index']=='control_out_mchnt'].values[0]
+
+
+# In[211]:
+
+
+df_control_out_transaction_by_amount_of_money=dfs['raw_control_out_transaction_by_amount_of_money']
+df_control_out_transaction_by_amount_of_money['交易笔数占比'] = df_control_out_transaction_by_amount_of_money['交易笔数'] / df_control_out_transaction_by_amount_of_money['交易笔数'].sum()
+df_control_out_transaction_by_amount_of_money['商户数占比'] = df_control_out_transaction_by_amount_of_money['商户数'] /control_out_mchnt
+df_control_out_transaction_by_amount_of_money['商户日均交易笔数'] = df_control_out_transaction_by_amount_of_money['交易笔数'] / df_control_out_transaction_by_amount_of_money['商户数']
+df_control_out_transaction_by_amount_of_money['交易笔数占比'] = df_control_out_transaction_by_amount_of_money['交易笔数占比'].apply(lambda x: format(float(x), '.2%'))
+df_control_out_transaction_by_amount_of_money['商户数占比'] = df_control_out_transaction_by_amount_of_money['商户数占比'].apply(lambda x: format(float(x), '.2%'))
+df_control_out_transaction_by_amount_of_money=df_control_out_transaction_by_amount_of_money.loc[:,['金额区间','交易笔数','交易笔数占比','商户数','商户数占比','商户日均交易笔数']]
+df_control_out_transaction_by_amount_of_money
 
