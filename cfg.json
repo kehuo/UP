@@ -1,0 +1,10 @@
+{
+  "raw_csv_path": "/users/hk/dev/UP/data/raw/",
+
+  "model_1": {
+    "overview": {
+      "新增商户集中地区": ["辽宁", "湖北", "重庆"]
+    },
+    "transaction_cnt_by_day": {}
+  }
+}

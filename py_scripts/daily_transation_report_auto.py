@@ -22,20 +22,9 @@ upw_hive.tmj_daily_trans_report_2表；
 """
 
 
-# In[166]:
-
-
-file_path ="C:\\Users\\tuomengjiao\\Desktop\\daily_tranaction_report\\data\\raw_data\\"
+# file_path = "C:\\Users\\tuomengjiao\\Desktop\\daily_tranaction_report\\data\\raw_data\\"
+file_path = "/users/hk/dev/UP/data/raw/"
 fileList = os.listdir(file_path)
-
-
-# In[167]:
-
-
-fileList
-
-
-# In[168]:
 
 
 dfs = {}
@@ -70,7 +59,7 @@ for i in dfs:
 
 # 总体交易商户
 df_overview=dfs['raw_overview']
-df_overview
+
 
 
 # In[243]:
@@ -117,9 +106,6 @@ target_text1="总体交易情况：{},云闪付APP总体交易商户{}万，环�
                                                                                                 
        )
 
-target_text1
-
-
 # In[244]:
 
 
@@ -135,13 +121,13 @@ target_text2="二维码交易商户{}万，占总交易商户的{}%，环比增�
                                                                                                 
        )
 
-target_text2
+
 
 
 # In[150]:
 
 
-''# 支付类交易情况
+# 支付类交易情况
 """
 当日，云闪付APP发生支付类交易1133.76万笔，其中被扫、乘车码、远程转账、信用卡还款、一般主扫、快速收款码、小微主扫、手机外部支付控件、
 无感支付、人到人转账交易笔数排名前十，占到交易总量的98.94%。
@@ -151,7 +137,7 @@ df_transaction_cnt_by_day['ratio']=df_transaction_cnt_by_day['ratio'].apply(lamb
 df_transaction_cnt_by_day['proportion'] = df_transaction_cnt_by_day['cnt_today'] / df_transaction_cnt_by_day['cnt_today'].sum()
 df_transaction_cnt_by_day['proportion'] = df_transaction_cnt_by_day['proportion'].apply(lambda x: format(float(x), '.2%')) 
 df_transaction_cnt_by_day=df_transaction_cnt_by_day_print=df_transaction_cnt_by_day.loc[:,['index','cnt_today','proportion','ratio'] ]
-df_transaction_cnt_by_day
+
 
 
 # In[246]:
@@ -178,7 +164,7 @@ target_text3="当日，云闪付APP发生支付类交易{}万笔，其中{}交�
         round(qr_mchnt_by_yesterday*100,2)
                                                                                                 
        )
-target_text3
+
 
 
 # In[51]:
@@ -206,7 +192,7 @@ df_scece_new['proportion_xy'] = df_scece_new['proportion_xy'].apply(lambda x: fo
 df_scece_new['ratio_y'] = df_scece_new['ratio_y'].apply(lambda x: format(float(x), '.2%'))
 df_scece_new=df_scece_new.head(11).loc[:,['scene','cnt_today_x','proportion','ratio_x','cnt_today_y',
                                                                       'ratio_y','proportion_xy'] ] 
-df_scece_new
+
 
 
 # In[68]:
@@ -232,7 +218,7 @@ df_qr_transaction_by_area_cd_print=df_qr_transaction_by_area_cd.head(10).loc[:,[
 # In[70]:
 
 
-df_qr_transaction_by_area_cd_print
+
 
 
 # In[77]:
@@ -325,7 +311,7 @@ df_control_out_by_user_gps['优惠笔数占比'] = df_control_out_by_user_gps['�
 df_control_out_by_user_gps['优惠笔数占比'] = df_control_out_by_user_gps['优惠笔数占比'].apply(lambda x: format(float(x), '.2%'))
 df_control_out_by_user_gps=df_control_out_by_user_gps.head(10).loc[:,['branch','交易笔数','交易笔数占比','交易笔数环比','优惠交易笔数',
                                                                 '优惠笔数占比','优惠笔数环比'] ] 
-df_control_out_by_user_gps
+
 
 
 # In[208]:
