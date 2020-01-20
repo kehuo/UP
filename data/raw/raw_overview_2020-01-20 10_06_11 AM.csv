@@ -1,9 +1,9 @@
 ﻿index,cnt_today,cnt_yesterday,ratio_by_yesterday,cnt_last_year,ration_by_last_year
-all_mchnt_cnt,null,410180.0,null,null,null
-control_cnt,null,1319230.0,null,null,null
-control_mchnt,null,4829.0,null,null,null
-control_out_cnt,null,329821.0,null,null,null
-control_out_mchnt,null,3931.0,null,null,null
-new_mchnt_cnt,null,106.0,null,null,null
-qr_code_cnt,null,6988144.0,null,null,null
-qr_code_mchnt_cnt,null,404055.0,null,null,null
+all_mchnt_cnt,123123,410180.0,123123,123123,123123
+control_cnt,123123,1319230.0,123123,123123,123123
+control_mchnt,123123,4829.0,123123,123123,123123
+control_out_cnt,123123,329821.0,123123,123123,123123
+control_out_mchnt,123123,3931.0,123123,123123,123123
+new_mchnt_cnt,123123,106.0,123123,123123,123123
+qr_code_cnt,123123,6988144.0,123123,123123,123123
+qr_code_mchnt_cnt,123123,404055.0,123123,123123,123123

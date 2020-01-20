@@ -45,7 +45,7 @@ class Overview1(object):
             "3": find_df_value(self.raw_csv_data, col="ration_by_last_year", row="new_mchnt_cnt")
         }
 
-        self.data = data
+        self.data["new_merchant_cnt"] = data
         self.all_str["new_merchant_cnt"] = "当日新增交易商户%s+, 环比下降%s, 同比增长%s。" % (
             str(round(data["1"] / 10000, 2)),
             str(round(data["2"] * 100, 2)) + "%",
@@ -117,6 +117,7 @@ class Overview1(object):
         self.qr_code_merchant_cnt()
         self.control_merchant()
         self.control_out_merchant()
+        print(self.all_str)
 
 
 class TransactionCntByDay(object):

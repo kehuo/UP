@@ -63,6 +63,6 @@ def find_df_value(df, col, row):
             the_bingo_idx = idx
             break
 
-    if the_bingo_idx:
+    if the_bingo_idx is not None:
         res = df.loc[the_bingo_idx][col]
     return res

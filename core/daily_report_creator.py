@@ -37,7 +37,7 @@ class BaseClass(object):
     def load_csv_data(self):
         """读取 self.required_csv_name_list 列出的所有csv"""
         path = self.cfg["raw_csv_path"]
-        today_time_str = build_date_str(minus_day_count=0, str_type="middle_line")
+        today_time_str = build_date_str(minus_day_count=1, str_type="middle_line")
         all_raw_csv_files = os.listdir(path)
 
         for required_one in self.required_csv_name_list:
@@ -108,7 +108,6 @@ class BaseClass(object):
 
         3.5 手机外部支付控件交易金额分布 --> 一段文字 + 一张表 control_out_transaction_by_amount_of_money.csv
             a. 原始csv数据 1 - raw_control_out_transaction_by_amount_of_money.csv"""
-        print(self.cfg)
         res = {}
         return res
 
