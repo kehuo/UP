@@ -33,18 +33,19 @@ class General(object):
 
     def run(self, model_type, service_type):
         """
-        service_type = "total"
+        model_type = "total",
+        service_type = "transaction_cnt_by_day"
         1 文字
         2 csv
         """
-        service_handler_map = {
+        handler_module_map = {
             "total": Model_1_Handler,
             "qr": Model_2_Handler,
             "control": Model_3_Handler
         }
 
         # 因为有些函数需要 2-3个 csv 文件, 所以这里统一传入所有的 self.all_raw_csv
-        res = service_handler_map[model_type].__dict__[service_type](
+        res = handler_module_map[model_type].__dict__[service_type](
             sentence_dict=self.sentence_dict,
             all_raw_csv=self.all_raw_csv,
             cfg=self.cfg
