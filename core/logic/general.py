@@ -28,7 +28,11 @@ class General(object):
 
         service_sentence_map = {
             # model 1 - 总体交易情况
-            "transaction_cnt_by_day": {},
+            "transaction_cnt_by_day": {
+                "very_beginning": "",
+                "trans_type": "",
+                "proportion": ""
+            },
 
             # model 2 - 二维码交易情况
             "qr_transaction_cnt_by_scene": {},
@@ -43,7 +47,7 @@ class General(object):
             "control_out_transaction_by_amount_of_money": {}
         }
 
-        self.sentence_dict = service_sentence_map[service_type]["sentence_dict"]
+        self.sentence_dict = service_sentence_map[service_type]
 
     def run(self, model_type, service_type):
         """

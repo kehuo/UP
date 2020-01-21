@@ -42,8 +42,9 @@ class DailyReportProcessor(object):
             "control": dict()
         }
 
-        self.overview_handler = Overview(self.csv_data, self.cfg)
-        self.general_handler = General(self.csv_data, self.cfg)
+        self.overview_handler = None
+        self.general_handler = None
+
         return
 
     def load_csv_data(self, device_type):
@@ -52,7 +53,7 @@ class DailyReportProcessor(object):
         device_type = "windows" or "linux"
         """
         path = self.cfg["raw_csv_path"][device_type]
-        today_time_str = build_date_str(minus_day_count=1, str_type="middle_line")
+        today_time_str = build_date_str(minus_day_count=2, str_type="middle_line")
         all_raw_csv_files = os.listdir(path)
 
         for required_one in self.required_csv_name_list:
@@ -61,6 +62,10 @@ class DailyReportProcessor(object):
                 self.csv_data[required_one] = pd.read_csv(path + the_bingo_one)
         print("数据读取完成, 一共从%s读取%d个csv文件" % (path, len(self.csv_data)))
         return
+
+    def _init_handler(self):
+        self.overview_handler = Overview(self.csv_data, self.cfg)
+        self.general_handler = General(self.csv_data, self.cfg)
 
     def run(self):
         """
@@ -127,19 +132,24 @@ class DailyReportProcessor(object):
         3.1 概述 --> 一段文字
             a. 原始csv数据 - raw_overview.csv
 
-        3.2 手机支付控件TOP10商户交易情况 --> 一段文字 + 2张表 control_transaction_top_10_merchant.csv / control_out_transaction_top_10_merchant.csv
+        3.2 手机支付控件TOP10商户交易情况 --> 一段文字 + 1张表 control_transaction_top_10_merchant.csv
             a. 原始csv数据 1 - raw_control_transaction_top10_merchant_2020-01-20 09_49_49 AM.csv
-            b. 原始csv数据 2 - raw_control_out_transaction_top10_merchant_2020-01-20 09_20_47 AM.csv
 
-        3.3 手机外部支付控件TOP10商户侧分公司交易情况 --> 一段文字 + 一张表 control_out_by_area_cd.csv
+        3.3 手机外部支付控件TOP10商户交易情况 --> 一段文字 + 1张表 control_out_transaction_top_10_merchant.csv
+            a. 原始csv数据 1 - raw_control_transaction_top10_merchant_2020-01-20 09_49_49 AM.csv
+
+        3.4 手机外部支付控件TOP10商户侧分公司交易情况 --> 一段文字 + 一张表 control_out_by_area_cd.csv
             a. 原始csv数据 1 - raw_control_out_by_area_cd.csv
 
-        3.4 手机外部支付控件TOP10用户侧分公司交易情况 --> 一段文字 + 一张表 control_out_by_user_gps.csv
+        3.5 手机外部支付控件TOP10用户侧分公司交易情况 --> 一段文字 + 一张表 control_out_by_user_gps.csv
             a. 原始csv数据 1 - raw_control_out_by_user_gps.csv
 
-        3.5 手机外部支付控件交易金额分布 --> 一段文字 + 一张表 control_out_transaction_by_amount_of_money.csv
+        3.6 手机外部支付控件交易金额分布 --> 一段文字 + 一张表 control_out_transaction_by_amount_of_money.csv
             a. 原始csv数据 1 - raw_control_out_transaction_by_amount_of_money.csv
         """
+
+        self._init_handler()
+
         # 1 定义3个模块要构造的 services
         general_service_map = {
             "total": ["transaction_cnt_by_day"],
@@ -149,7 +159,8 @@ class DailyReportProcessor(object):
                    "qr_transaction_by_merchant",
                    "qr_transaction_by_amount_of_money"],
 
-            "control": ["control_by_merchant_details",
+            "control": ["control_transaction_top10_merchant",
+                        "control_out_transaction_top10_merchant",
                         "control_out_by_area_cd",
                         "control_out_by_user_gps",
                         "control_out_transaction_by_amount_of_money"]
