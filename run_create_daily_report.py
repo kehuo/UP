@@ -1,4 +1,4 @@
-from core.daily_report_creator import TotalDailyReportCreator, BaseClass
+from core.daily_report_creator import BaseClass
 
 
 def main():

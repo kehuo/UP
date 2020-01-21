@@ -3,8 +3,8 @@ import pandas as pd
 
 
 class Overview1(object):
-    def __init__(self, raw_csv_data, cfg):
-        self.raw_csv_data = raw_csv_data
+    def __init__(self, raw_csv, cfg):
+        self.raw_csv = raw_csv
         self.cfg = cfg
         self.yesterday_date_str = build_date_str(minus_day_count=1, str_type="cn")
 
@@ -25,9 +25,9 @@ class Overview1(object):
     def all_merchant_cnt(self):
         # 2 总体交易商户
         data = {
-            "1": find_df_value(self.raw_csv_data, col="cnt_today", row="all_mchnt_cnt"),
-            "2": find_df_value(self.raw_csv_data, col="ratio_by_yesterday", row="all_mchnt_cnt"),
-            "3": find_df_value(self.raw_csv_data, col="ration_by_last_year", row="all_mchnt_cnt")
+            "1": find_df_value(self.raw_csv, col="cnt_today", row="all_mchnt_cnt"),
+            "2": find_df_value(self.raw_csv, col="ratio_by_yesterday", row="all_mchnt_cnt"),
+            "3": find_df_value(self.raw_csv, col="ration_by_last_year", row="all_mchnt_cnt")
         }
 
         self.data["all_merchant_cnt"] = data
@@ -40,9 +40,9 @@ class Overview1(object):
     def new_merchant_cnt(self):
         # 3 新增交易商户
         data = {
-            "1": find_df_value(self.raw_csv_data, col="cnt_today", row="new_mchnt_cnt"),
-            "2": find_df_value(self.raw_csv_data, col="ratio_by_yesterday", row="new_mchnt_cnt"),
-            "3": find_df_value(self.raw_csv_data, col="ration_by_last_year", row="new_mchnt_cnt")
+            "1": find_df_value(self.raw_csv, col="cnt_today", row="new_mchnt_cnt"),
+            "2": find_df_value(self.raw_csv, col="ratio_by_yesterday", row="new_mchnt_cnt"),
+            "3": find_df_value(self.raw_csv, col="ration_by_last_year", row="new_mchnt_cnt")
         }
 
         self.data["new_merchant_cnt"] = data
@@ -67,9 +67,9 @@ class Overview1(object):
     def qr_code_merchant_cnt(self):
         # 5 二维码交易商户
         data = {
-            "1": find_df_value(self.raw_csv_data, col="cnt_today", row="qr_code_mchnt_cnt"),
-            "2": find_df_value(self.raw_csv_data, col="cnt_today", row="qr_code_mchnt_cnt") / self.data["all_merchant_cnt"]["1"],
-            "3": find_df_value(self.raw_csv_data, col="ratio_by_yesterday", row="qr_code_mchnt_cnt")
+            "1": find_df_value(self.raw_csv, col="cnt_today", row="qr_code_mchnt_cnt"),
+            "2": find_df_value(self.raw_csv, col="cnt_today", row="qr_code_mchnt_cnt") / self.data["all_merchant_cnt"]["1"],
+            "3": find_df_value(self.raw_csv, col="ratio_by_yesterday", row="qr_code_mchnt_cnt")
         }
 
         self.data["qr_code_merchant_cnt"] = data
@@ -82,9 +82,9 @@ class Overview1(object):
     def control_merchant(self):
         # 6 手机支付控件交易商户
         data = {
-            "1": find_df_value(self.raw_csv_data, col="cnt_today", row="control_mchnt"),
-            "2": find_df_value(self.raw_csv_data, col="cnt_today", row="control_mchnt") / self.data["all_merchant_cnt"]["1"],
-            "3": find_df_value(self.raw_csv_data, col="ratio_by_yesterday", row="control_mchnt")
+            "1": find_df_value(self.raw_csv, col="cnt_today", row="control_mchnt"),
+            "2": find_df_value(self.raw_csv, col="cnt_today", row="control_mchnt") / self.data["all_merchant_cnt"]["1"],
+            "3": find_df_value(self.raw_csv, col="ratio_by_yesterday", row="control_mchnt")
         }
 
         self.data["control_merchant"] = data
@@ -97,8 +97,8 @@ class Overview1(object):
     def control_out_merchant(self):
         # 7 手机外部支付控件交易商户
         data = {
-            "1": find_df_value(self.raw_csv_data, col="cnt_today", row="control_out_mchnt"),
-            "2": find_df_value(self.raw_csv_data, col="ratio_by_yesterday", row="control_out_mchnt")
+            "1": find_df_value(self.raw_csv, col="cnt_today", row="control_out_mchnt"),
+            "2": find_df_value(self.raw_csv, col="ratio_by_yesterday", row="control_out_mchnt")
         }
 
         self.data["control_out_merchant"] = data
@@ -128,13 +128,13 @@ class Overview1(object):
 
 
 class TransactionCntByDay(object):
-    def __init__(self, raw_csv_data, cfg):
+    def __init__(self, raw_csv, cfg):
         """
-        raw_csv_data: raw_transaction_cnt_by_day
+        raw_csv: raw_transaction_cnt_by_day
         self.all_str: 最后要生成的一段文字
         self.csv: 最后要生成的表格
         """
-        self.raw_csv_data = raw_csv_data
+        self.raw_csv = raw_csv
         self.cfg = cfg
 
         # todo 将文字拆成结构化的key-value对以后，为每一对写一个函数
@@ -142,16 +142,23 @@ class TransactionCntByDay(object):
             "1": "",
             "2": ""
         }
-        self.csv = raw_csv_data
+        self.csv = raw_csv
 
     def build_sentence(self):
-        # 构造 self.all_str
-        pass
+        # 1 构造 self.all_str 字典
+        # todo
+
+        # 2 将 字典 转成 dataframe
+        all_str = ""
+        for k, v in self.all_str.items():
+            all_str += v
+        res = pd.DataFrame(data={"sentence": [all_str]})
+        return res
 
     def build_csv(self):
         # 构造CSV
         # todo 按照昨天的理解，csv不需要做进一步处理，直接作为dataframe写入最终的excel即可。今晚再确认一下
-        pass
+        return
 
     def run(self):
         """
@@ -169,10 +176,15 @@ class TransactionCntByDay(object):
         df_transaction_cnt_by_day=df_transaction_cnt_by_day_print=df_transaction_cnt_by_day.loc[:,['index','cnt_today','proportion','ratio'] ]
         """
         # 1 文字
-        self.build_sentence()
+        sentence_df = self.build_sentence()
 
         # 2 表格
         self.build_csv()
 
-        # 返回一个 dataframe
-        return self.csv
+        # 返回2个 dataframe
+        res = {
+            "sentence": sentence_df,
+            "csv": self.csv
+        }
+
+        return res

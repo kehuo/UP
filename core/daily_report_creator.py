@@ -2,6 +2,7 @@ import json
 import pandas as pd
 from common.utils import build_date_str, can_load
 from core.logic.model_1 import Overview1, TransactionCntByDay
+from core.logic.model_2 import Overview2, QrTransactionCntByScene
 import os
 
 
@@ -57,15 +58,29 @@ class BaseClass(object):
             a. 涉及的原始csv数据 - raw_overview.csv
         1.2 支付类交易情况 --> 一段文字 + 一个表格, 表名暂定 transaction_cnt_by_day.csv
             a. 原始csv - raw_transaction_cnt_by_day.csv
+
+        res = {
+            "overview": pd.DataFrame,
+            "transaction_cnt_by_day": {
+                    "sentence": pd.DataFrame(),
+                    "csv": pd.DataFrame()
+                }
+        }
         """
         res = dict()
         # 1 overview
-        overview_handler = Overview1(self.csv_data["raw_overview"], self.cfg)
+        overview_handler = Overview1(
+            raw_csv=self.csv_data["raw_overview"],
+            cfg=self.cfg
+        )
         res["overview"] = overview_handler.run()
         print(res["overview"])
 
         # 2 transaction_cnt_by_day
-        transaction_cnt_by_day_handler = TransactionCntByDay(self.csv_data["raw_transaction_cnt_by_day"], self.cfg)
+        transaction_cnt_by_day_handler = TransactionCntByDay(
+            raw_csv=self.csv_data["raw_transaction_cnt_by_day"],
+            cfg=self.cfg
+        )
         res["transaction_cnt_by_day"] = transaction_cnt_by_day_handler.run()
         print(res["transaction_cnt_by_day"])
         return res
@@ -89,15 +104,49 @@ class BaseClass(object):
 
         2.5 二维码交易金额分布 --> 一段文字 + 一个表格 qr_transaction_by_amount_of_money.csv
             a. 原始csv数据 1 - raw_qr_transaction_by_amount_of_money.csv
+
+
+        res = {
+            "overview": pd.DataFrame(),
+
+            "transaction_cnt_by_scene": {
+                    "sentence": pd.DataFrame(),
+                    "csv": pd.DataFrame()
+                },
+
+            "qr_transaction_by_area_cd": {
+                    "sentence": pd.DataFrame(),
+                    "csv": pd.DataFrame()
+                },
+
+            "qr_transaction_by_merchant": {
+                    "sentence": pd.DataFrame(),
+                    "csv": pd.DataFrame()
+                },
+
+            "qr_transaction_by_amount_of_money": {
+                    "sentence": pd.DataFrame(),
+                    "csv": pd.DataFrame()
+                }
+        }
         """
         res = dict()
         # 1 overview
-        overview_handler = Overview1(self.csv_data["raw_overview"], self.cfg)
+        overview_handler = Overview2(
+            raw_csv=self.csv_data["raw_overview"],
+            cfg=self.cfg
+        )
         res["overview"] = overview_handler.run()
 
-        # 2 transaction_cnt_by_day
-        transaction_cnt_by_day_handler = TransactionCntByDay(self.csv_data["raw_transaction_cnt_by_day"], self.cfg)
-        res["transaction_cnt_by_day"] = transaction_cnt_by_day_handler.run()
+        # 2 transaction_cnt_by_scene
+        transaction_cnt_by_day_handler = QrTransactionCntByScene(
+            raw_csv={"raw_qr_transaction_cnt_by_scene": self.csv_data["raw_qr_transaction_cnt_by_scene"],
+                     "raw_qr_transaction_by_merchant": self.csv_data["raw_qr_transaction_by_merchant"]},
+            cfg=self.cfg
+        )
+        res["transaction_cnt_by_scene"] = transaction_cnt_by_day_handler.run()
+
+        # 3 qr_transaction_by_area_cd
 
         return res
 
@@ -131,93 +180,4 @@ class BaseClass(object):
         res_model_1 = self._handle_model_1()
         res_model_2 = self._handle_model_2()
         res_model_3 = self._handle_model_3()
-        return
-
-
-class TotalDailyReportCreator(BaseClass):
-    """处理 总体交易情况"""
-    def __init__(self, cfg_path):
-        BaseClass.__init__(self, cfg_path)
-
-    def run(self):
-        def _overview():
-            # 1 时间
-            yesterday_date_str = build_date_str(minus_day_count=1, str_type="cn")
-
-            # 2 总体交易商户
-            all_merchant_cnt = {"yesterday": 269654,
-                                "today": 410180,
-                                "same_today_last_year": 411636}
-            all_merchant_cnt_str = "云闪付APP总体交易商户%s万, 环比下降%s, 同比增长%s。" % (
-                str(round(all_merchant_cnt["today"] / 10000, 2)),
-                str(round(((all_merchant_cnt["today"] / all_merchant_cnt["yesterday"]) - 1) * 100, 2)) + "%",
-                str(round(((all_merchant_cnt["today"] / all_merchant_cnt["same_today_last_year"]) - 1) * 100, 2)) + "%"
-            )
-
-            # 3 新增交易商户
-            new_merchant_cnt = {"yesterday": 269654,
-                                "today": 410180,
-                                "same_today_last_year": 411636}
-            new_merchant_cnt_str = "当日新增交易商户%s+, 环比下降%s, 同比增长%s。" % (
-                str(new_merchant_cnt["today"]),
-                str(round(((new_merchant_cnt["today"] / new_merchant_cnt["yesterday"]) - 1) * 100, 2)) + "%",
-                str(round(((new_merchant_cnt["today"] / new_merchant_cnt["same_today_last_year"]) - 1) * 100, 2)) + "%"
-            )
-
-            # 4 新增商户集中地区
-            new_merchant_cluster_area = ["辽宁", "湖北", "重庆"]
-            new_merchant_cluster_area_str = "新增商户主要集中在%s、%s、%s等地区。" % (
-                new_merchant_cluster_area[0],
-                new_merchant_cluster_area[1],
-                new_merchant_cluster_area[2]
-            )
-
-            # 以下是第二段
-            # 5 二维码交易商户
-            qr_code_merchant_cnt = {"yesterday": 269654,
-                                    "today": 410180,
-                                    "total": 456789}
-            qr_code_merchant_cnt_str = "二维码交易商户%s万, 占总交易商户的%s, 环比下降%s;" % (
-                str(round(qr_code_merchant_cnt["today"] / 10000, 2)),
-                str(round(qr_code_merchant_cnt["today"] / qr_code_merchant_cnt["total"] * 100, 2)) + "%",
-                str(round(((qr_code_merchant_cnt["today"] / qr_code_merchant_cnt["yesterday"]) - 1) * 100, 2)) + "%"
-            )
-
-            # 6 手机支付控件交易商户
-            control_merchant = {"yesterday": 269654,
-                                "today": 410180,
-                                "total": 456789}
-            control_merchant_str = "手机支付控件交易商户%s家, 占总交易商户的%s, 环比下降%s;" % (
-                str(control_merchant["today"]),
-                str(round(control_merchant["today"] / control_merchant["total"] * 100, 2)) + "%",
-                str(round(((control_merchant["today"] / control_merchant["yesterday"]) - 1) * 100, 2)) + "%"
-            )
-
-            # 7 手机外部支付控件交易商户
-            control_out_merchant = {"yesterday": 269654,
-                                    "today": 410180,
-                                    "total": 456789}
-            control_out_merchant_str = "手机外部支付交易商户%s家, 环比下降%s;" % (
-                str(control_out_merchant["today"]),
-                # str(round(control_out_merchant["today"] / control_out_merchant["total"] * 100, 2)) + "%",
-                str(round(((control_out_merchant["today"] / control_out_merchant["yesterday"]) - 1) * 100, 2)) + "%"
-            )
-            res = {
-                # 第一段
-                "yesterday_date": yesterday_date_str,
-                "all_merchant_cnt": all_merchant_cnt_str,
-                "new_merchant_cnt": new_merchant_cnt_str,
-                "new_merchant_cluster_area": new_merchant_cluster_area_str,
-
-                # 第二段
-                "qr_code_merchant_cnt": qr_code_merchant_cnt_str,
-                "control_merchant": control_merchant_str,
-                "control_out_merchant": control_out_merchant_str
-            }
-            all_str = ""
-            for k, v in res.items():
-                all_str += v
-            print(all_str)
-
-        _overview()
         return
