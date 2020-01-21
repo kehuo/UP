@@ -64,10 +64,10 @@ class General(object):
         }
 
         # 3 这里为了函数的统一性, csv 数据统一传入所有的 self.all_raw_csv
-        res = handler_module_map[model_type].__dict__[service_type](
-            sentence_dict=self.sentence_dict,
-            all_raw_csv=self.all_raw_csv,
-            cfg=self.cfg
-        )
+        # 这里用 __getattribute__() 可以替换 __dict__[] 完全等效. 但是注意一个是方括号, 一个是圆括号
+        res = handler_module_map[model_type].__dict__[service_type](sentence_dict=self.sentence_dict,
+                                                                    all_raw_csv=self.all_raw_csv,
+                                                                    cfg=self.cfg
+                                                                    )
 
         return res
