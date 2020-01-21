@@ -4,6 +4,12 @@
     "windows": "C:\\users\\kehu\\dev\\up\\data\\raw\\"
   },
 
+  "final_excel_path": {
+    "windows": "C:\\users\\kehu\\dev\\up\\data\\excel\\",
+    "macbook": "/users/hk/dev/up/data/excel/"
+  },
+  "final_excel_name": "final_excel.xlsx",
+
   "model_1": {
     "overview": {
       "新增商户集中地区": ["辽宁", "湖北", "重庆"]

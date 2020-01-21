@@ -37,13 +37,14 @@ def main():
             a. 原始csv数据 - raw_overview.csv
 
         3.2 手机支付控件TOP10商户交易情况 --> 一段文字 + 2张表 control_transaction_top_10_merchant.csv / control_out_transaction_top_10_merchant.csv
-            a. 原始csv数据 1 - raw_control_transaction_by_merchant_details.csv
+            a. 原始csv数据 1 - raw_control_transaction_top10_merchant_2020-01-20 09_49_49 AM.csv
+            b. 原始csv数据 2 - raw_control_out_transaction_top10_merchant_2020-01-20 09_20_47 AM.csv
 
-        3.3 手机外部支付控件TOP10商户侧分公司交易情况 --> 一段文字 + 一张表 control_out_transaction_by_area_cd.csv
-            a. 原始csv数据 1 - raw_control_out_transaction_by_area_cd.csv
+        3.3 手机外部支付控件TOP10商户侧分公司交易情况 --> 一段文字 + 一张表 control_out_by_area_cd.csv
+            a. 原始csv数据 1 - raw_control_out_by_area_cd.csv
 
-        3.4 手机外部支付控件TOP10用户侧分公司交易情况 --> 一段文字 + 一张表 control_out_transaction_by_user_gps.csv
-            a. 原始csv数据 1 - raw_control_out_transaction_by_user_gps.csv
+        3.4 手机外部支付控件TOP10用户侧分公司交易情况 --> 一段文字 + 一张表 control_out_by_user_gps.csv
+            a. 原始csv数据 1 - raw_control_out_by_user_gps.csv
 
         3.5 手机外部支付控件交易金额分布 --> 一段文字 + 一张表 control_out_transaction_by_amount_of_money.csv
             a. 原始csv数据 1 - raw_control_out_transaction_by_amount_of_money.csv

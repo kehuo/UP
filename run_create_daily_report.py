@@ -11,6 +11,9 @@ def main():
     daily_report_creator.load_csv_data(device_type="windows")
     daily_report_creator.run()
 
+    # 生成最终 excel
+    daily_report_creator.concat(device_type="windows")
+
 
 if __name__ == '__main__':
     main()

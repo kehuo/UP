@@ -1,10 +1,14 @@
-import os
 import json
+import os
+
 import pandas as pd
+
 from common.utils import build_date_str, can_load
 from core.logic.model_1 import Overview1, TransactionCntByDay
 from core.logic.model_2 import Overview2, QrTransactionCntByScene, QrTransactionByAreaCd, QrTransactionByMerchant, \
     QrTransactionByAmountOfMoney
+from core.logic.model_3 import Overview3, ControlTransactionTop10Merchant, ControlOutByAreaCd, ControlOutByUserGps, \
+    ControlOutTransactionByAmountOfMoney
 
 
 class BaseClass(object):
@@ -34,6 +38,12 @@ class BaseClass(object):
             "raw_control_out_by_user_gps",
             "raw_control_out_transaction_by_amount_of_money"
         ]
+
+        self.res_model = {
+            "1": dict(),
+            "2": dict(),
+            "3": dict()
+        }
         return
 
     def load_csv_data(self, device_type):
@@ -84,7 +94,8 @@ class BaseClass(object):
         )
         res["transaction_cnt_by_day"] = transaction_cnt_by_day_handler.run()
         print(res["transaction_cnt_by_day"])
-        return res
+
+        self.res_model["1"] = res
 
     def _handle_model_2(self):
         """
@@ -167,27 +178,69 @@ class BaseClass(object):
             cfg=self.cfg
         )
         res["qr_transaction_by_amount_of_money"] = qr_transaction_by_amount_of_money_handler.run()
-        return res
+
+        self.res_model["2"] = res
 
     def _handle_model_3(self):
         """
-        3 处理 手机支付控件交易情况
+        3 手机支付控件交易情况
         3.1 概述 --> 一段文字
             a. 原始csv数据 - raw_overview.csv
 
         3.2 手机支付控件TOP10商户交易情况 --> 一段文字 + 2张表 control_transaction_top_10_merchant.csv / control_out_transaction_top_10_merchant.csv
-            a. 原始csv数据 1 - raw_control_transaction_by_merchant_details.csv
+            a. 原始csv数据 1 - raw_control_transaction_top10_merchant_2020-01-20 09_49_49 AM.csv
+            b. 原始csv数据 2 - raw_control_out_transaction_top10_merchant_2020-01-20 09_20_47 AM.csv
 
-        3.3 手机外部支付控件TOP10商户侧分公司交易情况 --> 一段文字 + 一张表 control_out_transaction_by_area_cd.csv
-            a. 原始csv数据 1 - raw_control_out_transaction_by_area_cd.csv
+        3.3 手机外部支付控件TOP10商户侧分公司交易情况 --> 一段文字 + 一张表 control_out_by_area_cd.csv
+            a. 原始csv数据 1 - raw_control_out_by_area_cd.csv
 
-        3.4 手机外部支付控件TOP10用户侧分公司交易情况 --> 一段文字 + 一张表 control_out_transaction_by_user_gps.csv
-            a. 原始csv数据 1 - raw_control_out_transaction_by_user_gps.csv
+        3.4 手机外部支付控件TOP10用户侧分公司交易情况 --> 一段文字 + 一张表 control_out_by_user_gps.csv
+            a. 原始csv数据 1 - raw_control_out_by_user_gps.csv
 
         3.5 手机外部支付控件交易金额分布 --> 一段文字 + 一张表 control_out_transaction_by_amount_of_money.csv
-            a. 原始csv数据 1 - raw_control_out_transaction_by_amount_of_money.csv"""
-        res = {}
-        return res
+            a. 原始csv数据 1 - raw_control_out_transaction_by_amount_of_money.csv
+        """
+        res = dict()
+
+        # 3.1 overview
+        overview_handler = Overview3(
+            raw_csv=self.csv_data["raw_overview"],
+            cfg=self.cfg
+        )
+        res["overview"] = overview_handler.run()
+
+        # 3.2 control_transaction_by_merchant_details
+        control_transaction_by_merchant_details_handler = ControlTransactionTop10Merchant(
+            raw_csv={
+                "raw_control_transaction_top10_merchant": self.csv_data["raw_control_transaction_top10_merchant"],
+                "raw_control_out_transaction_top10_merchant": self.csv_data["raw_control_out_transaction_top10_merchant"]
+            },
+            cfg=self.cfg
+        )
+        res["control_transaction_by_merchant_details_handler"] = control_transaction_by_merchant_details_handler.run()
+
+        # 3.3 control_out_by_area_cd
+        control_out_by_area_cd_handler = ControlOutByAreaCd(
+            raw_csv=self.csv_data["raw_control_out_by_area_cd"],
+            cfg=self.cfg
+        )
+        res["control_out_by_area_cd"] = control_out_by_area_cd_handler.run()
+
+        # 3.4 control_out_by_user_gps
+        control_out_by_user_gps_handler = ControlOutByUserGps(
+            raw_csv=self.csv_data["raw_control_out_by_user_gps"],
+            cfg=self.cfg
+        )
+        res["control_out_by_user_gps"] = control_out_by_user_gps_handler.run()
+
+        # 3.5 control_out_transaction_by_amount_of_money
+        control_out_transaction_by_amount_of_money_handler = ControlOutTransactionByAmountOfMoney(
+            raw_csv=self.csv_data["raw_control_out_transaction_by_amount_of_money"],
+            cfg=self.cfg
+        )
+        res["control_out_transaction_by_amount_of_money"] = control_out_transaction_by_amount_of_money_handler.run()
+
+        self.res_model["3"] = res
 
     def run(self):
         """
@@ -195,8 +248,24 @@ class BaseClass(object):
         model_2: 二维码交易情况
         model_3: 手机支付控件交易情况
         """
+        self._handle_model_1()
+        self._handle_model_2()
+        self._handle_model_3()
 
-        res_model_1 = self._handle_model_1()
-        res_model_2 = self._handle_model_2()
-        res_model_3 = self._handle_model_3()
-        return
+    def concat(self, device_type):
+        """将 res_model 1/2/3 的所有结果, 写入同一个excel 的多个 sheet 中"""
+        finale_excel_path = self.cfg["final_excel_path"][device_type]
+        final_excel_name = self.cfg["final_excel_name"]
+        writer = pd.ExcelWriter(finale_excel_path + final_excel_name)
+
+        # 遍历 self.res_model_1/2/3 中的所有 key-value 对, 将每一个csv 作为一个 sheet, 写入 writer
+        for model_k, model_v in self.res_model.items():
+            for k, v in model_v.items():
+                if isinstance(v, dict):
+                    for each_k, each_v in v.items():
+                        if isinstance(each_v, pd.DataFrame):
+                            each_v.to_excel(excel_writer=writer, sheet_name="model" + model_k + "_" + each_k)
+                elif isinstance(v, pd.DataFrame):
+                    v.to_excel(excel_writer=writer, sheet_name="model" + model_k + "_" + k)
+        writer.save()
+        writer.close()
