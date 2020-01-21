@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+import pandas as pd
 
 
 def process_float(raw_float, baoliu_num=2):
@@ -66,3 +67,18 @@ def find_df_value(df, col, row):
     if the_bingo_idx is not None:
         res = df.loc[the_bingo_idx][col]
     return res
+
+
+def transfer_sentence_dict_to_dataframe(sentence_dict, pandas_col_name):
+    """
+    将一个 结构化的 文字字典 转换成 pandas.DataFrame
+    """
+
+    # 将self.all_str 从字典 转成 字符串
+    sentence_str = ""
+    for k, v in sentence_dict.items():
+        sentence_str += v
+
+    # 转成 dataframe 后返回结果
+    df = pd.DataFrame(data={pandas_col_name: [sentence_str]})
+    return df
