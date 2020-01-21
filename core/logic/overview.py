@@ -140,6 +140,8 @@ class Overview(object):
             str(round(data["2"] * 100, 2)) + "%"
         )
 
+    # todo -- model 2 qr / model 3 control 的相关函数的编写
+
     def run(self):
         run_func_map = {
             "total": [

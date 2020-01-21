@@ -4,14 +4,17 @@ import os
 import pandas as pd
 
 from common.utils import build_date_str, can_load
-from core.logic.model_1 import Overview1, TransactionCntByDay
-from core.logic.model_2 import Overview2, QrTransactionCntByScene, QrTransactionByAreaCd, QrTransactionByMerchant, \
+from core.logic.overview import Overview
+from core.logic.general import General
+
+from core.logic.model_1 import TransactionCntByDay
+from core.logic.model_2 import QrTransactionCntByScene, QrTransactionByAreaCd, QrTransactionByMerchant, \
     QrTransactionByAmountOfMoney
-from core.logic.model_3 import Overview3, ControlTransactionTop10Merchant, ControlOutByAreaCd, ControlOutByUserGps, \
+from core.logic.model_3 import ControlTransactionTop10Merchant, ControlOutByAreaCd, ControlOutByUserGps, \
     ControlOutTransactionByAmountOfMoney
 
 
-class BaseClass(object):
+class DailyReportProcessor(object):
     """
     该类 是3个模块的父类, 定义通用的属性和方法
     """
@@ -40,9 +43,9 @@ class BaseClass(object):
         ]
 
         self.res_model = {
-            "1": dict(),
-            "2": dict(),
-            "3": dict()
+            "total": dict(),
+            "qr": dict(),
+            "control": dict()
         }
         return
 
@@ -80,22 +83,18 @@ class BaseClass(object):
         """
         res = dict()
         # 1 overview
-        overview_handler = Overview1(
+        overview_handler = Overview(
             raw_csv=self.csv_data["raw_overview"],
-            cfg=self.cfg
+            cfg=self.cfg,
+            model_type="total"
         )
         res["overview"] = overview_handler.run()
-        print(res["overview"])
 
         # 2 transaction_cnt_by_day
-        transaction_cnt_by_day_handler = TransactionCntByDay(
-            raw_csv=self.csv_data["raw_transaction_cnt_by_day"],
-            cfg=self.cfg
-        )
-        res["transaction_cnt_by_day"] = transaction_cnt_by_day_handler.run()
-        print(res["transaction_cnt_by_day"])
+        general_handler = General(self.csv_data, self.cfg)
+        res["transaction_cnt_by_day"] = general_handler.run(model_type="total", service_type="transaction_cnt_by_day")
 
-        self.res_model["1"] = res
+        self.res_model["total"] = res
 
     def _handle_model_2(self):
         """
@@ -144,9 +143,10 @@ class BaseClass(object):
         """
         res = dict()
         # 1 overview
-        overview_handler = Overview2(
+        overview_handler = Overview(
             raw_csv=self.csv_data["raw_overview"],
-            cfg=self.cfg
+            cfg=self.cfg,
+            model_type="qr"
         )
         res["overview"] = overview_handler.run()
 
@@ -203,9 +203,10 @@ class BaseClass(object):
         res = dict()
 
         # 3.1 overview
-        overview_handler = Overview3(
+        overview_handler = Overview(
             raw_csv=self.csv_data["raw_overview"],
-            cfg=self.cfg
+            cfg=self.cfg,
+            model_type="control"
         )
         res["overview"] = overview_handler.run()
 
@@ -245,7 +246,7 @@ class BaseClass(object):
     def run(self):
         """
         model_1: 总体交易情况
-        model_2: 二维码交易情况
+        handle_func: 二维码交易情况
         model_3: 手机支付控件交易情况
         """
         self._handle_model_1()

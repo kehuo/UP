@@ -1,12 +1,12 @@
 {
   "raw_csv_path": {
-    "macbook": "/users/hk/dev/UP/data/raw/",
+    "linux": "/users/hk/dev/UP/data/raw/",
     "windows": "C:\\users\\kehu\\dev\\up\\data\\raw\\"
   },
 
   "final_excel_path": {
     "windows": "C:\\users\\kehu\\dev\\up\\data\\excel\\",
-    "macbook": "/users/hk/dev/up/data/excel/"
+    "linux": "/users/hk/dev/up/data/excel/"
   },
   "final_excel_name": "final_excel.xlsx",
 
