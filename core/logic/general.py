@@ -1,6 +1,6 @@
-import core.logic.handle_func.model_1 as Model_1_Handler
-import core.logic.handle_func.model_2 as Model_2_Handler
-import core.logic.handle_func.model_3 as Model_3_Handler
+import core.logic.handle_func.total as Total_Handler
+import core.logic.handle_func.qr as Qr_Handler
+import core.logic.handle_func.control as Control_Handler
 
 
 class General(object):
@@ -62,9 +62,9 @@ class General(object):
 
         # 2 定义不同 model 需要的 handler
         handler_module_map = {
-            "total": Model_1_Handler,
-            "qr": Model_2_Handler,
-            "control": Model_3_Handler
+            "total": Total_Handler,
+            "qr": Qr_Handler,
+            "control": Control_Handler
         }
 
         # 3 这里为了函数的统一性, csv 数据统一传入所有的 self.all_raw_csv
