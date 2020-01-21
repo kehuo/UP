@@ -1,0 +1,1252 @@
+{
+    "paragraphs": [
+        {
+            "text": "select date_add(current_date,-7) as begin_dt,date_add(current_date,-1) as end_dt;",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-20T11:06:09+0800",
+            "config": {
+                "colWidth": 12,
+                "editorMode": "ace/mode/sql",
+                "results": {
+                    "0": {
+                        "graph": {
+                            "mode": "table",
+                            "height": 84,
+                            "optionOpen": false
+                        }
+                    }
+                },
+                "enabled": true,
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "editorHide": false
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "begin_dt\tend_dt\n2020-01-13\t2020-01-19\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1570784207779_1079758901",
+            "id": "20191011-160424_106205378",
+            "dateCreated": "2019-10-11T16:56:47+0800",
+            "dateStarted": "2020-01-20T12:43:49+0800",
+            "dateFinished": "2020-01-20T12:44:21+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "focus": true,
+            "$$hashKey": "object:9292"
+        },
+        {
+            "title": "APP被扫",
+            "text": "select trim(app_ins_id_cd),count(*) as cnt,count(case when up_discount>0 then 1 else null end) as dis from\r\nupw_hive.view_glhis_qrhis_trans_flow\r\nwhere substr(order_type,1,2)='01'\r\nand trim(trans_tp) in ('01','04','31')\r\nand hp_settle_dt between  regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\r\ngroup by trim(app_ins_id_cd)\r\norder by cnt desc",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-13T10:08:55+0800",
+            "config": {
+                "colWidth": 12,
+                "enabled": true,
+                "results": {},
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "editorMode": "ace/mode/sql",
+                "title": true,
+                "editorHide": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "_c0\tcnt\tdis\n49990451\t95666620\t0\n00250001\t27990056\t17870745\n49995042\t21049883\t7723232\n49993001\t1036356\t86354\n49990012\t969146\t474546\n49990028\t949042\t792937\n49990000\t916702\t308725\n49995106\t741153\t0\n49990010\t499021\t266735\n49995001\t440466\t65983\n49995052\t377594\t0\n49995077\t342266\t1\n49993107\t235253\t0\n49995259\t200908\t0\n49993058\t198420\t0\n49995002\t193605\t13256\n49999801\t181189\t18961\n03010000\t171557\t45169\n49993100\t171243\t0\n49993101\t171196\t1\n49993102\t171034\t0\n49996100\t159522\t0\n49990013\t151573\t26953\n49993059\t144738\t0\n49990242\t141154\t61204\n49995144\t137972\t116883\n63010000\t124374\t39090\n49995284\t121950\t0\n49993032\t104582\t15\n49990015\t101958\t43735\n49993053\t98893\t0\n49995048\t92841\t0\n49990265\t77134\t2645\n49993035\t76090\t0\n49995125\t70438\t41379\n49990020\t63341\t34884\n49995092\t55744\t16034\n49990414\t38214\t35581\n04100000\t37208\t12458\n49995039\t35398\t16847\n49990021\t35108\t3874\n49990016\t34500\t8706\n49990361\t32569\t30129\n49995149\t32241\t1\n49990019\t28962\t6664\n49990347\t27338\t1311\n49990023\t25930\t3229\n49990008\t21841\t4421\n49995154\t18332\t1\n49993064\t17940\t0\n49995187\t15844\t995\n49993042\t15226\t10\n49999803\t15169\t2567\n49990002\t11339\t3509\n49993093\t11038\t20\n49990296\t10682\t1948\n49995234\t9894\t0\n49995133\t9307\t0\n49995204\t9188\t1137\n49995112\t9171\t16\n49990025\t9137\t729\n49993079\t9117\t0\n49995124\t9061\t0\n49995229\t9023\t0\n49995110\t8997\t16\n49990304\t8962\t2318\n49995153\t8937\t0\n49990202\t8872\t5860\n49990259\t8585\t2763\n49999800\t7936\t1105\n49999807\t7865\t1319\n49990297\t7389\t2588\n49995207\t7016\t134\n49993097\t6860\t21\n49990445\t6809\t115\n49990275\t6464\t647\n49990022\t6328\t2958\n49990199\t6240\t2331\n49995136\t6178\t1\n49993109\t5803\t1\n49990360\t5676\t2364\n03050000\t5673\t864\n49990421\t5214\t2187\n49990005\t4617\t447\n49990244\t4399\t1067\n49990205\t4169\t438\n49990227\t4066\t13\n49995038\t4062\t281\n49995192\t3793\t263\n49990475\t3483\t1330\n49995000\t3323\t0\n49990213\t3316\t2446\n49995146\t3258\t0\n49995226\t3165\t0\n49990339\t3033\t54\n49990017\t2893\t747\n49990220\t2858\t3\n49990215\t2713\t26\n49990030\t2676\t107\n49990348\t2457\t364\n49993005\t2406\t250\n49990399\t2375\t192\n49990216\t2244\t1\n49990219\t2197\t1\n49990327\t2190\t1674\n49995137\t1862\t1573\n49990223\t1822\t0\n49990014\t1771\t248\n49990409\t1681\t28\n49990217\t1678\t0\n49996005\t1677\t190\n49995225\t1674\t0\n49995298\t1643\t3\n49990011\t1638\t62\n49990341\t1619\t1433\n49999802\t1505\t89\n49990295\t1472\t1287\n49990226\t1449\t0\n49995275\t1440\t1127\n49995901\t1401\t156\n49995218\t1328\t288\n49990214\t1274\t58\n49990245\t1245\t720\n49990222\t1197\t0\n49995020\t1192\t55\n49995080\t1134\t0\n49995012\t1127\t657\n49990446\t952\t184\n49990224\t938\t4\n49990357\t929\t0\n49990384\t847\t4\n49990032\t817\t59\n49990272\t811\t714\n49990200\t790\t43\n49990234\t715\t253\n49990218\t714\t7\n49995251\t663\t262\n49990250\t607\t300\n49990461\t579\t234\n49990277\t572\t37\n49995257\t568\t0\n49999806\t552\t11\n49993066\t527\t0\n49990351\t516\t459\n49990031\t516\t46\n39990005\t515\t0\n49995008\t500\t408\n00275500\t490\t120\n49990221\t472\t3\n49995196\t469\t384\n49995015\t469\t21\n49995071\t435\t1\n49990313\t433\t127\n49995250\t430\t0\n49995239\t409\t376\n49995182\t375\t4\n49990273\t368\t285\n49993086\t367\t327\n49993078\t366\t0\n49990431\t359\t0\n49990330\t348\t0\n49996010\t339\t9\n49990240\t338\t59\n49990258\t319\t105\n49990412\t303\t32\n49990211\t257\t36\n49990206\t250\t22\n49993111\t245\t0\n49995017\t226\t24\n49990266\t224\t0\n49995240\t212\t24\n49990397\t211\t13\n39990024\t207\t0\n49990263\t192\t19\n49990449\t168\t7\n49993023\t166\t0\n49990251\t158\t5\n49990208\t155\t9\n49990385\t153\t12\n49995202\t149\t19\n49990286\t146\t64\n49990239\t142\t21\n49995025\t138\t70\n39990036\t131\t0\n49993044\t127\t1\n49995003\t108\t17\n49995016\t107\t39\n49995131\t99\t0\n49995208\t94\t2\n49990371\t93\t0\n49995700\t87\t4\n49990352\t84\t1\n49990212\t84\t46\n49990255\t80\t18\n39990053\t78\t0\n49993002\t75\t9\n49990336\t73\t8\n49995005\t70\t0\n49990228\t66\t8\n49990269\t66\t30\n49990349\t65\t5\n49990246\t63\t2\n49990317\t60\t14\n49990294\t59\t37\n49990438\t52\t31\n49995295\t52\t0\n49990312\t51\t6\n49990359\t51\t5\n49990305\t49\t0\n49990276\t49\t24\n49990310\t47\t27\n49990338\t47\t0\n49993116\t45\t2\n49990235\t45\t5\n49990345\t44\t13\n49995074\t43\t5\n49990253\t40\t19\n49990280\t39\t10\n49990262\t38\t15\n49990307\t37\t3\n49995075\t37\t27\n49995011\t32\t1\n49990268\t30\t5\n49990344\t29\t6\n49996007\t29\t0\n49990292\t29\t1\n49990437\t28\t0\n49990247\t28\t7\n49990301\t27\t0\n49990460\t25\t12\n49990389\t24\t9\n39990004\t23\t0\n49990321\t23\t4\n49995203\t22\t0\n49995255\t22\t0\n49990325\t22\t7\n49990210\t21\t0\n49990299\t21\t4\n49990238\t20\t1\n49999909\t19\t0\n49990267\t18\t5\n49990452\t18\t1\n49990427\t17\t12\n49990243\t17\t0\n49990270\t17\t16\n49990306\t15\t1\n49990236\t15\t1\n49990415\t15\t8\n49993026\t14\t0\n49990402\t13\t0\n49990001\t13\t6\n49990278\t13\t2\n49990315\t12\t0\n49990356\t12\t10\n49990260\t12\t1\n49990404\t11\t1\n49990456\t11\t0\n49990457\t10\t6\n49990291\t10\t2\n49990203\t10\t2\n49993113\t9\t0\n49990279\t8\t0\n49990354\t8\t3\n49995193\t8\t0\n49995047\t8\t8\n49990318\t8\t5\n49990290\t7\t0\n49990003\t7\t1\n49995253\t7\t3\n49995116\t7\t0\n49990428\t6\t0\n49990422\t6\t1\n49990396\t6\t3\n39990031\t5\t0\n49993069\t5\t3\n49995181\t4\t0\n49995066\t4\t0\n49990419\t4\t1\n49990293\t4\t1\n49990391\t4\t0\n49990249\t4\t1\n49990281\t3\t1\n49995004\t3\t0\n49995044\t3\t0\n00520344\t3\t0\n49990413\t3\t0\n49990390\t3\t1\n49995007\t3\t0\n49995098\t3\t0\n49995260\t2\t1\n49995304\t2\t0\n39990044\t2\t0\n49990429\t2\t0\n49990406\t1\t0\n49990324\t1\t0\n49993099\t1\t0\n49990045\t1\t0\n49993052\t1\t0\n49996008\t1\t1\n49990274\t1\t0\n49990044\t1\t0\n39990002\t1\t0\n49990322\t1\t0\n49990204\t1\t1\n49990400\t1\t0\n39990030\t1\t0\n49990207\t1\t0\n49990416\t1\t0\n49990337\t1\t0\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1572587321360_-428463275",
+            "id": "20191101-134841_222539998",
+            "dateCreated": "2019-11-01T13:48:41+0800",
+            "dateStarted": "2020-01-20T08:59:21+0800",
+            "dateFinished": "2020-01-20T09:20:20+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9293"
+        },
+        {
+            "title": "场景交易情况",
+            "text": "--%impalajdbc\nselect substr(dt,1,6) as month,\n(case \nwhen scene_nm1 in ('自助售货','自助售货机') then '自助售货'\nwhen scene_nm1='菜场及生活圈' then '菜场及生活圈' \nwhen scene_nm1 in ('高校') then '高校'\nwhen scene_nm1='食堂' then '食堂'\nwhen MCC in ('4111','4121','4131','4874','4523')  and substr(order_type,1,2)='01' then '公交地铁类'\nwhen MCC in ('5611','5621','5631','5641','5651','5655','5661','5681','5691','5698','5699','5713','5714','5719','5948','5949','5977','5997','7278','5211','5231','5251','5261','5309','5310','5311','5712','5718','5732','5931','5940','5941','5942','5943','5945','5947','5973','5983','5992','5999','8043','5399','4812','5733','5735','5946','5411','5972','9706','5541','5542','5331') and (substr(order_type,1,2)='01' or trim(order_type) in ('0210','0211')) then '商超便利类'\nwhen MCC in ('5811','5812','5813','5814') and (substr(order_type,1,2)='01' or trim(order_type) in ('0210','0211')) then '餐饮类' \nwhen trim(order_type) in ('0212','0214','0215') then '小微' \nelse '其他' end) as scene,count(*) as cnt,count(distinct user_id),sum(trans_at)/100 from\n(\nselect hp_settle_dt as dt,scene_nm1,substr(c.mchnt_cd,8,4) as MCC,mchnt_usr_id as user_id,order_type,trans_at\nfrom upw_hive.view_glhis_qrhis_trans_flow c\nleft join \n(\nselect scene_nm1,mchnt_cd from \nupw_hive.hv_rtapam_dim_scene_base_inf \nwhere trim(scene_nm1) in ('自助售货','自助售货机','菜场及生活圈','高校','食堂')\n) as d\non trim(c.mchnt_cd)=(d.mchnt_cd)\nwhere (substr(order_type,1,2)='01' or trim(order_type) in ('0210','0211','0212','0214','0215'))\nand trim(trans_tp)='01' \nand trim(proc_st)='00' \nand trim(resp_cd)='0000000'\nand hp_settle_dt between  regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\nand trim(app_ins_id_cd) ='00250001' \n) aa\ngroup by substr(dt,1,6),\n(case \nwhen scene_nm1 in ('自助售货','自助售货机') then '自助售货'\nwhen scene_nm1='菜场及生活圈' then '菜场及生活圈' \nwhen scene_nm1 in('高校') then '高校'  \nwhen scene_nm1='食堂' then '食堂'\nwhen MCC in ('4111','4121','4131','4874','4523')  and substr(order_type,1,2)='01' then '公交地铁类'\nwhen MCC in ('5611','5621','5631','5641','5651','5655','5661','5681','5691','5698','5699','5713','5714','5719','5948','5949','5977','5997','7278','5211','5231','5251','5261','5309','5310','5311','5712','5718','5732','5931','5940','5941','5942','5943','5945','5947','5973','5983','5992','5999','8043','5399','4812','5733','5735','5946','5411','5972','9706','5541','5542','5331') and (substr(order_type,1,2)='01' or trim(order_type) in ('0210','0211')) then '商超便利类'\nwhen MCC in ('5811','5812','5813','5814') and (substr(order_type,1,2)='01' or trim(order_type) in ('0210','0211')) then '餐饮类' \nwhen trim(order_type) in ('0212','0214','0215') then '小微' \nelse '其他' end) \n",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-21T12:35:43+0800",
+            "config": {
+                "lineNumbers": true,
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "colWidth": 12,
+                "editorMode": "ace/mode/sql",
+                "editorHide": true,
+                "title": true,
+                "results": {},
+                "enabled": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "month\tscene\tcnt\t_c3\t_c4\n202001\t其他\t5557130\t1993690\t923921270.59\n202001\t高校\t327095\t115254\t1041073.59\n202001\t菜场及生活圈\t1441672\t384663\t12835758.11\n202001\t商超便利类\t7786265\t3252837\t904402698.32\n202001\t餐饮类\t2393436\t880992\t380973156.96\n202001\t自助售货\t74028\t31926\t240703.55\n202001\t食堂\t69341\t16649\t565747.36\n202001\t公交地铁类\t17222810\t3669074\t28615972.98\n202001\t小微\t4987803\t1366909\t203441527.32\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1570784208513_598822776",
+            "id": "20190910-140904_1515582917",
+            "dateCreated": "2019-10-11T16:56:48+0800",
+            "dateStarted": "2020-01-20T08:59:30+0800",
+            "dateFinished": "2020-01-20T09:24:49+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9294"
+        },
+        {
+            "title": "公交TOP20",
+            "text": "select \n--hp_settle_dt,\n(case  when branch is null then '其他' else branch end) as pro,\ncount(case when substr(a.mchnt_cd,8,4) in ('4111','4121','4411','4131','4874','4523') then 1 else null end) as `交易笔数`,\ncount(case when substr(a.mchnt_cd,8,4) in ('4111','4121','4411','4131','4874','4523') and up_discount>0 then 1 else null end) as `优惠笔数`,\ncount(case when substr(a.mchnt_cd,8,4) in ('4111','4121','4411','4131','4874','4523') and trans_at>300 then 1 else null end) as `3元以上金额`\nfrom \nupw_hive.view_glhis_qrhis_trans_flow a\nleft join \n(\nselect region_cd,city,branch from upw_hive.tmj_branch_cd \n) b \non a.area_cd=b.region_cd \nwhere substr(a.order_type,1,2)='01'\nand trim(trans_tp) ='01'\n--and a.pri_acct_no not like '62135101000723%' \nand trim(a.app_ins_id_cd) ='00250001'\nand trim(a.proc_st)='00' \nand trim(a.resp_cd)='0000000'\nand a.hp_settle_dt between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\ngroup by \n--hp_settle_dt,\n(case  when branch is null then '其他' else branch end)\norder by `交易笔数` desc \n",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-13T14:04:30+0800",
+            "config": {
+                "colWidth": 12,
+                "enabled": true,
+                "results": {},
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "editorMode": "ace/mode/sql",
+                "title": true,
+                "editorHide": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "pro\t交易笔数\t优惠笔数\t3元以上金额\n贵州\t1767304\t1411110\t31570\n辽宁\t1754387\t1229959\t8628\n福建\t1461982\t1263516\t81428\n河南\t1044892\t724695\t2559\n山东\t1018122\t707816\t13042\n四川\t1008132\t243796\t7284\n甘肃\t953557\t764793\t2781\n河北\t923862\t731780\t42013\n青岛\t906224\t826520\t1736\n湖北\t744233\t3651\t1415\n安徽\t685032\t597834\t9229\n新疆\t626388\t36556\t4717\n宁夏\t560025\t518674\t18\n江西\t402932\t359400\t10591\n浙江\t383045\t19709\t25449\n吉林\t376726\t327123\t36720\n内蒙古\t359647\t51795\t2145\n宁波\t280532\t260234\t48923\n黑龙江\t273035\t69073\t204\n云南\t259321\t26072\t18998\n湖南\t225949\t156040\t7689\n山西\t197984\t172899\t9218\n海南\t196199\t14979\t68\n陕西\t185991\t81162\t5272\n重庆\t156035\t88359\t4\n大连\t126425\t23221\t2346\n江苏\t123963\t92826\t3244\n广西\t123257\t112528\t16880\n广东\t44853\t9785\t2794\n其他\t40882\t22769\t3079\n西藏\t14289\t9\t0\n上海\t6680\t251\t6677\n青海\t3680\t3295\t3\n厦门\t2213\t1721\t566\n深圳\t40\t18\t33\n天津\t13\t7\t8\n北京\t4\t3\t4\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1572924766090_1966239193",
+            "id": "20191105-113246_1800361830",
+            "dateCreated": "2019-11-05T11:32:46+0800",
+            "dateStarted": "2020-01-20T09:01:15+0800",
+            "dateFinished": "2020-01-20T09:14:45+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9295"
+        },
+        {
+            "title": "乘车码分地区（订单表）-老架构+新架构",
+            "text": "select (case when city is null then '其他' else city end),count(1) from \n(\nselect city \nfrom upw_hive.view_upb_order_nozhubeisao a\nleft join \n(\nselect branch,city,mchnt_cd\nfrom upw_hive.tmj_carcode_mchnt\n) b\non trim(a.mer_id)=trim(b.mchnt_cd)\nwhere biz_tp = '59' \nand mer_id is not null \nand sub_biz_tp = '01'\nand order_st='00'\nand part_order_dt between date_add(current_date,-7) and date_add(current_date,-1)\n\nunion all\n\nselect city from\n(\nselect distinct hp_settle_dt,trans_no,mchnt_cd\nfrom upw_hive.view_achis_trans\nwhere trim(hp_settle_dt) between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\nand trim(trans_tp) in ('01') \nand trim(sub_trans_tp) = '10'\nand trim(acq_ins_id_cd)!= '00049996'\n) a\ninner join \n(\nselect city,branch,mchnt_cd\nfrom upw_hive.tmj_carcode_mchnt_senseless\n) b\non trim(a.mchnt_cd)=trim(b.mchnt_cd)\n) aa\ngroup by (case when city is null then '其他' else city end)",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-20T12:56:51+0800",
+            "config": {
+                "lineNumbers": true,
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "colWidth": 12,
+                "editorMode": "ace/mode/sql",
+                "editorHide": true,
+                "title": true,
+                "results": {},
+                "enabled": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "_c0\t_c1\n娄底市\t71998\n遵义市\t252141\n宁波市\t502294\n宜昌市\t45826\n南宁市\t72729\n黄冈市\t812\n眉山市\t3846\n无锡市\t970\n杭州市\t1511628\n苏州市\t66094\n南平市\t2000\n台州市\t37007\n重庆市\t703233\n黄南州市\t2304\n上海市\t1111750\n汕头市\t2696\n三亚市\t21514\n天津市\t2415518\n黄石市\t18095\n包头市\t133622\n淮南市\t228303\n拉萨市\t22846\n泸州市\t29768\n银川市\t245622\n邵阳市\t249522\n哈尔滨市\t1263024\n曲靖市\t57734\n吉林市\t337663\n常州市\t73078\n芜湖市\t45818\n鞍山市\t140474\n黔南布依苗族自治州\t103602\n安顺市\t8220\n长春市\t412131\n许昌市\t28313\n安庆市\t2118\n南昌市\t138511\n成都市\t1232075\n桂林市\t52632\n马鞍山市\t92784\n厦门市\t990837\n福州市\t863004\n黔东南侗族自治州\t34950\n长沙市\t19\n贵阳市\t232985\n十堰市\t320\n海东市\t43471\n常德市\t30714\n西宁市\t188589\n自贡市\t29888\n商丘市\t13938\n资阳市\t19679\n张家界市\t142994\n泉州市\t292314\n南充市\t243699\n石河子市\t52\n昆明市\t71202\n南京市\t1533746\n安阳市\t18944\n孝感市\t10\n徐州市\t230281\n邯郸市\t30779\n柳州市\t1\n黔西南市\t72116\n宜宾市\t31611\n合肥市\t161875\n广元市\t2944\n洛阳市\t14925\n西安市\t769652\n其他\t348377\n玉树市\t68\n攀枝花市\t89283\n湘潭市\t217168\n鄂州市\t4874\n衡阳市\t10327\n内江市\t57728\n郑州市\t477370\n驻马店市\t19515\n广州市\t26377\n海西藏族自治州\t18491\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1570784208903_1927745477",
+            "id": "20190520-191247_836390639",
+            "dateCreated": "2019-10-11T16:56:48+0800",
+            "dateStarted": "2020-01-20T12:56:52+0800",
+            "dateFinished": "2020-01-20T13:49:25+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9296"
+        },
+        {
+            "title": "乘车码交易笔数-老架构",
+            "text": "select \n--substr(rec_crt_ts,1,10),\ncount(*) as `交易笔数`,count(distinct cdhd_usr_id) AS `用户数`,count(case when base_at>0 then 1 else null end) as `优惠笔数`\nfrom upw_hive.view_trv_usr_tran_dtl \nwhere substr(rec_crt_ts,1,10) between date_add(current_date,-7) and date_add(current_date,-1)\nand trim(error_code) ='00'\n--group by substr(rec_crt_ts,1,10)",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-13T14:10:08+0800",
+            "config": {
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "colWidth": 12,
+                "editorMode": "ace/mode/sql",
+                "editorHide": true,
+                "title": true,
+                "results": {
+                    "0": {
+                        "graph": {
+                            "mode": "table",
+                            "height": 84,
+                            "optionOpen": false
+                        },
+                        "helium": {}
+                    }
+                },
+                "enabled": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "交易笔数\t用户数\t优惠笔数\n15263778\t2992014\t14498597\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1570784209016_1895041820",
+            "id": "20190102-203315_1130383884",
+            "dateCreated": "2019-10-11T16:56:49+0800",
+            "dateStarted": "2020-01-20T09:14:45+0800",
+            "dateFinished": "2020-01-20T09:23:30+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9297"
+        },
+        {
+            "title": "乘车码交易笔数-新架构",
+            "text": "--%impalajdbc\nselect count(distinct a.trans_no) as `交易笔数`,sum(a.trans_at)/100 as `交易金额(元)` from\n(\nselect distinct hp_settle_dt,trans_no,trans_at,usr_id,points_at,mchnt_cd\nfrom upw_hive.view_achis_trans\nwhere trim(hp_settle_dt) between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\nand trim(trans_tp) in ('01') \nand trim(sub_trans_tp) = '10'\nand trim(acq_ins_id_cd)!= '00049996'\n) a\ninner join \n(\nselect mchnt_cd,city_cd,branch\nfrom upw_hive.tmj_carcode_mchnt_senseless\n) b\non a.mchnt_cd=b.mchnt_cd",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-20T12:57:03+0800",
+            "config": {
+                "colWidth": 12,
+                "enabled": true,
+                "results": {
+                    "0": {
+                        "graph": {
+                            "mode": "table",
+                            "height": 94,
+                            "optionOpen": false
+                        }
+                    }
+                },
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "editorMode": "ace/mode/sql",
+                "title": true,
+                "editorHide": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "交易笔数\t交易金额(元)\n3938904\t10331213.95\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1578883959813_-261561542",
+            "id": "20200113-105239_1777563922",
+            "dateCreated": "2020-01-13T10:52:39+0800",
+            "dateStarted": "2020-01-20T12:57:03+0800",
+            "dateFinished": "2020-01-20T13:48:05+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9298"
+        },
+        {
+            "title": "被扫分公司",
+            "text": "select (case  when branch is null then '其他' else branch end) as pro,\nsum(a.cnt) as `交易笔数`,\nsum(a.jine) as `交易金额`,\nsum(a.cnt1) as `成功交易笔数`, \nsum(a.trans) as `成功交易金额`,\nsum(a.cnt2) as `支付成功交易笔数`, \nsum(a.pays) as `支付成功交易金额`, \nsum(a.cnt4) as `优惠成功交易笔数`,\nsum(a.dis) as `优惠成功交易金额`\n from  \n(\nselect area_cd,\ncount(case when trim(trans_tp) in ('01','04','31')  then 1 else null end) as cnt,\nsum(case when trim(trans_tp) in ('01','04','31') then trans_at else 0 end) / 100 as jine,\ncount(case when trim(trans_tp) in ('01','04','31') and trim(resp_cd) in ('0000000','6820000')  then 1 else null end) as cnt1,\ncount(case when trim(trans_tp) in ('01') and trim(resp_cd) in ('0000000') then 1 else null end) as cnt2,\nsum(case when trim(trans_tp) in ('01','04','31') and trim(resp_cd) in ('0000000','6820000')  then trans_at else 0 end) / 100 as trans,\nsum(case when trim(trans_tp) in ('01') and trim(resp_cd) in ('0000000')  then trans_at else 0 end) / 100 as pays,\ncount(case when trim(trans_tp)='01' and trim(resp_cd)='0000000' and trim(proc_st)='00' and up_discount>0  then 1 else null end) as cnt4,\nsum(case when trim(trans_tp)='01' and trim(resp_cd)='0000000' and trim(proc_st)='00' and up_discount>0  then up_discount else 0 end) / 100 as dis  \nfrom \nupw_hive.view_glhis_qrhis_trans_flow\nwhere substr(order_type,1,2)='01'  \nand trim(app_ins_id_cd) ='00250001' \nand hp_settle_dt between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\ngroup by area_cd\n) a \nleft join \n(\nselect region_cd,city,branch from upw_hive.tmj_branch_cd \n) b \non a.area_cd=b.region_cd \ngroup by (case  when branch is null then '其他' else branch end)\norder by `交易笔数` desc",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-20T12:57:14+0800",
+            "config": {
+                "colWidth": 12,
+                "enabled": true,
+                "results": {},
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "editorMode": "ace/mode/sql",
+                "editorHide": true,
+                "title": true,
+                "lineNumbers": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "pro\t交易笔数\t交易金额\t成功交易笔数\t成功交易金额\t支付成功交易笔数\t支付成功交易金额\t优惠成功交易笔数\t优惠成功交易金额\n辽宁\t2602410\t58089971.87\t2538561\t46477909.67\t2533831\t45689267.25\t1884021\t2858368.85\n贵州\t2128577\t32149547.55\t2060487\t22974377.38\t2059904\t22914678.43\t1625212\t413309.55\n福建\t1887119\t55200426.55\t1845742\t44734551.78\t1843051\t44523864.59\t1532639\t1708876.76\n四川\t1884390\t52369235.27\t1830500\t37883562.25\t1829505\t37775625.91\t740906\t1048728.62\n山东\t1578582\t62104123.7\t1525760\t48963121.37\t1522654\t48582352.26\t994336\t1538266.86\n河南\t1365641\t68343503.35\t1324297\t48047333.76\t1322707\t47831504.47\t879615\t859367.07\n安徽\t1205179\t49554937.9\t1168994\t38073148.16\t1164854\t37756147.28\t871479\t1373051.07\n河北\t1154746\t38530616.57\t1119666\t32916910.27\t1114499\t32552139.25\t865966\t1587923.17\n新疆\t1079877\t57715047.46\t1049428\t16872644.24\t1048475\t16788345.52\t184393\t298809.41\n青岛\t1064568\t15276600.96\t1035163\t12391872.04\t1034174\t12295634.07\t910231\t863527.75\n湖北\t1039846\t36852997.97\t1018281\t28749687.44\t1016202\t28491886.17\t197812\t624164.34\n甘肃\t1008800\t7229143.97\t988910\t5565735.61\t988809\t5552563.84\t783902\t437284.37\n吉林\t728870\t11765690.63\t714554\t9634676.25\t710648\t9335615.43\t572970\t598575.25\n浙江\t720337\t33355449.35\t701742\t27078014.96\t699891\t26899687.92\t248668\t655055.23\n上海\t716252\t69288312.54\t694087\t51414951.27\t689092\t50920805.17\t470597\t1634470.39\n宁夏\t675958\t14264803.42\t658309\t10550578.53\t657393\t10315281.06\t579471\t762534.55\n广东\t629734\t81407275.24\t606293\t61123223.5\t601601\t60759497.17\t352782\t729391.03\n江苏\t584775\t61672166.72\t565924\t45160196.92\t562035\t44644643.96\t362719\t706789.84\n江西\t562434\t21426558.64\t544697\t16345174.37\t541981\t15980344.09\t463242\t1127008.01\n湖南\t523078\t37211832.17\t500685\t24229045.53\t500124\t24155218.05\t359817\t490853.03\n内蒙古\t452197\t10707943.88\t439694\t8269601.56\t439417\t8227982.23\t113162\t115887.03\n重庆\t445035\t41253564.79\t432554\t35058192.57\t431093\t34878094.75\t210455\t483354.98\n陕西\t433323\t24395669.52\t419763\t18267971.15\t418711\t18106172.47\t218381\t657675.02\n大连\t412320\t27425777.35\t400892\t21490416.34\t399679\t21208654.99\t227646\t763462.2\n深圳\t406416\t56390540.56\t389309\t49251111.54\t386225\t49077666.25\t270605\t753792.01\n黑龙江\t382526\t18049796.05\t371395\t15431668.72\t370536\t15326660.98\t126541\t443214\n宁波\t369976\t12106609.6\t360140\t9201442.34\t359483\t9120191.76\t324096\t378886.44\n广西\t340624\t24952904.89\t329610\t19922324.38\t328335\t19802767.7\t273225\t565009.04\n山西\t329443\t27370750.78\t313892\t21672112.94\t311840\t21456224.58\t242517\t702303.35\n云南\t307550\t15019794.67\t296019\t12211957.95\t295587\t12177237.68\t39376\t234853.74\n海南\t270070\t15120009.52\t262919\t10749624.11\t262063\t10600407.08\t54397\t189539.15\n其他\t201798\t18637575.31\t194398\t14722194.2\t193276\t14542646.46\t137500\t1524467.72\n北京\t190074\t49499201.55\t181312\t36852899.5\t179360\t36694315.98\t123860\t886949.09\n厦门\t167144\t23110447.45\t161782\t16609707.85\t160956\t16507495.35\t109880\t261626.99\n天津\t74056\t10713997.22\t71284\t8181571.1\t70072\t8128503.04\t52378\t86690.63\n青海\t51251\t3373190.13\t49251\t2607438.98\t49188\t2600032.41\t41669\t77240.73\n西藏\t15080\t138017.16\t14601\t101912.56\t14579\t101592.38\t52\t19.36\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1574648284607_199321125",
+            "id": "20191125-101804_990636396",
+            "dateCreated": "2019-11-25T10:18:04+0800",
+            "dateStarted": "2020-01-20T12:57:10+0800",
+            "dateFinished": "2020-01-20T13:33:45+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9299"
+        },
+        {
+            "title": "主扫分公司",
+            "text": "select (case  when branch is null then '其他' else branch end) as pro,\nsum(a.cnt) as `交易笔数`,\nsum(a.jine) as `交易金额`,\nsum(a.cnt1) as `成功交易笔数`, \nsum(a.trans) as `成功交易金额`,\nsum(a.cnt2) as `支付成功交易笔数`, \nsum(a.pays) as `支付成功交易金额`, \nsum(a.cnt4) as `优惠成功交易笔数`,\nsum(a.dis) as `优惠成功交易金额`\n from  \n(\nselect area_cd,\ncount(case when trim(trans_tp) in ('01','04','31')  then 1 else null end) as cnt,\nsum(case when trim(trans_tp) in ('01','04','31') then trans_at else 0 end) / 100 as jine,\ncount(case when trim(trans_tp) in ('01','04','31') and trim(resp_cd) in ('0000000','6820000')  then 1 else null end) as cnt1,\ncount(case when trim(trans_tp) in ('01') and trim(resp_cd) in ('0000000') then 1 else null end) as cnt2,\nsum(case when trim(trans_tp) in ('01','04','31') and trim(resp_cd) in ('0000000','6820000')  then trans_at else 0 end) / 100 as trans,\nsum(case when trim(trans_tp) in ('01') and trim(resp_cd) in ('0000000')  then trans_at else 0 end) / 100 as pays,\ncount(case when trim(trans_tp)='01' and trim(resp_cd)='0000000' and trim(proc_st)='00' and up_discount>0  then 1 else null end) as cnt4,\nsum(case when trim(trans_tp)='01' and trim(resp_cd)='0000000' and trim(proc_st)='00' and up_discount>0  then up_discount else 0 end) / 100 as dis  \nfrom \nupw_hive.view_glhis_qrhis_trans_flow\nwhere trim(order_type) in ('0210','0211','0212','0214','0215')\nand trim(app_ins_id_cd) ='00250001' \nand hp_settle_dt between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\ngroup by area_cd\n) a \nleft join \n(\nselect region_cd,city,branch from upw_hive.tmj_branch_cd \n) b \non a.area_cd=b.region_cd \ngroup by (case  when branch is null then '其他' else branch end)\norder by `交易笔数` desc",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-20T12:57:11+0800",
+            "config": {
+                "colWidth": 12,
+                "enabled": true,
+                "results": {},
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "editorMode": "ace/mode/sql",
+                "title": true,
+                "editorHide": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "pro\t交易笔数\t交易金额\t成功交易笔数\t成功交易金额\t支付成功交易笔数\t支付成功交易金额\t优惠成功交易笔数\t优惠成功交易金额\n山东\t1389691\t66214110.94\t1330119\t63167823.62\t1329985\t63140259.33\t1011415\t1577256.21\n福建\t1013462\t83809829.68\t820692\t63036666.7\t820233\t62998302.01\t393052\t677709.19\n山西\t860100\t21133139.34\t837145\t20150927.32\t836995\t20139317.71\t711818\t1099436.55\n辽宁\t760458\t28024610.02\t733495\t26486829.6\t733459\t26485743.78\t635218\t1160501.74\n上海\t757776\t196993723.43\t702660\t156576533.45\t701755\t156409503.74\t338460\t551781.32\n浙江\t623317\t35019455.66\t595381\t33219286.9\t595263\t33203374.64\t419688\t850852.75\n河北\t533227\t58916303.67\t504404\t56155769.3\t504318\t56152410.01\t377908\t681016.62\n湖北\t527497\t46181816.55\t465460\t38705894.63\t465246\t38690531.8\t268888\t376023.22\n江苏\t485647\t79490372.34\t457301\t66099236.99\t457189\t66092619.68\t299578\t724793.14\n大连\t469916\t9261587.03\t460969\t8938974.02\t460914\t8937484.22\t424769\t371610.2\n广东\t457583\t177869595.2\t435394\t169391900.71\t434977\t169371884.85\t132652\t255585.05\n河南\t437805\t56065489\t401021\t50053784.77\t400929\t50027347.93\t200792\t888320.6\n四川\t432154\t37548486.06\t409233\t35140751.3\t409071\t35012161.22\t233113\t991705.33\n吉林\t425017\t46426405.69\t418216\t44473133.71\t416712\t44444193.8\t235353\t227364.74\n贵州\t418822\t28527427.72\t383017\t24839577.39\t382977\t24824892.35\t214605\t390280.38\n深圳\t362506\t221905773.88\t346604\t210976063.34\t346447\t210965988.89\t70973\t108463.03\n厦门\t358248\t28272594.54\t312560\t23019925.56\t312456\t23001257.46\t192163\t157715.71\n其他\t350280\t103780197.83\t336945\t83782798.65\t336565\t83340548.01\t79795\t288953.86\n北京\t313844\t87419906.65\t293723\t73530152.52\t291955\t73337087.39\t169764\t870643.81\n广西\t311643\t31348227.7\t297988\t29612383.71\t297657\t29591758.1\t184193\t597325.72\n安徽\t281139\t26966270.01\t269554\t24813137.99\t269391\t24790476.18\t178352\t700703.98\n内蒙古\t259753\t15163053.99\t249973\t14441101.32\t249951\t14439260.02\t214130\t223953.28\n重庆\t255461\t12849050.4\t218694\t11739760.14\t218633\t11735584.14\t117699\t372644.29\n湖南\t246497\t23251888.44\t235170\t21786062.95\t235141\t21779001.26\t145944\t502082.78\n天津\t192286\t20548913.98\t188496\t19945497.04\t188447\t19938625.69\t105998\t143762.01\n宁波\t171917\t84447469.6\t165166\t62444179.68\t165144\t62442925.31\t124035\t345212.15\n江西\t171786\t29419141.94\t163035\t26319784.34\t163013\t26311615.21\t98841\t304592.12\n黑龙江\t142673\t14852132.59\t128199\t13318629.41\t128191\t13318212.41\t88694\t540051.84\n云南\t129250\t11474830.87\t125585\t10762396.04\t125567\t10755767.43\t58923\t154344.16\n陕西\t108610\t14606019.41\t98720\t12918885.11\t98695\t12880940.1\t61509\t178947.95\n青岛\t94929\t13622224.6\t91368\t12925213.8\t91363\t12923923.79\t66677\t114802.56\n新疆\t83011\t6765224.84\t79776\t6409664.97\t79740\t6404747.97\t53351\t63326.19\n甘肃\t78293\t8759935.88\t75561\t7890672.74\t75476\t7881215.01\t51060\t178411.56\n宁夏\t64161\t4258063.94\t61325\t3957692.44\t61309\t3957410.64\t46025\t66539.23\n海南\t62670\t8798912.89\t54564\t7262493.75\t54523\t7261901.13\t21860\t57031.14\n青海\t4166\t990714.1\t3952\t770230.67\t3950\t618688.93\t1976\t3756.27\n西藏\t526\t60392.36\t484\t51191.66\t483\t51189.16\t107\t198.77\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1575856529958_-1098077183",
+            "id": "20191209-095529_627055878",
+            "dateCreated": "2019-12-09T09:55:29+0800",
+            "dateStarted": "2020-01-20T12:57:26+0800",
+            "dateFinished": "2020-01-20T13:34:15+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9300"
+        },
+        {
+            "title": "被扫按日",
+            "text": "select hp_settle_dt,\ncount(case when trim(trans_tp) in ('01','04','31')  then 1 else null end) as cnt,\nsum(case when trim(trans_tp) in ('01','04','31')  then trans_at else 0 end) / 100 as jine,\ncount(case when trim(trans_tp) in ('01','04','31') and trim(resp_cd) in ('0000000','6820000')  then 1 else null end) as cnt1,\ncount(case when trim(trans_tp) in ('01') and trim(resp_cd) in ('0000000')  then 1 else null end) as cnt2,\ncount(distinct case when trim(trans_tp) in ('01') and trim(resp_cd) in ('0000000')  then mchnt_usr_id else null end) as user,\nsum(case when trim(trans_tp) in ('01','04','31') and trim(resp_cd) in ('0000000','6820000')  then trans_at else 0 end) / 100 as trans,\nsum(case when trim(trans_tp) in ('01') and trim(resp_cd) in ('0000000')  then trans_at else 0 end) / 100 as pays,\ncount(case when trim(trans_tp)='01' and trim(resp_cd)='0000000' and trim(proc_st)='00' and up_discount>0 then 1 else null end) as cnt4,\nsum(case when trim(trans_tp)='01' and trim(resp_cd)='0000000' and trim(proc_st)='00' and up_discount>0  then up_discount else 0 end) / 100 as dis  \nfrom \nupw_hive.view_glhis_qrhis_trans_flow\nwhere substr(order_type,1,2)='01'  \n--and pri_acct_no not like '62135101000723%' \nand trim(app_ins_id_cd) ='00250001' \nand hp_settle_dt between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\ngroup by hp_settle_dt",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-20T14:27:31+0800",
+            "config": {
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "colWidth": 12,
+                "editorMode": "ace/mode/sql",
+                "editorHide": true,
+                "title": true,
+                "results": {},
+                "enabled": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "hp_settle_dt\tcnt\tjine\tcnt1\tcnt2\tuser\ttrans\tpays\tcnt4\tdis\n20200113\t4250284\t168700651.95\t4126922\t4119193\t2604066\t119917874.7\t119162874.67\t2653439\t3716329.88\n20200114\t4226543\t170182435.55\t4108276\t4098344\t2620484\t125305586.06\t124536899.35\t2662787\t4242593.11\n20200115\t3985639\t161503047.87\t3874572\t3866486\t2458414\t123457174.07\t122676955.93\t2457069\t3382496.19\n20200116\t3989358\t163473945.54\t3879801\t3870545\t2461902\t127081083.94\t126227444.37\t2485444\t3673976.81\n20200117\t4014648\t181647419.49\t3898209\t3888148\t2493728\t133159500.85\t132066021.16\t2514105\t3884896.07\n20200118\t3735308\t205548471.45\t3616520\t3602597\t2345213\t159422078.61\t157565359.11\t2347298\t5517169.99\n20200119\t3788276\t191018060.41\t3676595\t3666517\t2357588\t141445564.86\t140086193.39\t2326376\t4023864.58\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1570784209152_2027395442",
+            "id": "20190910-091621_1813601535",
+            "dateCreated": "2019-10-11T16:56:49+0800",
+            "dateStarted": "2020-01-20T19:35:57+0800",
+            "dateFinished": "2020-01-20T20:23:13+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9301"
+        },
+        {
+            "title": "被扫用户数",
+            "text": "select count(distinct mchnt_usr_id) from\nupw_hive.view_glhis_qrhis_trans_flow\nwhere substr(order_type,1,2)='01'  \nand trim(app_ins_id_cd) ='00250001' \nand hp_settle_dt between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\nand trim(trans_tp)='01' \nand trim(resp_cd)='0000000' \nand trim(proc_st)='00' ",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-20T12:57:27+0800",
+            "config": {
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "colWidth": 12,
+                "editorMode": "ace/mode/sql",
+                "editorHide": true,
+                "title": true,
+                "results": {
+                    "0": {
+                        "graph": {
+                            "mode": "table",
+                            "height": 84,
+                            "optionOpen": false
+                        }
+                    }
+                },
+                "enabled": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "_c0\n7050318\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1570784209171_2033936173",
+            "id": "20190910-104240_384337436",
+            "dateCreated": "2019-10-11T16:56:49+0800",
+            "dateStarted": "2020-01-20T13:00:19+0800",
+            "dateFinished": "2020-01-20T13:19:03+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9302"
+        },
+        {
+            "title": "被扫新增用户",
+            "text": "--%impalajdbc\nselect count(distinct new.cdhd_usr_id) from \n(\nselect distinct cdhd_usr_id from \nupw_hive.view_chacc_cdhd_pri_acct_inf\nwhere usr_st='1'\nand part_dt between date_add(current_date,-7) and date_add(current_date,-1)\n) new\ninner join \n(\nselect distinct mchnt_usr_id from\nupw_hive.view_glhis_qrhis_trans_flow\nwhere substr(order_type,1,2)='01'  \nand trim(app_ins_id_cd) ='00250001' \nand hp_settle_dt between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\nand trim(trans_tp)='01' \nand trim(resp_cd)='0000000' \nand trim(proc_st)='00' \n) c\non new.cdhd_usr_id=c.mchnt_usr_id",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-20T12:57:29+0800",
+            "config": {
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "colWidth": 12,
+                "editorMode": "ace/mode/sql",
+                "editorHide": true,
+                "title": true,
+                "results": {
+                    "0": {
+                        "graph": {
+                            "mode": "table",
+                            "height": 84,
+                            "optionOpen": false
+                        }
+                    }
+                },
+                "enabled": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "_c0\n89639\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1570784209211_2018546217",
+            "id": "20190910-114649_103196714",
+            "dateCreated": "2019-10-11T16:56:49+0800",
+            "dateStarted": "2020-01-20T13:09:18+0800",
+            "dateFinished": "2020-01-20T13:39:52+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9303"
+        },
+        {
+            "title": "新增被扫用户数（按日）",
+            "text": "--%impalajdbc\nselect hp_settle_dt,count(distinct a.mchnt_usr_id) from \n(\nselect distinct mchnt_usr_id,hp_settle_dt from\nupw_hive.view_glhis_qrhis_trans_flow\nwhere substr(order_type,1,2)='01'  \nand trim(app_ins_id_cd) ='00250001' \nand hp_settle_dt between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\nand trim(trans_tp)='01' \nand trim(resp_cd)='0000000' \nand trim(proc_st)='00' \n) a\ninner join \n(\nselect distinct cdhd_usr_id,part_dt from \nupw_hive.view_chacc_cdhd_pri_acct_inf\nwhere usr_st='1'\nand part_dt between date_add(current_date,-7) and date_add(current_date,-1)\n) b\non (a.mchnt_usr_id=b.cdhd_usr_id and hp_settle_dt=regexp_replace(part_dt,'-',''))\ngroup by hp_settle_dt",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-20T12:57:30+0800",
+            "config": {
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "colWidth": 12,
+                "editorMode": "ace/mode/sql",
+                "editorHide": true,
+                "title": true,
+                "results": {
+                    "0": {
+                        "graph": {
+                            "mode": "table",
+                            "height": 300,
+                            "optionOpen": false
+                        },
+                        "helium": {}
+                    }
+                },
+                "enabled": true
+            },
+            "settings": {
+                "params": {
+                    "开始时间": "2019-09-30",
+                    "结束时间": "2019-10-06"
+                },
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "hp_settle_dt\t_c1\n20200113\t8204\n20200114\t8492\n20200115\t7786\n20200116\t8290\n20200117\t8160\n20200118\t8615\n20200119\t7829\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1570784209486_1703436868",
+            "id": "20180910-105032_1906578521",
+            "dateCreated": "2019-10-11T16:56:49+0800",
+            "dateStarted": "2020-01-20T13:19:03+0800",
+            "dateFinished": "2020-01-20T13:50:35+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9304"
+        },
+        {
+            "title": "被扫留存用户",
+            "text": "--%impalajdbc\nselect count(distinct new.mchnt_usr_id) from \n(\nselect distinct mchnt_usr_id,hp_settle_dt from\nupw_hive.view_glhis_qrhis_trans_flow\nwhere substr(order_type,1,2)='01'  \nand trim(app_ins_id_cd) ='00250001' \nand hp_settle_dt between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\nand trim(trans_tp)='01' \nand trim(resp_cd)='0000000' \nand trim(proc_st)='00' \n) new\ninner join \n(\nselect distinct mchnt_usr_id,hp_settle_dt from\nupw_hive.view_glhis_qrhis_trans_flow\nwhere substr(order_type,1,2)='01'  \nand trim(app_ins_id_cd) ='00250001' \nand hp_settle_dt between regexp_replace(date_add(current_date,-16),'-','') and regexp_replace(date_add(current_date,-8),'-','')\nand trim(trans_tp)='01' \nand trim(resp_cd)='0000000' \nand trim(proc_st)='00' \n) c\non new.mchnt_usr_id=c.mchnt_usr_id",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-20T14:27:35+0800",
+            "config": {
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "colWidth": 12,
+                "editorMode": "ace/mode/sql",
+                "editorHide": true,
+                "title": true,
+                "results": {
+                    "0": {
+                        "graph": {
+                            "mode": "table",
+                            "height": 84,
+                            "optionOpen": false
+                        }
+                    }
+                },
+                "enabled": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "_c0\n5039913\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1570784209540_1779617150",
+            "id": "20190910-114709_1740000410",
+            "dateCreated": "2019-10-11T16:56:49+0800",
+            "dateStarted": "2020-01-20T20:07:07+0800",
+            "dateFinished": "2020-01-20T21:21:52+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9305"
+        },
+        {
+            "title": "主扫APP",
+            "text": "--%impalajdbc\r\nselect trim(app_ins_id_cd) as app,count(*) as cnt,count(case when up_discount>0 then 1 else null end) as dis from\r\nupw_hive.view_glhis_qrhis_trans_flow\r\nwhere trim(order_type) in ('0210','0211','0212','0214','0215')\r\nand trim(trans_tp) in ('01','04','31')\r\nand hp_settle_dt between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\r\n--and pri_acct_no not like '62135101000723%'\r\ngroup by trim(app_ins_id_cd)\r\norder by cnt desc",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-20T14:27:36+0800",
+            "config": {
+                "colWidth": 12,
+                "enabled": true,
+                "results": {},
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "editorMode": "ace/mode/sql",
+                "title": true,
+                "editorHide": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "app\tcnt\tdis\n00250001\t13636121\t8357016\n49990012\t1616310\t418422\n49993075\t1409641\t0\n49995269\t1407061\t0\n49995241\t1376470\t0\n49990000\t892325\t236873\n49993083\t574545\t12\n49993058\t301263\t0\n49995001\t291642\t45028\n49990010\t291224\t10256\n49993062\t247674\t0\n49993061\t239131\t0\n49993001\t227127\t30409\n49993110\t206694\t0\n03010000\t186588\t41009\n49993053\t180511\t0\n49993041\t170443\t0\n49995002\t157737\t520\n49995049\t127554\t0\n49993014\t127211\t0\n49990028\t118152\t4082\n49995123\t111070\t0\n49993032\t105053\t0\n49993063\t100678\t0\nACP00001\t98555\t4\n49990297\t97823\t17339\n49990354\t90725\t0\n49993042\t83188\t0\n49995066\t75021\t55\n49990015\t67197\t1721\n49995023\t60505\t0\n63010000\t59281\t8696\n49993116\t43290\t0\n49990013\t36796\t2021\n49993060\t35796\t0\n04100000\t35044\t1315\n49990020\t32990\t2652\n49995174\t31820\t0\n49993002\t25331\t3\n49990016\t24179\t7187\n49990242\t23610\t21479\n49990199\t22823\t818\n49990008\t18428\t1303\n49990019\t15011\t528\n49990023\t14247\t351\n49993115\t12815\t0\n49995009\t11626\t0\n49990021\t11324\t878\n49990005\t8658\t366\n03050000\t8290\t503\n49990296\t7303\t50\n49999901\t7063\t0\n49990017\t7013\t865\n49990414\t5935\t168\n49995251\t5467\t103\n49990025\t5368\t84\n49993006\t4911\t0\n49990240\t4858\t5\n49990002\t4822\t382\n49995154\t4715\t0\n49993064\t4686\t0\n49990200\t3517\t80\n49990022\t3515\t276\n49990286\t3371\t0\n49990351\t3119\t0\n49990409\t2963\t0\n49990272\t2825\t1101\n49990011\t2769\t53\n49990205\t2747\t0\n49996005\t2728\t31\n49990030\t2580\t72\n49990208\t2526\t0\n49995124\t2426\t0\n49993079\t2395\t0\n49995112\t2389\t0\n49995110\t2368\t0\n49995153\t2361\t0\n49995133\t2354\t0\n49995229\t2350\t0\n49990361\t2144\t12\n49990214\t1909\t797\n49990244\t1860\t379\n49990348\t1802\t88\n49990014\t1739\t126\n49993023\t1634\t0\n49990399\t1612\t162\n49993045\t1585\t0\n49990421\t1546\t175\n49990265\t1292\t0\n49990275\t1166\t463\n49995017\t1123\t19\n49995012\t1117\t947\n49990277\t1076\t75\n49995187\t993\t179\n49990446\t966\t172\n49995240\t890\t65\n49990456\t805\t0\n49990032\t628\t15\n00275500\t570\t36\n49990384\t455\t31\n49990347\t448\t33\n49990313\t440\t20\n49990245\t429\t169\n49990449\t399\t7\n49990339\t378\t43\n49990259\t375\t40\n49993085\t370\t324\n49990267\t361\t0\n49990422\t343\t0\n49990415\t343\t19\n49990234\t330\t68\n49990330\t315\t0\n49990317\t313\t0\n49990301\t306\t0\n49990292\t301\t0\n49990031\t294\t28\n49990246\t275\t1\n49990235\t262\t55\n49990251\t255\t1\n49990269\t234\t10\n49990412\t210\t2\n39990024\t201\t0\n49990352\t191\t138\n49990299\t190\t10\n49990263\t174\t0\n49990304\t171\t47\n49990310\t166\t63\n49990338\t161\t0\n49990385\t156\t0\n49990397\t155\t27\n49995003\t145\t14\n49990294\t144\t0\n49990202\t133\t22\n49995202\t130\t112\n49990243\t116\t0\n49990325\t110\t1\n49990360\t96\t2\n49990239\t88\t18\n49990262\t82\t0\n39990005\t74\t0\n49990276\t72\t3\n49990406\t71\t1\n49990349\t67\t6\n49990210\t66\t0\n49990247\t63\t0\n49995074\t61\t1\n49990227\t60\t14\n49995052\t58\t0\n49990260\t57\t14\n49990255\t55\t26\n49990344\t52\t2\n49990307\t51\t22\n49990236\t51\t7\n49990327\t48\t5\n49990273\t48\t0\n49990295\t47\t0\n49990359\t47\t1\n49995125\t37\t0\n49996007\t36\t0\n49990215\t36\t4\n49990356\t33\t0\n49990266\t30\t2\n49996011\t27\t0\n49995043\t26\t0\n49990280\t23\t0\n49990445\t23\t0\n49990427\t23\t0\n49990312\t19\t0\n49995016\t19\t0\n49990336\t18\t0\n49990319\t17\t0\n39990053\t16\t0\n49990396\t15\t0\n49990321\t15\t0\n49990419\t14\t3\n49990226\t13\t0\n49990216\t13\t0\n49995027\t13\t0\n49990213\t12\t0\n49996008\t11\t3\n49990342\t11\t0\n49993003\t10\t0\n49995044\t9\t0\n49990437\t9\t0\n49990318\t9\t6\n49990268\t9\t0\n49990250\t9\t1\n49995278\t8\t0\n49990291\t8\t0\n49990228\t8\t4\n49995050\t7\t0\n49990224\t7\t0\n49990223\t7\t0\n49995075\t6\t0\n49990238\t6\t0\n49990322\t6\t0\n49995203\t6\t0\n49990279\t6\t0\n49990212\t6\t0\n49990249\t6\t0\n49990258\t5\t0\n49990293\t5\t0\n49990404\t5\t0\n49990274\t5\t0\n49990341\t5\t0\n49990218\t4\t3\n49990465\t4\t0\n49993102\t3\t0\n49990281\t3\t0\n49990390\t3\t0\n49990430\t3\t0\n49990222\t3\t0\n49990203\t3\t0\n49990305\t3\t1\n49995005\t3\t0\n49990353\t2\t0\n49990219\t2\t1\n49995304\t2\t0\n49990457\t2\t0\n39990045\t2\t0\n49990315\t2\t0\n49990256\t1\t0\n49990438\t1\t0\n49993114\t1\t0\n49990221\t1\t0\n49990413\t1\t0\n49995284\t1\t0\n39990004\t1\t0\n49990311\t1\t0\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1572587779195_-950909598",
+            "id": "20191101-135619_1177165143",
+            "dateCreated": "2019-11-01T13:56:19+0800",
+            "dateStarted": "2020-01-20T20:23:14+0800",
+            "dateFinished": "2020-01-20T20:51:58+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9306"
+        },
+        {
+            "title": "主扫按日",
+            "text": "select hp_settle_dt,\ncount(case when trim(trans_tp) in ('01','04','31')  then 1 else null end) as cnt,\nsum(case when trim(trans_tp) in ('01','04','31')  then trans_at else 0 end) / 100 as jine,\ncount(case when trim(trans_tp) in ('01','04','31') and trim(resp_cd) in ('0000000','6820000')  then 1 else null end) as cnt1,\ncount(case when trim(trans_tp) in ('01') and trim(resp_cd) in ('0000000')  then 1 else null end) as cnt2,\ncount(distinct case when trim(trans_tp) in ('01') and trim(resp_cd) in ('0000000')  then mchnt_usr_id else null end) as user,\nsum(case when trim(trans_tp) in ('01','04','31') and trim(resp_cd) in ('0000000','6820000')  then trans_at else 0 end) / 100 as trans,\nsum(case when trim(trans_tp) in ('01') and trim(resp_cd) in ('0000000')  then trans_at else 0 end) / 100 as pays,\ncount(case when trim(trans_tp)='01' and trim(resp_cd)='0000000' and trim(proc_st)='00' and up_discount>0 then 1 else null end) as cnt4,\nsum(case when trim(trans_tp)='01' and trim(resp_cd)='0000000' and trim(proc_st)='00' and up_discount>0  then up_discount else 0 end) / 100 as dis  \nfrom \nupw_hive.view_glhis_qrhis_trans_flow\nwhere trim(order_type) in ('0210','0211','0212','0214','0215')\n--and pri_acct_no not like '62135101000723%' \nand trim(app_ins_id_cd) ='00250001' \nand hp_settle_dt between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\ngroup by hp_settle_dt",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-20T14:27:39+0800",
+            "config": {
+                "colWidth": 12,
+                "enabled": true,
+                "results": {},
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "editorMode": "ace/mode/sql",
+                "title": true,
+                "editorHide": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "hp_settle_dt\tcnt\tjine\tcnt1\tcnt2\tuser\ttrans\tpays\tcnt4\tdis\n20200113\t1968128\t251140805.52\t1838110\t1837062\t1135089\t221282381.47\t220999260.79\t1154589\t1825344.84\n20200114\t2018638\t259984756.5\t1901167\t1900044\t1165720\t231724971.14\t231426472.95\t1208186\t2040646.77\n20200115\t2101413\t267972896.04\t1983995\t1981887\t1181569\t236190954.86\t235872525.5\t1213054\t1980334.88\n20200116\t1961619\t244500896.91\t1830931\t1829828\t1097914\t217489796.81\t217331546.03\t1162116\t3508647.47\n20200117\t1950849\t238784530.31\t1830786\t1829839\t1117337\t209012439.65\t208852542.82\t1190043\t2666819.08\n20200118\t1811447\t231887971.26\t1685212\t1684543\t1020550\t203816005.62\t203697208.71\t1061589\t2632829.07\n20200119\t1824027\t246771436.23\t1681748\t1680917\t1036193\t215598458.69\t215478594.5\t1039801\t2143077.34\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1572587745396_276577311",
+            "id": "20191101-135545_731329511",
+            "dateCreated": "2019-11-01T13:55:45+0800",
+            "dateStarted": "2020-01-20T20:29:29+0800",
+            "dateFinished": "2020-01-20T20:57:27+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9307"
+        },
+        {
+            "title": "主扫用户数",
+            "text": "select count(distinct mchnt_usr_id) from\nupw_hive.view_glhis_qrhis_trans_flow\nwhere trim(order_type) in ('0210','0211','0212','0214','0215')\nand trim(app_ins_id_cd) ='00250001' \nand hp_settle_dt between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\nand trim(trans_tp)='01' \nand trim(resp_cd)='0000000' \nand trim(proc_st)='00' ",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-20T12:57:37+0800",
+            "config": {
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "colWidth": 12,
+                "editorMode": "ace/mode/sql",
+                "editorHide": true,
+                "title": true,
+                "results": {
+                    "0": {
+                        "graph": {
+                            "mode": "table",
+                            "height": 84,
+                            "optionOpen": false
+                        }
+                    }
+                },
+                "enabled": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "_c0\n2988336\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1570784209729_1805395327",
+            "id": "20190910-111601_1279212374",
+            "dateCreated": "2019-10-11T16:56:49+0800",
+            "dateStarted": "2020-01-20T13:35:35+0800",
+            "dateFinished": "2020-01-20T13:52:44+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9308"
+        },
+        {
+            "title": "主扫新增用户数",
+            "text": "--%impalajdbc\nselect count(distinct new.cdhd_usr_id) from \n(\nselect distinct cdhd_usr_id from \nupw_hive.view_chacc_cdhd_pri_acct_inf\nwhere usr_st='1'\nand part_dt between date_add(current_date,-7) and date_add(current_date,-1)\n) new\ninner join \n(\nselect distinct mchnt_usr_id from\nupw_hive.view_glhis_qrhis_trans_flow\nwhere trim(order_type) in ('0210','0211','0212','0214','0215')\nand trim(app_ins_id_cd) ='00250001' \nand hp_settle_dt between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\nand trim(trans_tp)='01' \nand trim(resp_cd)='0000000' \nand trim(proc_st)='00' \n) c\non new.cdhd_usr_id=c.mchnt_usr_id",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-20T14:27:41+0800",
+            "config": {
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "colWidth": 12,
+                "editorMode": "ace/mode/sql",
+                "editorHide": true,
+                "title": true,
+                "results": {
+                    "0": {
+                        "graph": {
+                            "mode": "table",
+                            "height": 84,
+                            "optionOpen": false
+                        }
+                    }
+                },
+                "enabled": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "_c0\n695262\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1570784209765_1791544366",
+            "id": "20190910-114414_1780001808",
+            "dateCreated": "2019-10-11T16:56:49+0800",
+            "dateStarted": "2020-01-20T20:32:14+0800",
+            "dateFinished": "2020-01-20T21:07:46+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9309"
+        },
+        {
+            "title": "主扫新增用户构成",
+            "text": "--%impalajdbc\r\nselect count(distinct  new.cdhd_usr_id) as `注册用户数`,\r\ncount(distinct if(b.activity_id in ('994','995','998','1003','1005','1016')  and e.org_code is null,b.cdhd_usr_id ,null)) as `机构激励`,\r\ncount(distinct if(b.activity_id in  ('996','1000','1007','1009','1013','1015','1020','1022','1023','1025','1026','1028','1030','1032','1037','1039','1048','1050','1051','1064','1066')  ,b.cdhd_usr_id , null)) as `老带新`,\r\ncount(distinct if(b.activity_id in ('997','1001','1008','1010','1014','1021','1024','1027','1031','1038','1040','1047','1049','1065') or (e.org_code is not null and activity_id in ('994','995','998','1003','1005','1016')),b.cdhd_usr_id ,null)) as `三覆盖`,\r\ncount(distinct if(b.cdhd_usr_id is null,new.cdhd_usr_id,null)) as `自主注册`\r\nfrom\r\n(\r\nselect distinct cdhd_usr_id from \r\nupw_hive.view_chacc_cdhd_pri_acct_inf\r\nwhere usr_st='1'\r\n--and trim(inf_source)<>'merchant'\r\nand part_dt between date_add(current_date,-7) and date_add(current_date,-1)\r\n) new\r\ninner join \r\n(\r\nselect mchnt_usr_id as cdhd_usr_id from\r\nupw_hive.view_glhis_qrhis_trans_flow\r\nwhere trim(order_type) in ('0210','0211','0212','0214','0215')\r\nand trim(trans_tp)='01' \r\nand trim(resp_cd)='0000000' \r\nand trim(proc_st)='00' \r\nand hp_settle_dt between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\r\nand trim(app_ins_id_cd) ='00250001'\r\n) c\r\non new.cdhd_usr_id=c.cdhd_usr_id\r\nleft join \r\n(\r\nselect  cdhd_usr_id,activity_id,institution_id \r\nfrom upw_hive.view_chmkt_recmd_inf\r\nwhere user_st in ('01','02','03','04','91','92','93') \r\nand award_user_st='2'\r\n) b\r\non new.cdhd_usr_id=b.cdhd_usr_id  \r\nleft join\r\n(select org_code from hv_tbl_m2vop_org_info where sec_org_type='04')e\r\non b.institution_id=e.org_code",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-20T12:57:40+0800",
+            "config": {
+                "lineNumbers": true,
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "colWidth": 12,
+                "editorMode": "ace/mode/sql",
+                "editorHide": true,
+                "title": true,
+                "results": {
+                    "0": {
+                        "graph": {
+                            "mode": "table",
+                            "height": 94,
+                            "optionOpen": false
+                        }
+                    }
+                },
+                "enabled": true
+            },
+            "settings": {
+                "params": {
+                    "日期1": "20190311",
+                    "日期2": "20190317",
+                    "开始时间": "2019-09-30",
+                    "结束时间": "2019-10-06"
+                },
+                "forms": {}
+            },
+            "results": "org.apache.thrift.transport.TTransportException",
+            "apps": [],
+            "jobName": "paragraph_1570784210043_1501443696",
+            "id": "20190114-144725_1509173507",
+            "dateCreated": "2019-10-11T16:56:50+0800",
+            "dateStarted": "2020-01-20T09:34:35+0800",
+            "dateFinished": "2020-01-20T09:37:22+0800",
+            "status": "ABORT",
+            "errorMessage": "org.apache.thrift.transport.TTransportException\n\tat org.apache.thrift.transport.TIOStreamTransport.read(TIOStreamTransport.java:132)\n\tat org.apache.thrift.transport.TTransport.readAll(TTransport.java:86)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readAll(TBinaryProtocol.java:429)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readI32(TBinaryProtocol.java:318)\n\tat org.apache.thrift.protocol.TBinaryProtocol.readMessageBegin(TBinaryProtocol.java:219)\n\tat org.apache.thrift.TServiceClient.receiveBase(TServiceClient.java:69)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterService$Client.recv_interpret(RemoteInterpreterService.java:266)\n\tat org.apache.zeppelin.interpreter.thrift.RemoteInterpreterService$Client.interpret(RemoteInterpreterService.java:250)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreter.interpret(RemoteInterpreter.java:373)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:97)\n\tat org.apache.zeppelin.notebook.Paragraph.jobRun(Paragraph.java:406)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:175)\n\tat org.apache.zeppelin.scheduler.RemoteScheduler$JobRunner.run(RemoteScheduler.java:329)\n\tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\n\tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\n\tat java.lang.Thread.run(Thread.java:748)\n",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9310"
+        },
+        {
+            "title": "新增主扫用户（按日）",
+            "text": "--%impalajdbc\nselect hp_settle_dt,count(distinct a.mchnt_usr_id) from \n(\nselect distinct mchnt_usr_id,hp_settle_dt from\nupw_hive.view_glhis_qrhis_trans_flow\nwhere trim(order_type) in ('0210','0211','0212','0214','0215')\nand trim(app_ins_id_cd) ='00250001' \nand hp_settle_dt between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\nand trim(trans_tp)='01' \nand trim(resp_cd)='0000000' \nand trim(proc_st)='00' \n) a\ninner join \n(\nselect distinct cdhd_usr_id,part_dt from \nupw_hive.view_chacc_cdhd_pri_acct_inf\nwhere usr_st='1'\nand part_dt between date_add(current_date,-7) and date_add(current_date,-1)\n) b\non (a.mchnt_usr_id=b.cdhd_usr_id and hp_settle_dt=regexp_replace(part_dt,'-',''))\ngroup by hp_settle_dt",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-21T12:37:24+0800",
+            "config": {
+                "lineNumbers": true,
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "colWidth": 12,
+                "editorMode": "ace/mode/sql",
+                "editorHide": true,
+                "title": true,
+                "results": {},
+                "enabled": true
+            },
+            "settings": {
+                "params": {
+                    "日期1": "20190311",
+                    "日期2": "20190317",
+                    "开始时间": "2019-09-30",
+                    "结束时间": "2019-10-06"
+                },
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "hp_settle_dt\t_c1\n20200113\t102921\n20200114\t102478\n20200115\t103012\n20200116\t104517\n20200117\t106247\n20200118\t69951\n20200119\t87794\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1570784210065_1589935943",
+            "id": "20180925-185243_1113063916",
+            "dateCreated": "2019-10-11T16:56:50+0800",
+            "dateStarted": "2020-01-20T20:37:12+0800",
+            "dateFinished": "2020-01-20T21:10:27+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9311"
+        },
+        {
+            "title": "主扫留存用户",
+            "text": "--%impalajdbc\nselect count(distinct new.mchnt_usr_id) from \n(\nselect distinct mchnt_usr_id,hp_settle_dt from\nupw_hive.view_glhis_qrhis_trans_flow\nwhere trim(order_type) in ('0210','0211','0212','0214','0215')\nand trim(app_ins_id_cd) ='00250001' \nand hp_settle_dt between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\nand trim(trans_tp)='01' \nand trim(resp_cd)='0000000' \nand trim(proc_st)='00' \n) new\ninner join \n(\nselect distinct mchnt_usr_id,hp_settle_dt from\nupw_hive.view_glhis_qrhis_trans_flow\nwhere trim(order_type) in ('0210','0211','0212','0214','0215')\nand trim(app_ins_id_cd) ='00250001' \nand hp_settle_dt between regexp_replace(date_add(current_date,-16),'-','') and regexp_replace(date_add(current_date,-8),'-','')\nand trim(trans_tp)='01' \nand trim(resp_cd)='0000000' \nand trim(proc_st)='00' \n) c\non new.mchnt_usr_id=c.mchnt_usr_id",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-21T11:40:43+0800",
+            "config": {
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "colWidth": 12,
+                "editorMode": "ace/mode/sql",
+                "editorHide": true,
+                "title": true,
+                "results": {
+                    "0": {
+                        "graph": {
+                            "mode": "table",
+                            "height": 84,
+                            "optionOpen": false
+                        }
+                    }
+                },
+                "enabled": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "apps": [],
+            "jobName": "paragraph_1570784210108_1573391740",
+            "id": "20190910-114546_2054323815",
+            "dateCreated": "2019-10-11T16:56:50+0800",
+            "dateStarted": "2020-01-21T11:40:43+0800",
+            "dateFinished": "2020-01-20T13:56:41+0800",
+            "status": "RUNNING",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9312",
+            "errorMessage": ""
+        },
+        {
+            "title": "小微主扫",
+            "text": "--%impalajdbc\r\nselect count(*) from\r\nupw_hive.view_glhis_qrhis_trans_flow\r\nwhere trim(order_type) in ('0212')\r\nand hp_settle_dt between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\r\nand trim(app_ins_id_cd) ='00250001'\r\nand trim(trans_tp)='01' \r\nand trim(proc_st)='00' \r\nand trim(resp_cd)='0000000'",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-20T14:27:46+0800",
+            "config": {
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "colWidth": 12,
+                "editorMode": "ace/mode/sql",
+                "editorHide": true,
+                "title": true,
+                "results": {
+                    "0": {
+                        "graph": {
+                            "mode": "table",
+                            "height": 84,
+                            "optionOpen": false
+                        }
+                    }
+                },
+                "enabled": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "_c0\n3246476\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1570784210191_1629180330",
+            "id": "20190910-111747_111305957",
+            "dateCreated": "2019-10-11T16:56:50+0800",
+            "dateStarted": "2020-01-20T20:40:46+0800",
+            "dateFinished": "2020-01-20T20:53:12+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9313"
+        },
+        {
+            "title": "一般主扫",
+            "text": "--%impalajdbc\r\nselect count(*) from \r\nupw_hive.view_glhis_qrhis_trans_flow\r\nwhere trim(order_type) in ('0210','0211')\r\nand trim(trans_tp)='01' \r\nand trim(proc_st)='00' \r\nand trim(resp_cd)='0000000'\r\nand hp_settle_dt between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\r\nand trim(app_ins_id_cd) ='00250001'",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-20T14:27:49+0800",
+            "config": {
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "colWidth": 12,
+                "editorMode": "ace/mode/sql",
+                "editorHide": true,
+                "title": true,
+                "results": {
+                    "0": {
+                        "graph": {
+                            "mode": "table",
+                            "height": 84,
+                            "optionOpen": false
+                        },
+                        "helium": {}
+                    }
+                },
+                "enabled": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "_c0\n6025490\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1570784210209_1620715855",
+            "id": "20190910-111826_783531808",
+            "dateCreated": "2019-10-11T16:56:50+0800",
+            "dateStarted": "2020-01-20T20:45:17+0800",
+            "dateFinished": "2020-01-20T20:57:50+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9314"
+        },
+        {
+            "title": "其中：行业码",
+            "text": "--%impalajdbc\nselect '其中：行业码',count(*) from \nupw_hive.view_glhis_qrhis_trans_flow \nwhere trim(order_type) in ('0210','0211','0212','0214','0215') \nand trim(trans_tp)='01' \nand trim(proc_st)='00' \nand trim(resp_cd)='0000000' \nand substr(pay_ctrl,12,1)='1' \nand hp_settle_dt between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\nand trim(app_ins_id_cd) ='00250001' ",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-20T14:27:50+0800",
+            "config": {
+                "colWidth": 12,
+                "enabled": true,
+                "results": {
+                    "0": {
+                        "graph": {
+                            "mode": "table",
+                            "height": 84,
+                            "optionOpen": false
+                        }
+                    }
+                },
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "editorMode": "ace/mode/sql",
+                "title": true,
+                "editorHide": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "_c0\t_c1\n其中：行业码\t2403941\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1577068047609_1228715176",
+            "id": "20191223-102727_1294799359",
+            "dateCreated": "2019-12-23T10:27:27+0800",
+            "dateStarted": "2020-01-20T20:51:58+0800",
+            "dateFinished": "2020-01-20T21:04:26+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9315"
+        },
+        {
+            "title": "快速收款码",
+            "text": "--%impalajdbc\nselect count(*) as `主扫交易笔数`,sum(trans_at)/100 as `主扫交易金额（元）`from\nupw_hive.view_glhis_qrhis_trans_flow\nwhere trim(order_type) in ('0214','0215')\nand trim(trans_tp)='01' \nand trim(proc_st)='00' \nand trim(resp_cd)='0000000'\nand hp_settle_dt between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\nand trim(app_ins_id_cd) ='00250001'\n",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-20T14:27:51+0800",
+            "config": {
+                "colWidth": 12,
+                "enabled": true,
+                "results": {
+                    "0": {
+                        "graph": {
+                            "mode": "table",
+                            "height": 84,
+                            "optionOpen": false
+                        }
+                    }
+                },
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "editorMode": "ace/mode/sql",
+                "title": true,
+                "editorHide": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "主扫交易笔数\t主扫交易金额（元）\n3472154\t55079456.2\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1577068019303_-2017857340",
+            "id": "20191223-102659_957104811",
+            "dateCreated": "2019-12-23T10:26:59+0800",
+            "dateStarted": "2020-01-20T20:53:12+0800",
+            "dateFinished": "2020-01-20T21:04:45+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9316"
+        },
+        {
+            "title": "商超便利商户",
+            "text": "--%impalajdbc\nselect mchnt_cd as `商户编号`, mchnt_nm as `商户名称`, count(*) as cnt,count(case when up_discount>0 then 1 else null end) as  `优惠笔数`\nfrom\nupw_hive.view_glhis_qrhis_trans_flow\nwhere (substr(order_type,1,2)='01' or trim(order_type) in ('0210','0211'))\nand trim(trans_tp)='01' \nand trim(proc_st)='00' \nand trim(resp_cd)='0000000'\nand hp_settle_dt between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\n--and pri_acct_no not like '62135101000723%'\nand trim(app_ins_id_cd) ='00250001'\nand substr(mchnt_cd,8,4) in ('5611','5621','5631','5641','5651','5655','5661','5681','5691','5698','5699','5713','5714','5719','5948','5949','5977','5997','7278','5211','5231','5251','5261','5309','5310','5311','5712','5718','5732','5931','5940','5941','5942','5943','5945','5947','5973','5983','5992','5999','8043','5399','4812','5733','5735','5946','5411','5972','9706','5541','5542','5331')\ngroup by mchnt_cd,mchnt_nm\norder by cnt desc \nlimit 1000\n",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-21T11:40:47+0800",
+            "config": {
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "colWidth": 12,
+                "editorMode": "ace/mode/sql",
+                "editorHide": true,
+                "title": true,
+                "results": {},
+                "enabled": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "ERROR",
+                "msg": [
+                    {
+                        "type": "TEXT",
+                        "data": "java.sql.SQLException: Query was cancelled\n\tat org.apache.hive.jdbc.HiveStatement.execute(HiveStatement.java:293)\n\tat org.apache.commons.dbcp2.DelegatingStatement.execute(DelegatingStatement.java:291)\n\tat org.apache.commons.dbcp2.DelegatingStatement.execute(DelegatingStatement.java:291)\n\tat org.apache.zeppelin.jdbc.JDBCInterpreter.executeSql(JDBCInterpreter.java:581)\n\tat org.apache.zeppelin.jdbc.JDBCInterpreter.interpret(JDBCInterpreter.java:692)\n\tat org.apache.zeppelin.interpreter.LazyOpenInterpreter.interpret(LazyOpenInterpreter.java:97)\n\tat org.apache.zeppelin.interpreter.remote.RemoteInterpreterServer$InterpretJob.jobRun(RemoteInterpreterServer.java:498)\n\tat org.apache.zeppelin.scheduler.Job.run(Job.java:175)\n\tat org.apache.zeppelin.scheduler.ParallelScheduler$JobRunner.run(ParallelScheduler.java:162)\n\tat java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)\n\tat java.util.concurrent.FutureTask.run(FutureTask.java:266)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)\n\tat java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)\n\tat java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)\n\tat java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)\n\tat java.lang.Thread.run(Thread.java:748)\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1570784210490_1329460937",
+            "id": "20190923-162001_1818079163",
+            "dateCreated": "2019-10-11T16:56:50+0800",
+            "dateStarted": "2020-01-20T13:56:33+0800",
+            "dateFinished": "2020-01-20T13:58:03+0800",
+            "status": "PENDING",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9317"
+        },
+        {
+            "title": "餐饮商户",
+            "text": "--%impalajdbc\nselect mchnt_cd as `商户编号`, mchnt_nm as `商户名称`, count(*) as cnt,\ncount(case when up_discount>0 then 1 else null end) as  `优惠笔数`\nfrom\nupw_hive.view_glhis_qrhis_trans_flow\nwhere (substr(order_type,1,2)='01' or trim(order_type) in ('0210','0211'))\nand trim(trans_tp)='01' \nand trim(proc_st)='00' \nand trim(resp_cd)='0000000'\nand hp_settle_dt between regexp_replace(date_add(current_date,-7),'-','') and regexp_replace(date_add(current_date,-1),'-','')\nand trim(app_ins_id_cd) ='00250001'\nand substr(mchnt_cd,8,4) in ('5811','5812','5813','5814')\ngroup by mchnt_cd,mchnt_nm\norder by cnt desc \nlimit 1000\n",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2020-01-20T12:57:54+0800",
+            "config": {
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                },
+                "colWidth": 12,
+                "editorMode": "ace/mode/sql",
+                "editorHide": true,
+                "title": true,
+                "results": {},
+                "enabled": true
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "results": {
+                "code": "SUCCESS",
+                "msg": [
+                    {
+                        "type": "TABLE",
+                        "data": "商户编号\t商户名称\tcnt\t优惠笔数\n82300AA58123605\t济南舜华餐饮服务有限公司\t108229\t108229\n928693758140099\t沙坪坝区小杰旺餐饮店\t62352\t72\n827440358120465\t东莞市南城志壮饮食店\t42561\t30418\n104130258120000\t首钢京唐钢铁联合公司食堂\t29946\t26890\n826241958120036\t长春博崛餐饮管理有限公司\t29466\t29398\nQRA4637581407PW\t泰安科大步行街煎饼果子\t18599\t18598\n88773X058120003\t昆明牛隆餐饮有限公司\t16344\t16344\n898450258140574\t柳州五菱新事业发展有限公司(二基地大食堂)\t15476\t14934\nQRA4636581442LT\t泰安科大西校正新鸡排\t13548\t13547\n898450258140580\t柳州方盛餐饮餐5\t12188\t11185\n105001458129498\t中国铁路乌鲁木齐局乌鲁木齐机务段\t10924\t758\n104111058121899\t首都机场集团新机场管理中*\t10901\t10445\n827222058120485\t大连腾飞软件园餐厅\t10108\t6457\n898991958120399\t台州银行股份有限公司（总行大楼食堂）\t9063\t1492\nQRA4636581442LU\t泰安科大西校太和板面\t8981\t8979\n898610358140139\t陕西东岭冶炼有限公司\t8646\t1324\n105001458129512\t中国铁路乌鲁木齐局乌鲁木齐西车辆段\t8489\t969\n105001658128773\t中国铁路乌鲁木齐局库尔勒机务段\t8385\t787\n827222058120484\t大连东沟软件园餐厅\t7756\t4599\nQRA191858130N5E\t赛罕区酷吧客内大本部店\t7559\t7512\nQRA4636581442LV\t泰安科大西校腾记卤味\t7353\t7353\nQRA732558122SB8\t商户_樊兴国\t7145\t7145\nQRA191858120UV8\t赛罕区黄焖鸡米饭内大本部店\t6989\t6933\n822885058140147\t新疆中泰化学阜康能源有限公司\t6751\t148\n870451058140222\t山东金德利集团历下快餐连锁有限责任公司\t5988\t5593\n870451058140220\t山东金德利集团市中快餐连锁有限责任公司\t5956\t5591\n898450258140588\t柳州方盛餐饮餐5-1\t5944\t5766\n870451058140221\t山东金德利集团槐荫快餐连锁有限责任公司\t5880\t5471\n898610158127663\t西安市高新区百之味餐厅\t5796\t632\n105001458129509\t中国铁路乌鲁木齐局乌鲁木齐车辆段\t5607\t475\n928227658140011\t古塔区公园华莱士炸鸡汉堡店\t5236\t23\n105001758120165\t中国铁路乌鲁木齐局哈密机务段\t5153\t485\n105001658121704\t中国铁路乌鲁木齐局工务机械段\t5008\t549\nQRA732558122SB9\t云南省电子信息学校食堂3号窗口\t5002\t5001\nQRA4636581442LX\t泰安科大西校特色包子铺\t4826\t4826\n898410158124327\t北京国基伟业物业管理有限公司郑州分公司\t4641\t1727\nQRA4636581442LW\t泰安科大西校陕西特色饼\t4382\t4382\n898991958120695\t泰隆银行（总行食堂）\t4321\t374\n928451958140036\t济南市天桥区军军西餐厅\t4292\t64\nQRA451758126FHG\t济南力明科技职业学院第二餐厅临沂特色小炒\t4207\t4203\n105001658128766\t中国铁路乌鲁木齐局库尔勒车辆段\t4198\t232\n105001458129433\t中国铁路乌鲁木齐局集团有限公司乌鲁木齐站\t4193\t221\n928588458120501\t佛山市重庆麻辣烫美食\t3918\t3918\n928112858110251\t梁灼赞\t3890\t3890\n928589158110008\t恩平市咕噜咕噜鱼\t3889\t3889\n850491058127401\t河南香春桥餐饮管理咨询有限公司\t3800\t1550\n105002058125991\t中铁乌局集团有限公司瑞豪酒店职工食堂\t3684\t333\n898440358113935\t深圳谷香园餐饮管理有限公司\t3616\t3230\nQRA19185814000A\t赛罕区滋百味炸鸡店\t3475\t3468\n862510158125362\t四川蓉味鲜餐饮管理有限公司\t3392\t1046\nQRA463758143N6G\t泰安护理学院蜜雪冰城\t3298\t3298\n105001658128312\t中国铁路乌鲁木齐局阿拉山口站职工食堂\t3188\t298\n898450258140606\t柳州方盛餐饮餐10\t3187\t3165\n105001658128765\t中国铁路乌鲁木齐局库尔勒房产公寓段\t3150\t208\n898319958126823\t85度C\t3099\t1234\n103790058120001\t中国农业银行陕西省分行食堂\t3061\t956\n898370758124513\t潍坊市誉安兴餐饮管理有限公司\t3038\t1395\nQRA451758126FHF\t济南力明科技职业学院第二餐厅沂蒙山快餐\t3033\t3032\n113310058110014\t上海才众餐饮投资管理有限公司\t3001\t772\n105001458129422\t中国铁路乌鲁木齐局乌鲁木齐西站\t2993\t279\n113340158120196\t安徽省农业银行机关食堂\t2909\t975\n827222058120479\t亚惠美食有限公司2\t2884\t2043\n898450258140584\t柳州方盛餐饮餐1\t2862\t2758\n898210158142077\t辽宁科技大学食堂（龙源）\t2857\t2724\nQRA191858120UV9\t赛罕区二大妈焖面馆内大店\t2833\t2833\nQRA1918581407Q7\t赛罕区铁锅居焖面\t2763\t2733\nQRA45175812601Y\t济南力明科技职业学院美味套餐\t2745\t2745\nQRA191658140FG8\t回民区福来财黄焖鸡米饭店\t2724\t2702\n309351758120002\t紫金矿业集团股份有限公司紫金大酒店\t2687\t686\n827222058120169\t亚惠美食有限公司\t2669\t849\nQRA191858120FFN\t赛罕区尝福饭馆\t2654\t2618\n898319958128152\t上海新石企业服务有限公司\t2645\t1219\n302313058120008\t广东三元麦当劳食品有限公司\t2607\t1679\n898440358112807\t深圳长城开发科技股份有限公司\t2597\t2109\n897370658123019\t烟台蓝白餐饮有限公司\t2564\t912\n105001458129489\t中国铁路乌鲁木齐局乌鲁木齐货运中心\t2539\t356\nQRA451258144I1P\t济南城建学院餐厅沂蒙山快餐\t2533\t2532\n105000058120036\t贵州大学学生食堂\t2526\t2242\n103440158122473\t广州市银农物业管理有限公司\t2509\t810\n103440158122475\t广州市银农物业管理有限公司\t2503\t904\nQRA191858120FFQ\t赛罕区袁记肉夹馍店\t2501\t2472\n105001758122417\t好味道\t2486\t2484\n850290058123453\t上海星阳餐饮有限公司\t2426\t161\n928584158121203\t深圳市光明区叶长源小吃店\t2400\t2400\n822169058120445\t山阴太行村镇银行北环路分行\t2380\t2354\nQRA45125814556P\t济南城建学院餐厅鸡蛋酥油饼\t2339\t2339\n105001458129461\t中国铁路乌鲁木齐局乌鲁木齐客运段\t2327\t294\nQRA463758141PQA\t泰安科大西校盖浇饭\t2317\t2316\nQRA451258144PR6\t济南英才学院餐厅美味早餐\t2275\t2275\n850310158128597\t上海市星阳农家小炒餐厅\t2270\t175\n302313058120012\t上海金拱门食品有限公司\t2267\t1499\n898450258140601\t柳州方盛餐饮餐9\t2259\t2211\nQRA451258144PR5\t济南英才学院餐厅鸡蛋灌饼\t2219\t2218\n822181058121827\t运城财经学院食堂\t2219\t2219\n822177058121242\t山西师范学生食堂\t2209\t2209\n870451058140219\t山东金德利集团天桥快餐连锁有限责任公司\t2163\t2018\n818611058120868\t广西锐信隆投资管理有限公司\t2149\t1925\n102337058120606\t浙江金昌物业服务有限公司（市分行食堂）\t2142\t681\n105001458129447\t中国铁路乌鲁木齐局乌鲁木齐电务段\t2129\t304\n105891158120600\t中国铁路乌鲁木齐局阿克苏工务段\t2128\t109\n105001458129443\t中铁乌鲁木齐局集团有限公司乌市工务段食堂\t2123\t322\n898370758124509\t深圳市东旭餐饮管理有限公司潍坊分公司\t2115\t886\n822162058121126\t大同大学学苑餐厅\t2098\t2098\n105001658128768\t中国铁路乌鲁木齐局库尔勒电务段\t2097\t114\n822175058121671\t食盒心(太原师范大学东区地下)\t2093\t2093\n105000658125180\t湖南德弘祥餐饮管理有限公司湘潭分公司\t2085\t125\n822175058121655\t运德大盘鸡(太原师范大学东区地下)\t2083\t2083\n105001658121695\t中国铁路乌鲁木齐局集团有限公司高铁维修段\t2066\t131\n822175058121674\t食三香(太原师范大学东区地下)\t2063\t2063\n898991958120653\t台州银行银座金融培训学校（食堂）\t2054\t189\n102306058140331\t崇川区七彩城停车场\t2041\t1675\n105001458129513\t中国铁路乌鲁木齐局乌鲁木齐房产公寓段\t2039\t269\n822173058121691\t吕梁大土河焦化厂餐厅\t2005\t2005\n822181058121826\t运城学院一食堂\t1964\t1964\n898352258142756\t厦门芸食栈商业管理有限公司\t1951\t1247\n105001658129559\t中国铁路乌鲁木齐局奎屯车务段\t1912\t88\n105001458129488\t中国铁路乌鲁木齐局乌鲁木齐供电段\t1896\t218\n85712015814L126\t长椿街社区快餐店\t1882\t496\n105000058125694\t星巴克\t1869\t754\n898370758124649\t潍坊昊一餐饮服务有限公司\t1867\t780\n822175058121647\t十个鲜混沌(太原师范大学东区地下)\t1851\t1851\n897440758120577\t开平市农村信用合作联社\t1846\t528\n827440358120408\t深圳美西西餐饮管理有限公司\t1832\t1737\n898460158125043\t海南海航物业管理股份有限公司\t1820\t184\nQRA521758142KLD\t武汉市洪山区民间高手鸡排饭店\t1817\t1817\n826191058128860\t盛乐经济园区吴记小吃店个体户吴玉龙\t1814\t1814\nQRA451758142CVV\t济南力明职业学院第三餐厅掉渣饼\t1803\t1803\n898513858140114\t中国邮政集团公司眉山市分公司\t1801\t478\n105001758121035\t中国铁路乌鲁木齐局喀什工务段\t1799\t134\nQRA451758142CVZ\t济南力明职业学院第三餐厅酥油饼\t1799\t1799\nQRA451758142CVU\t济南力明职业学院第三餐厅绝味砂锅\t1799\t1799\nQRA451758142CVY\t济南力明职业学院第三餐厅传统鲁菜\t1789\t1789\nQRA451758142CW0\t济南力明职业学院第三餐厅手工水饺\t1787\t1787\n898100058128513\t中融永信(北京)投资管理有限公司\t1785\t637\n105001658129560\t中国铁路乌鲁木齐局奎屯工务段\t1773\t142\nQRA451758142CW5\t济南力明职业学院第三餐厅精品小炒\t1773\t1773\n826207158120111\t内蒙古美术职业学院餐厅档\t1756\t1735\nQRA451758142CW4\t济南力明职业学院第三餐厅无名缘米粉\t1755\t1755\n822175058110028\t洛小微蛋包饭(太原师范大学东区地下)\t1754\t1754\n898450158140715\t广西绿色家园物业青秀区分公司\t1754\t1730\nQRA451758142CW2\t济南力明职业学院第三餐厅手擀面\t1748\t1748\n104350258119002\t中行厦门分行食堂\t1727\t363\n105001758120128\t中国铁路乌鲁木齐局哈密车务段\t1710\t99\n102303058140011\t中国工商银行股份有限公司徐州分行\t1676\t1346\n105000058139107\t鼓楼区啡之恋咖啡吧\t1665\t1665\n898319958125657\t民益路餐厅\t1664\t753\n105001658128772\t中国铁路乌鲁木齐局库尔勒货运中心\t1652\t114\n822336058110023\t安吉农商银行食堂\t1637\t572\n822169058120440\t山阴太行村镇银行餐厅1\t1610\t1601\nQRA463758141PQB\t泰安科大西校特色美食馅饼\t1597\t1597\n105001758120594\t中国铁路乌鲁木齐局霍尔果斯站\t1587\t74\n105001758120207\t中国铁路乌鲁木齐局哈密供电段\t1583\t116\n898440358113973\t荔园美食荟3F（深圳大学南校区三楼食堂）\t1581\t1481\n898120158125554\t天津市广明餐饮管理有限责任公司\t1571\t488\n822169058120444\t山阴太行村镇银行铁东分行\t1567\t1537\nQRA455358120003\t正和集团企业食堂一号窗口\t1550\t864\n826207158120106\t内蒙古美术职业学院餐厅档\t1546\t1533\n105001658128771\t中国铁路乌鲁木齐局库尔勒供电段\t1534\t157\nQRA191958123N75\t内蒙古经贸外语学院第一食堂吴向阳\t1513\t1503\n928000058110004\t大连新天地广场阿相熟食店\t1509\t1457\n402393458120009\t厦门新业园物业服务有限公司\t1506\t1067\n928000058146146\t贵阳云岩华莱士罗汉营餐厅\t1504\t392\nQRA4637581437QP\t泰安护理学院网红特色炒面\t1496\t1496\n103793058120001\t现代牧业（宝鸡）有限公司\t1487\t57\n898410558122421\t锦景苑餐饮服务(安阳市总工会职工食堂)\t1475\t756\nQRA463758143N6E\t泰安杂粮煎饼\t1450\t1450\n302313058120015\t深圳金拱门食品有限公司\t1447\t838\nQRA16415812556P\t山西毅成酒店管理有限公司\t1421\t1347\n826207158120113\t内蒙古美术职业学院餐厅档\t1413\t1405\n898440358142165\t东莞市南城丰汇农产品贸易部\t1403\t1206\n105001758121034\t中国铁路乌鲁木齐局喀什车务段\t1396\t77\n105001458129515\t中国铁路乌鲁木齐局职工教育培训基地\t1384\t113\n444791058116451\t西安交大康桥饮食有限公司\t1349\t250\n30258425812FJEX\t广东新又好企业管理服务有限公司中信银行大\t1343\t1327\n898991958140028\t浙江泰隆商业银行（台州总行营业部食堂）\t1334\t183\n402393458120008\t厦门新业园物业服务有限公司\t1333\t1023\n928192658140019\t青山区九星华莱士炸鸡汉堡店\t1331\t12\n822791158123930\t西安永兴坊文化发展有限公司\t1312\t1053\n898450258140596\t柳州方盛餐饮餐6\t1309\t1302\n898319958121634\t上海宝欣餐饮管理有限公司\t1307\t587\n402393458120003\t厦门新业园物业服务有限公司\t1300\t1076\n105001658128767\t中国铁路乌鲁木齐局库尔勒车务段\t1286\t133\n881584158122840\t红星湘菜馆\t1281\t77\n898210258140249\t大连高新园区百滋百味中式快餐店\t1279\t685\n822175058121624\t特色面食冒菜（晋中学院）\t1270\t1270\n831112958120782\t商户刘兰芳\t1261\t413\n881584158122877\t美心西餐厅\t1258\t72\n898513958120826\t天府绿洲物业管理有限责任公司资阳办事处\t1239\t111\n898460258125117\t海南自贸区德玖实业有限公司\t1239\t1050\n881584158122704\t洞庭湖土菜馆\t1238\t39\n881584158122882\t九香北方饺子王餐厅\t1235\t55\n881584158122789\t少宏乡下菜馆\t1230\t50\n881584158122860\t重庆餐厅\t1230\t54\n881584158122881\t陈记好运来餐厅\t1229\t54\n105001458129457\t中国铁路乌鲁木齐局乌鲁木齐通信段\t1228\t145\n402393458120006\t厦门新业园物业服务有限公司\t1225\t1007\n881584158122866\t溢香餐厅\t1216\t71\n929651058123C3E\t0967书亦烧仙草犀浦蓝\t1214\t1214\n881584158122788\t渔香川菜馆\t1210\t54\n881584158122857\t乐大嘉餐馆\t1209\t21\n898352258121733\t厦门芸食栈商业管理有限公司\t1207\t1020\n898319958128143\t上海新石企业服务有限公司\t1204\t534\n881584158122776\t区福城李均东江川湘人家菜馆\t1201\t51\n102659058110012\t佳虹高新区三餐饮食堂窗口7\t1200\t406\n105891158120599\t中国铁路乌鲁木齐局阿克苏车务段\t1197\t87\n881584158122845\t川园菜馆\t1196\t47\n822175058122083\t晋中学院餐厅\t1196\t1196\n827222058120500\t大连亿达科技城4#地餐厅\t1185\t722\n822175058122084\t山西中医药大学餐饮中心\t1173\t1173\n881584158122743\t徐记蒸好吃蒸菜馆\t1172\t52\n826207158120112\t内蒙古美术职业学院餐厅档\t1165\t1157\n881584158122702\t重庆鱼庄菜馆\t1161\t32\n881584158122838\t美龙土菜馆\t1160\t38\n881584158122727\t味湘红浏阳蒸菜馆\t1152\t59\n898991958120633\t泰隆商业银行股份有限公司（台州分行食堂）\t1147\t107\n881584158122794\t观澜红辣椒川菜馆\t1145\t44\n826393158120054\t喜来嘉\t1139\t909\n102397058120989\t石狮市妙香肉粽店\t1133\t1125\n898440358113187\t深圳市创维康饮食服务有限公司\t1130\t990\n310440358110004\t深圳市德保膳食管理有限公司\t1127\t965\n418410358144808\t中国人民银行洛阳中支餐厅\t1116\t876\nQRA1918581407Q2\t赛罕区振亮小吃店\t1112\t1112\nQRA191658140FG3\t回民区太有饭麻辣香锅店\t1109\t1109\n105000658121852\t潍坊隆泰绿丰早餐工程有限公司\t1108\t584\n929651058125A3B\t0120书亦烧仙草大邑安\t1106\t1105\n898410158124505\t中国人民银行郑州中心支行金融大酒店\t1103\t763\n826207158120108\t内蒙古美术职业学院餐厅档\t1095\t1082\n525330058110006\t浙江民泰商业银行股份有限公司台州管理部食\t1095\t268\n827222058120501\t大连腾飞AC餐厅\t1090\t733\nQRA191658140FFQ\t回民区酱肉粉快餐店\t1083\t1083\nQRA463758140FFM\t泰安科大西校杂粮煎饼\t1080\t1080\n105002158124450\tS海林雪乡赵艳玲\t1079\t1069\n105001758121036\t中国铁路乌鲁木齐局喀什货运中心\t1078\t50\nQRA191858140004\t赛罕区赵小越餐馆\t1077\t1077\n831456958120293\t莱州市文化东路唐纳德烤肉店\t1076\t1072\nQRA191958140FFO\t回民区兰州拉面快餐店\t1067\t1067\n929651058120MGB\t2455书亦烧仙草邛崃羊\t1064\t1064\n92979105812IHPA\t0597书亦烧仙草陕西西\t1062\t1062\n928586558140005\t汕头市金平区长平华莱士餐饮店\t1062\t15\n92942405812B37B\t1887书亦烧仙草书亦传\t1061\t1061\n92965105812MIBM\t0934书亦烧仙草成都温\t1058\t1058\n898511158120848\t中国人民银行乐山市中心支行\t1057\t76\n92916905812L6BC\t0646书亦烧仙草山西师\t1056\t1056\n92965105812IN6M\t0384书亦烧仙草蒲江鹤\t1056\t1056\n898411058122552\t许昌金勺子餐饮管理有限公司\t1056\t750\n92965105812CCRK\t0128书亦烧仙草新津成\t1053\t1053\n898411358123073\t中国人民银行南阳市中心支行食堂\t1052\t721\n92965105812LBS2\t0576书亦烧仙草四川成\t1052\t1052\nQRA191658140FG5\t回民区蜜雪冰城冷饮店\t1051\t1051\n92965105812HII8\t0444书亦烧仙草成都市\t1051\t1051\n92965105812NIC0\t0867书亦烧仙草成都金\t1050\t1050\n821168058120PGT\t晋城市誉兴团膳管理有限公司\t1048\t979\n929651058121SMQ\t0451书亦烧仙草崇州文\t1048\t1048\n92917705812PBGJ\t2441书亦烧仙草临汾鼓\t1048\t1048\n9291610581249OD\t2550书亦烧仙草山西大\t1047\t1047\n929651058122H7K\t0170书亦烧仙草成都中\t1042\t1042\n928393158110135\t厦门利生餐饮管理有限公司\t1042\t890\n826248158120048\t吉林省军宜物业服务有限公\t1042\t997\n92965105812EJ6P\t0123书亦烧仙草龙泉阳\t1040\t1040\n113522558120048\t农行安顺分行职工食堂\t1040\t160\n92965105812FHG6\t0135书亦烧仙草成都金\t1039\t1039\n92965105812SSLA\t0255书亦烧仙草都江堰\t1038\t1038\n929651058129225\t2033书亦烧仙草书亦成\t1038\t1038\nQRA463758120FFO\t山东一能重工企业食堂窗口二\t1037\t1037\n92965105812B6CR\t0837书亦烧仙草成都金\t1037\t1037\n92965105812RD74\t0690书亦烧仙草成都青\t1035\t1035\n929651058129FH8\t0669书亦烧仙草成都技\t1034\t1034\n92965105812E38J\t1948书亦烧仙草青白江\t1033\t1033\n92965105812CD9D\t0124书亦烧仙草龙泉阳\t1033\t1033\n92965105812K272\t2049书亦烧仙草书亦新\t1033\t1033\n92965105812HJKQ\t2026书亦烧仙草书亦都\t1030\t1030\n9296510581294FR\t0342书亦烧仙草成都龙\t1030\t1030\n92965105812RPSJ\t0234书亦烧仙草温江夜\t1029\t1029\n92965105812BOG4\t0113书亦烧仙草温江和\t1029\t1029\n92965105812A8DS\t3014书亦烧仙草青白江\t1029\t1029\n826207158120107\t内蒙古美术职业学院餐厅档\t1027\t1019\n302313058120011\t北京麦当劳食品有限公司\t1026\t762\n92965105812Q86Q\t0134书亦烧仙草金堂文\t1026\t1026\n105001758120169\t中国铁路乌鲁木齐局哈密工务段\t1024\t161\n898511558120544\t宜宾市尚膳餐饮管理有限公司\t1018\t72\n92965105812QE1P\t0558书亦烧仙草四川成\t1018\t1018\nQRA191858140007\t赛罕区忠英饭店\t1013\t1013\n822302058123935\t友谊南海渔村餐饮\t1012\t1012\n92965105812PIIH\t2619书亦烧仙草金堂万\t1005\t1005\n92965105812RD1G\t0582书亦烧仙草四川成\t1004\t1004\n822302058123521\t海昌盛百货超市\t1002\t1002\n102397058120987\t石狮市粽久小吃店\t1001\t996\n929651058125K2Q\t0790书亦烧仙草四川成\t998\t998\n105000058138689\t遇见半夏\t996\t996\n929651058128D80\t0550书亦烧仙草青白江\t994\t994\nQRA463758141PQD\t泰安科大西校手工水饺\t992\t991\n418411258149174\t人行三门峡中支职工餐厅\t983\t688\n898410458121272\t郏县回香阁饭店\t982\t730\n898210258140151\t大连市沙河口区乐易食餐厅\t981\t693\n105001358127631\t沈阳市辽中商业大厦魏全胜服装摊床\t980\t979\n940411058145717\t许昌农商行食堂\t968\t728\n826207158120105\t内蒙古美术职业学院餐厅档\t968\t959\n92965105812LM1D\t0437书亦烧仙草成都龙\t965\t965\nQRA1916581407PU\t回民区茂隆铁锅焖面馆\t965\t965\n113522358120101\t黔西南分行食堂专用pos\t958\t682\n898352258142761\t厦门芸食栈商业管理有限公司\t946\t835\n826207158120114\t内蒙古美术职业学院餐厅档\t945\t931\n102394058140001\t莆田市工行职工食堂\t941\t335\n92937505812GB39\t1793书亦烧仙草成都六\t930\t930\n928333658140011\t苍南县思君小吃店\t930\t15\n826207158120110\t内蒙古美术职业学院餐厅档\t927\t917\n826207158120109\t内蒙古美术职业学院餐厅档\t925\t915\n821168058120PGT\t誉兴团膳管理有限公司\t924\t875\n898520358121151\t绥阳县冉茂琴餐饮店\t911\t50\n105001658129561\t中国铁路乌鲁木齐局奎屯货运中心\t906\t39\n898319958128140\t上海新石企业服务有限公司\t901\t450\n898440358113190\t深圳市创维康饮食服务有限公司\t897\t842\n898130758122569\t张家口蓝鲸大厦泛海酒店有限公司\t896\t482\n302313058120004\t大连金拱门食品有限公司\t896\t527\n890611458126358\t鲜而美财院第三食堂\t895\t827\n898460158127525\t旭杨餐饮（海口市第一中学第三食堂）\t892\t191\n105002158123534\t海林市鸿宝来酒店\t886\t846\n928121558110475\t商户_田艮增\t883\t883\n821210658128003\t丹东大东线圈工程有限公司\t878\t871\n898522258120627\t中国农业银行股份有限公司铜仁分行\t874\t606\n92937505812LLG7\t1856书亦烧仙草川大望\t873\t872\n103797058120001\t中国农业银行股份有限公司渭南分行职工灶\t872\t130\n302313058120010\t浙江金拱门食品有限公司\t870\t565\n898319958127901\t上海甫垚物业管理有限公司(甫垚职工餐厅)\t868\t647\n898130658122181\t保定市公共交通总公司工会委员会\t865\t852\n822173058121696\t山西天盛峰源餐饮管理有限公司\t860\t455\n836451058121318\t1000056/银荷店\t857\t697\n929375058120S76\t0119书亦烧仙草青羊区\t851\t851\n928121558120194\t锅魁酸辣粉店\t849\t849\n92937505812JDFG\t0693书亦烧仙草成都温\t841\t841\n30258425812FJEW\t广东新又好企业管理服务有限公司中信荣超职\t839\t830\n92937505812PDND\t1866书亦烧仙草犀浦纺\t838\t838\n104440158140227\t佛山大家乐饮食有限公司\t835\t195\n302313058120020\t厦门金拱门食品有限公司\t833\t499\n822168058121246\t晋城富士康餐厅BR1兴润一楼\t832\t758\n929375058126DQ1\t2086书亦烧仙草书亦成\t823\t823\n898210258140693\t大连易多食餐饮管理有限公司\t822\t467\n928121558130491\t商户_王书霞\t821\t821\n822302058125776\t无锡锡伦蜂蜜店\t819\t819\n92937505812S1D6\t1790书亦烧仙草书亦成\t813\t812\n103440158122474\t广州市银农物业管理有限公司\t810\t109\n898610258140153\t陕西金满地物业管理服务有限责任公司\t809\t598\n928134158110123\t商户_王苏霞\t807\t807\n105001658129148\t中国铁路乌鲁木齐局乌鲁木齐车务段\t805\t117\n928121558140401\t商户_罗正芬\t801\t801\n113522758140003\t农行黔南分行食堂\t801\t588\n822290358120106\t红宝石食品有限公司\t800\t380\n103440858120283\t中国农业银行股份有限公司湛江分行\t799\t400\n104430358145000\t湖南迅达公司食堂\t798\t167\n898440358113196\t深圳市创维康饮食服务有限公司\t797\t715\n928102158131821\t商户_张权超\t795\t795\n92937505812DQBR\t0253书亦烧仙草滨江商\t795\t795\n898513458121251\t人行食堂\t795\t570\n104440158140221\t广州泛亚饮食有限公司\t794\t243\n83179305812W002\t长安银行宝鸡分行（餐饮）\t790\t117\n898610958120884\t中国邮政储蓄银行股份有限公司安康市分行\t789\t276\n822871058121512\t宁夏鼎盛嘉豪餐饮管理有限公司\t783\t153\n928121558130383\t东星驴肉火烧店铺\t783\t783\n105001158128971\t生活区食堂\t781\t778\n898352258142755\t厦门芸食栈商业管理有限公司\t780\t626\n103806058120001\t中国农业银行股份有限公司榆林分行机关食堂\t776\t186\n898210258149948\t大连市沙河口区乐易食餐厅\t773\t662\n928393158120324\t厦门市湖里区珍米香餐厅\t771\t758\n928134158120107\t煎饼屋店铺\t768\t768\n822161058127517\t太原绿食园餐饮管理有限公司\t767\t767\n928134158140107\t驴肉火烧小店\t763\t763\n302313058120003\t沈阳金拱门食品有限公司\t763\t471\n92937505812R0IG\t1881书亦烧仙草书亦郫\t760\t759\n105000058125707\t星巴克\t754\t353\n928134158110092\t沙县小吃铺\t751\t751\nQRA161658130N5F\t绯茶冷饮店\t751\t751\n898210158123194\t工商银行沈阳分行食堂\t750\t225\n872290858120060\t摩提工房\t747\t745\n881603058123382\t绿汇南饮食店\t747\t71\n822181058110083\t佳园超市（运城学院）\t744\t744\n831112758121426\t天津市滨海新区春炉佳小吃店\t743\t283\n928134158130111\t香怡鸡公煲店\t742\t742\n898420858122264\t荆门市个体户王小燕\t741\t739\n881134158120119\t保良餐饮服务\t739\t41\n898210258140262\t大连高新园区百滋百味中式快餐店\t738\t458\n898500058125212\t中国人民银行巴南中心支行\t733\t533\n929375058120FBR\t0492书亦烧仙草乐山张\t730\t729\n822395058121302\t三明市华荣西饼屋\t729\t277\n822261058121609\t哈尔滨千宇餐饮管理有限公司\t727\t721\n881241058122749\t红源农家菜馆\t726\t30\n831112958120461\t天津市河东区田道任豆制品经营店\t721\t693\n100350458140001\t邮储三明市分行员工食堂\t721\t397\n881241058122599\t船头海鲜烧烤店\t720\t37\n102659058110009\t佳虹高新区C生活食堂窗口10\t719\t163\n104440158140225\t江门大家乐饮食有限公司\t719\t149\n881241058122609\t老山羊海鲜烧烤店\t717\t27\n898319958124122\t上海宝欣餐饮管理有限公司\t716\t276\nQRA393358124PR8\t厦门宵遇津餐饮有限公司\t716\t693\n105001158125716\t清江浦区老闸口牛羊肉汤馆\t711\t711\n777244058130106\t工商银行\t710\t214\n881241058121728\t齐家铺子大尾羊铜火锅店\t709\t46\n826221058124068\t沈阳药科大学沈阳校区食堂\t709\t605\n102244058130106\t工商银行\t708\t456\n881584058132635\t星煌酒吧\t707\t26\n104211258120038\t铁法煤业有限责任公司小康煤矿职工食堂\t707\t650\n928121558130468\t商户_杜俊玲\t706\t706\n881241058121721\t小川府火锅店\t706\t28\n928393158140244\t厦门市康来得餐饮管理有限公司\t702\t682\n928134158120113\t恩顺饭庄店铺\t701\t701\n881241058122750\t鼎新特色菜馆\t699\t23\n104359758120168\t中国银行股份有限公司莆田分行\t696\t349\n881241058121861\t惠德烤肉店\t695\t27\n881588058123044\t鱼皮祥餐饮服务\t694\t33\n881241058122546\t鑫桶天下铁桶烤肉店\t692\t33\n881241058122843\t上河湾镇刘志伟酒家\t690\t29\n881241058121784\t京来涮木炭火锅店\t686\t31\n898610158128072\t陕西万方汽车零部件有限公司\t686\t68\n898352258144844\t厦门福七餐饮管理有限公司\t685\t587\nQRA162158140002\t学院灌饼\t685\t685\n928134158120108\t伽一倍水果捞\t684\t684\n898410558122448\t安阳梓轩餐饮管理服务有限公司\t682\t394\n928134158120112\t华莱士炸鸡汉堡店\t681\t681\n928134158130100\t牛杂面牛肉面\t679\t679\n898450358140582\t广西全州农村合作银行\t678\t675\n881241058121782\t双赫筋头巴脑火锅店\t677\t30\n928121558110464\t商户_吴冬娥\t674\t674\n898319958121463\t上海宝欣餐饮管理有限公司\t673\t334\n822165058120262\t学致苑1号窗口（山西工程技术学院）\t673\t673\n898222458140285\t延吉市福多多炸串坊(延吉市福多多炸串坊*\t672\t652\n928134158130109\t转角麻辣烫店\t672\t672\n881584058132655\t乐天地酒吧\t670\t38\n881241058121794\t名一炉火锅店\t669\t29\n102658058120345\t旌阳区本松中餐馆\t669\t379\n898440358114175\t东莞市欧珀精密电子有限公司\t668\t40\n881241058121793\t味道江湖新派火锅店\t667\t21\n303551058120CCD\t深圳市德保膳食管理有限公司\t666\t401\n822871058121514\t宁夏鼎盛嘉豪餐饮管理有限公司\t665\t139\n898659058140300\t中国人民银行石河子市中心支行（食堂）\t665\t103\n952510958140006\t蓬溪农商行伙食团\t663\t462\n957231158120047\t黑河公交总站\t662\t209\n302313058120017\t天津金拱门食品有限公司\t661\t487\n928134158130110\t德福源酱香烤鸭店\t661\t661\n928134158110077\tINCHA印茶\t661\t661\n881603058123383\t六千涮饮食店\t659\t54\n102301058122212\t南京丰业工贸实业有限公司408号职工餐1\t657\t206\n881584158122764\t付记湘岳蒸菜馆\t657\t39\n898420858122211\t荆门市个体户高齐龙\t656\t651\n898420858122195\t荆门市个体户董燕华\t654\t653\n302313058120007\t武汉金拱门食品有限公司\t653\t420\n812355058140283\t厦门纪里捞面餐饮管理有限公司第一分店\t652\t648\n898522258120797\t贵州银行股份有限公司铜仁分行\t651\t34\n898210358140127\t辽宁科技大学学校食堂（龙源）\t651\t630\n822161058129812\t太原市龙凤楼酒店管理有限公司三十七号窗口\t651\t651\n928121558130194\t正宗老味黄汤拉面\t650\t650\n822161058129817\t山西警察学院食堂川味小吃\t648\t648\n822161058129807\t太原市龙凤楼酒店管理有限公司三十四号窗口\t648\t648\n822161058129818\t山西警察学院食堂大锅菜\t647\t647\n898410258121084\t中国人民银行开封市中心支行食堂\t646\t465\n881241158120582\t韩尚小木屋餐厅\t646\t30\n105002158124479\tS海林雪乡李云强\t642\t636\n822161058129810\t太原市龙凤楼酒店管理有限公司三十六号窗口\t642\t642\n928161658110195\t商户_赵鑫东\t641\t641\n928134158130099\t蘭飞酱猪蹄店\t638\t638\n881241058122827\t吉丰园酒店\t638\t20\n881584158122837\t建飞土菜馆\t637\t45\n898420858122218\t荆门市个体户陈飞\t637\t637\n822161058129808\t太原市龙凤楼酒店管理有限公司三十五号窗口\t637\t637\n881601058131002\t石角镇新起点歌厅\t636\t22\n881584158122928\t陕川餐厅\t636\t28\n881241158120422\t李占成米夫罗卤肉饭店\t635\t19\n928376158140043\t商户_张权灰\t635\t635\n881584158122798\t鑫久久香川菜馆\t634\t31\n881584158122885\t美华海鲜餐厅\t634\t35\n881241158120589\t希望酒家\t634\t31\n881241058122795\t原始风味烤肉店\t633\t23\n881241158120430\t张记卤肉饭店\t633\t23\n881241158120419\t聚财农家小院饭店\t632\t18\n898420858122261\t荆门市个体户彭开清\t632\t632\n928000058120031\t巅峰米线店\t632\t632\n881584158122694\t粤色蒸菜馆\t631\t27\n898420858122295\t荆门市个体户何兵\t631\t631\n822161058129814\t山西警察学院食堂山西面馆\t631\t631\n113120058110004\t北京健力源餐饮管理有限公司\t630\t67\n898420858122220\t荆门市个体户张丽琼\t630\t630\n928000058130052\t非茶不可饮品\t629\t629\n881241158120448\t海虹朝鲜族饭店\t629\t13\n881241158120435\t食其家牛肉饭店\t627\t19\n105001758120241\t中国铁路乌鲁木齐局哈密货运中心\t627\t85\n881241058123248\t八号镇大岗街道玉新饭店\t626\t34\n822222058128273\t广东肠粉大连山东路店\t626\t626\n102659058110009\t佳虹高新区C生活食堂窗口2\t625\t106\n881241058122644\t77号龙虾小吃店\t624\t27\n881584158122756\t一锅香驴庄湘菜馆\t623\t30\n928121558120294\t秘制烤羊腿肉\t622\t622\n881241158120434\t先鲜皮皮虾饭店\t622\t17\n881241158120570\t铁锅往事餐厅\t621\t39\n881241058121781\t蒙记羊蝎子自助火锅店\t621\t25\n898420858122225\t荆门市个体户李兵清\t620\t620\n827222058120477\t亚惠美食有限公司3\t620\t292\n898222458121353\t龙井市老街面馆\t620\t603\n898420858122339\t荆门市个体户蒋云秋\t619\t619\n898222458140286\t龙井市金舟包子店\t618\t597\n898222458140287\t龙井市鲜盛牛汤馆\t618\t596\n898420858122359\t荆门市个体户罗方丽\t617\t617\n822161058129819\t山西警察学院食堂2号水吧\t616\t616\n102659058110009\t佳虹高新区C生活食堂窗口4\t616\t104\n881241158120420\t高村大叔饭店\t616\t18\n881241158120600\t正品松记卖饭食堂饭店\t615\t31\n898420858122514\t荆门市个体户陈恋\t615\t615\n928121558130476\t商户_陶和顺\t615\t615\n928121558130467\t商户_李域通\t615\t615\n928161658120214\t商户_刘彦磊\t614\t614\n881584158122839\t湘乡菜馆\t614\t24\n881584158122930\t东方餐厅\t614\t19\n898222458121348\t龙井市净慧素食店\t613\t596\n881584158122846\t湘缘菜馆\t613\t30\n872345458120028\t快了汉堡\t612\t590\n881241158120432\t呷霸鲁肉饭店\t611\t18\n881242158120092\t刘永贵龙门花甲\t611\t29\n898513758120571\t中国人民银行巴中市中心支行\t611\t81\n881249158120151\t四季石锅饭店\t611\t35\n822222058129172\t大连市甘井子区山东路旋转小火锅\t610\t610\n898420858122369\t荆门市个体户唐宗淑\t610\t610\n928121558110473\t商户_李域通\t610\t610\n836451058121307\t1000007/软件园店\t609\t489\n898210258140264\t大连高新园区百滋百味中式快餐店\t609\t355\n881241158122087\t百年老菜谱店\t607\t32\n881241158120575\t水晶餐厅\t607\t44\n928161658110204\t商户_郝书哲\t606\t606\n102659058110013\t佳虹经开区二食堂窗口2\t606\t98\n881584158122823\t宾喜来菜馆\t606\t24\n881584158122844\t东北菜馆\t606\t21\n881241158120429\t四方顺饭店\t605\t17\n822222058126971\t嗨吃无骨凤爪大连山东路歹街店\t604\t601\n928393158140081\t厦门食运餐饮有限公司\t604\t587\nQRA162158140006\t阿西面馆\t603\t603\n881242158120193\t永发烧烤店\t603\t29\n881584158122812\t新记客湘农家菜馆\t602\t24\n104440158140222\t大家乐(广州)食品有限公司\t602\t191\n928121558120462\t商户_任佳轩\t601\t601\n822222058127188\t牛叉大串大连山东路歹街店\t601\t601\nQRA4512581212L5\t济南产业园餐厅阿七生煎\t600\t600\n881247158120073\t品味园小厨饭店\t599\t25\n104441158120111\t佛山市顺客隆商业有限公司乐从生鲜分公司\t599\t215\n898222458121347\t龙井市邓家全羊馆\t599\t585\n822222058127936\t蛋堡皇后大连东山路店\t598\t598\n881241158120573\t星驰便民餐厅\t596\t44\n113120058110002\t北京健力源餐饮管理有限公司\t596\t74\n928121558110181\t大锅菜店铺\t596\t596\n822222058127878\t吉吉喆酸奶卷大连山东路店\t595\t595\n881241158122086\t朝会甜品卓展店\t595\t39\n881584158122790\t开心湘菜馆\t595\t36\n881241158120445\t深夜食堂饭店\t593\t15\n822161058127820\t太原市龙凤楼酒店管理有限公司\t593\t593\n928121558110468\t商户_吴明辰\t592\t592\n898410658120812\t鹤壁市淇滨区鑫隆美食广场(裕隆美食广场)\t590\t455\n898991958140055\t台州银行股份有限公司温岭支行（食堂）\t590\t217\n928121558130475\t商户_李秀珍\t590\t590\n822222058126939\t壹串儿大连山东路店\t589\t589\n103520258149764\t六盘水分行市农行食堂专用POS\t589\t439\n822222058126934\t阿会虾扯淡大连山东路店\t588\t588\n881584158122736\t志祥川菜馆\t588\t20\n898500058125012\t中国人民银行黔江中心支行\t587\t507\n881581158121059\t王桃进食\t587\t35\n881242158120106\t艳红风味砂锅居\t586\t31\n928121558120463\t商户_齐志波\t586\t586\n881241158120566\t新城吾悦广场新城水手铁板烧餐厅\t585\t41\n822222058126784\t捞姐炸货铺大连山东路店\t585\t585\n881241158120443\t兴达小炒王饭店\t585\t14\n881241158122100\t强记昼夜自助快餐店\t584\t25\n822222058127093\t老六铁板鸭肠大连山东路店\t584\t581\n881249158120117\t吧哩麻辣香锅店\t583\t42\n881242158120113\t扒上瘾麻辣小龙虾\t582\t22\n881241158120408\t嘉一状元卤肉饭店\t582\t18\n104440158140223\t珠海大家乐饮食有限公司\t581\t192\n822222058127932\t吊炸天大连山东路店\t581\t581\n822222058128331\t王牌水果班戟大连山东路店\t580\t580\n898520158121342\t贵阳沁园餐饮管理有限公司\t580\t578\n881242158120156\t卤嘻嘻餐饮\t579\t30\n928337258110074\t商户_张全伟\t579\t579\n928791158140611\t西安创业物业发展有限公司\t578\t493\n881241158122085\t意江南娱乐中心\t577\t37\nQRA191858120FFL\t赛罕区雅新餐厅\t576\t576\n881242158120099\t富硒源餐饮服务店\t576\t40\n881581158121067\t峡山郑少君餐饮\t575\t37\n881249158120130\t牛村烧烤串城\t575\t24\n41739175812DAF8\t福清市沙埔镇陈瑞珠食堂\t575\t142\n881249158120144\t百年雪啤酒屋\t575\t44\n881242158120112\t金泉快捷宾馆\t575\t37\n822222058123754\t大连荣膳餐饮有限公司\t573\t504\n881584158122725\t李记湘岳自选蒸菜馆\t573\t18\n881581158121073\t华城冯居锋餐饮\t572\t28\n928376158110030\t商户_张有兵\t572\t572\n881581158121058\t呢家便利\t572\t37\nQRA1619581407PV\t东哥烤肉拌饭\t572\t572\n881249158120141\t啊啦哇啦快餐店\t572\t36\n881584158122855\t春妹子餐馆\t572\t27\n881581158121091\t贝鲁客餐饮\t569\t29\n881247158120072\t小两口锅烙馆\t569\t57\n928138358140009\t桥西华莱士汉堡店\t568\t3\n881242158120177\t孙麻婆麒麟大虾餐饮服务店\t568\t24\n822161058127813\t太原市龙凤楼酒店管理有限公司\t568\t568\n822584358127299\t深圳市东旭餐饮管理有限公司\t567\t64\n881242158120180\t文国牛肉面快餐店\t566\t29\n822222058127128\t本溪豆腐皮大连山东路歹街店\t566\t566\n836451658121463\t济南市1000062/开拓路店\t566\t408\n881249158120162\t刘一锅火锅店\t566\t28\n928121558120458\t商户_李德涵\t566\t566\n881241158120416\t三胖子龙虾盖浇饭店\t565\t19\n881242158120139\t洁美干洗店\t565\t20\n897586858140167\t许先铭\t565\t33\n881242158120147\t老陈头凉皮烤吧店\t565\t28\n881584158122889\t大东餐厅\t564\t30\n881584158122906\t爱爱餐厅\t564\t15\n928121558140471\t商户_齐志波\t564\t564\n92958405812KEAS\t鱼你在一起广东深圳罗湖区\t564\t564\n881581158121092\t湘万武木桶饭\t563\t27\n881584158122933\t豆丁餐厅\t563\t27\n831113158120510\t天津市河西区倍儿美餐饮店\t562\t88\n881581158121093\t曦湘汤粉\t561\t29\n898513958120892\t中国人民银行资阳市中心支行\t560\t436\n812350158120603\t晋安区周麻婆餐饮店\t560\t557\n881249158120134\t友和餐馆\t559\t41\n301510158121178\t春串串与火锅\t558\t556\n928121558130466\t商户_刘长柱\t558\t558\n928121558120467\t商户_马涛\t558\t558\n928121558110470\t商户_李德涵\t558\t558\n881581158121087\t佬湘好食\t557\t30\nQRA222758140UV5\t亚惠美食有限公司\t557\t123\n881581158121081\t莫纪明桂林米粉\t556\t25\n881241158122092\t外婆居百姓生活菜馆\t555\t35\n881242158120146\t凯哥重庆小面店\t555\t44\n822222058127906\t八爪鲜生大连山东路店\t554\t554\n881242158120176\t四川老字号麻辣烫\t553\t34\n812350158120604\t晋安区周麻婆餐饮店\t553\t547\n302313058120021\t福州金拱门食品有限公司\t552\t495\n896290058121051\t龙堌老槐树饭店\t552\t2\n881584158122917\t徐超之餐厅\t552\t25\n822651258122736\t成都迈志豪餐饮管理有限公司\t550\t37\n104110058143018\t首都机场餐饮\t549\t436\n881242158120094\t蒙旗烤羊腿烧烤店\t548\t42\n881249158120115\t浪漫满屋休闲吧\t548\t41\n822222058128325\tLISTEN时尚茶饮噜噜大连山东路店\t547\t547\n909751558120044\t弥渡县农村信用合作联社（联社食堂）\t546\t289\n881242158120135\t慧慧风味牛排饭店\t546\t34\n881242158120098\t喆沈老头包子馄饨铺\t546\t34\n822871058121516\t宁夏鼎盛嘉豪餐饮管理有限公司\t545\t146\n301510158121215\t家福乐超市\t545\t545\n831113258120842\t天津市南开区金果香水果店\t544\t279\n881249158120180\t富成炭火烧烤城\t544\t31\n881242158120136\t吉妈妈手擀面\t544\t46\n881581158121068\t清奈奶茶\t543\t27\n822222058129171\t大连市甘井子区山东路里食真馄钝\t542\t542\n881252158120020\t原特色烤羊腿手扒肉\t542\t31\n881584158122786\t文武客家土菜馆\t541\t19\n928161658140225\t商户_杨冬珍\t541\t541\n822169058120437\t山阴太行村镇银行南环分行\t541\t536\n898350758123040\t中国邮政集团公司南平市分公司\t541\t181\n9292900581254BL\t鱼你在一起上海普陀中区中\t540\t540\n881581158121088\t喜天时餐饮服务\t540\t14\n928102158111912\t商户_张权超\t540\t540\n881242158120200\t咱家兴隆菜馆\t539\t40\n928796258140003\t武功县强哥炸鸡汉堡店\t538\t2\n881242158120199\t月满楼食府\t538\t31\n898410758121787\t高新区宏伟酒店管理服务部（中国人民银行）\t537\t467\n881241158120440\t乡村源小厨饭店\t537\t14\n881249158120105\t花路布车啤酒屋\t537\t30\n866595058120225\t炭香餐饮店\t536\t13\n881242158120185\t小小东来顺火锅\t536\t23\n940411758148631\t正阳农村商业银行职工食堂\t535\t258\n827222058120476\t亚惠美食有限公司1\t535\t277\n822584358127334\t深圳市东旭餐饮管理有限公司\t535\t35\n881581158121060\t李频餐饮\t534\t34\n881581158121083\t五桂山螺鲜生饮食\t533\t21\n822161058127797\t太原市龙凤楼酒店管理有限公司\t532\t532\n881249158120116\t老韩铁板鱿鱼店\t531\t37\n898450258140592\t柳州方盛餐饮投资管理有限公司\t531\t521\n881241158120407\t大城小厨煎肉饭店\t531\t12\n928121558120464\t商户_刘亚伦\t530\t530\n881249158120167\t雅霖串城\t530\t20\n928393158110067\t厦门市思明区方圆福小吃店\t529\t521\n866603058130016\t美娇美容店\t529\t17\n881249158120175\t吧哩麻辣香锅店\t528\t21\n881246158120014\t峻豪十八元石板菜馆\t528\t39\n881241158120436\t金文溪饭店\t527\t13\n881241158120426\t福原百姓饭店\t527\t25\n881581158122004\t章洋包子店\t527\t23\n102533358120001\t泸水金桥园饭店（怒江州政府食堂）\t527\t12\nQRA175158123FH0\t中国邮政储蓄银行股份有限公司山西省晋中市\t527\t449\n881581158121061\t两杯酒咖餐饮\t526\t30\n102659058110013\t佳虹经开区二食堂窗口8\t525\t97\n881241158122108\t三点半餐饮店\t523\t30\n310140158120036\t太原分行食堂POS\t521\t464\n92926605812FC80\t鱼你在一起黑龙江密山市裕\t520\t520\n866595258120005\t宜汇便利店\t520\t11\n822161058128066\t太原市龙凤楼酒店管理有限公司\t520\t520\nQRA3934581242LT\t福鸿土菜馆天马店\t518\t516\n898210258140266\t大连高新园区百滋百味中式快餐店\t518\t301\n928161658110197\t商户_刘彦磊\t518\t518\n866595058120326\t宜汇便利店\t518\t12\n104440358123197\t深圳市大家乐连城店\t517\t488\n881249158120132\t鼎食尚饺子城\t517\t37\n898450258140570\t柳州五菱三基地食堂\t515\t485\n104310058128957\t白领餐厅\t515\t228\n896290058127991\t一味烧烤特色饭店\t515\t1\n896290058127999\t西西汉堡店\t514\t0\n928121558120459\t商户_李改分\t514\t514\n881581158121094\t峡山卓圣涛餐饮\t513\t27\nQRA652858140FFM\t成都亚惠餐饮有限公司\t513\t136\n881252158120018\t真味香烤肉拌饭\t513\t35\n866602058120014\t食在川餐饮店\t512\t12\n105001758120195\t中国铁路乌鲁木齐局哈密电务段\t512\t90\n898210458140153\t抚顺市韩帝园食品专营店\t512\t510\n827000958126024\t上海通银数字技术有限公司\t512\t228\n881242158120095\t牛人牛味牛杂餐饮服务店\t512\t39\n881241158120439\t多福小厨饭店\t511\t11\n881581158121082\t锦豪美食\t511\t23\n881241158122102\t旺记灶台鱼馆\t510\t29\n831113158120513\t天津隆顺成餐饮管理有限公司\t509\t83\n896290058121007\t太佳魅力茶店\t509\t0\n881581158121055\t麦甜面包\t508\t19\n866602058140034\t晶盈服装店\t508\t11\n896290058121044\t乐萱快餐\t507\t1\n866595058120250\t宏远电器经营部\t507\t14\n896290058127996\t高新长沙味道饭店\t507\t1\n881242158120165\t普罗旺斯烘焙坊\t507\t33\nQRA222758140FFM\t大连高新园区隆时华餐厅\t507\t343\n881581158121065\t晓莲日用品服务部\t506\t31\n898460158128016\t鸿骏膳食（海南工商职业学院第一食堂）\t505\t487\n866595058120237\t炭香餐饮店\t505\t16\n881241158120428\t犟厨遇见你饭店\t505\t17\n881242158120115\t超盛餐饮\t504\t19\n113120058120746\t北京健力源餐饮管理有限公司\t504\t55\n898440358114383\t深圳市食面八方餐饮管理有限公司\t503\t471\n928121558110460\t商户_李盼盼\t503\t503\n866595258120010\t金沙够土餐饮店\t503\t15\n866595058120311\t美娇美容店\t503\t20\n84944035812K0EZ\t深圳市美味源餐饮管理有限公司\t502\t470\n881241158120446\t超有饭美食私厨饭店\t501\t15\n866595058120164\t食在川餐饮店\t500\t16\n866602058120002\t黄牛仔酒楼\t500\t15\n866595058120102\t食在川餐饮店\t499\t17\n909530258120001\t禄劝县农村信用合作联社-职工食堂\t499\t47\n866595058120279\t炭香餐饮店\t498\t13\n866603058120100\t黄牛仔酒楼\t497\t13\n896290058121002\t回味披萨\t497\t1\n836451058121321\t济南市1000064/丁豪广场店\t496\t371\n898411558122728\t信阳新荣餐饮管理有限公司(顺鑫餐馆)\t496\t225\n866602058120140\t宏远电器经营部\t496\t17\n105000058125706\t星巴克\t496\t308\n105002158122584\t张丽军\t496\t488\n866602058120052\t炭香餐饮店\t496\t12\n881241158120414\t玉春食神小厨饭店\t495\t16\n866602058140033\t金沙够土餐饮店\t495\t26\n866595058120223\t宗氏水晶店\t495\t16\n866603058140071\t美娇美容店\t495\t18\n866602058120170\t炭香餐饮店\t493\t11\n831112858120571\t天津市和平区于涛快餐店\t493\t62\n990191058146004\t呼和浩特赛罕区呼伦南路华香面粥店\t493\t112\n881242158120090\t非茶不可餐饮服务店\t493\t35\n8283101581204HF\t深圳德诚物业服务有限公司上海分公司\t493\t83\n866603058120088\t炭香餐饮店\t493\t12\n866603058130031\t食在川餐饮店\t492\t18\n822161058127821\t太原市龙凤楼酒店管理有限公司\t492\t492\n881249158120182\t润祥珲春牛肠店\t491\t30\n866595058120236\t宜汇便利店\t490\t23\n881581158121089\t陈三思餐饮\t490\t28\n928121558120453\t商户_杨云凤\t490\t490\n928393158130220\t厦门市湖里区付威小吃店\t489\t470\n896290058121049\t南关岭佳家菜馆\t488\t2\n898640158125479\t宁夏裕丰合餐饮管理有限公司\t488\t442\n102341058120333\t龙游食堂专用POS\t487\t37\n301331058130020\t台州经济开发区玛莉女王饮品店\t487\t487\n866595058120009\t宗氏水晶店\t487\t27\n866602058130014\t黄牛仔酒楼\t486\t21\n866595058120187\t黄牛仔酒楼\t486\t17\n866595058120229\t食在川餐饮店\t486\t11\n866603058140066\t宏远电器经营部\t485\t20\n826241958120006\t新方圆牧业（食堂）\t484\t158\n866595058120205\t美娇美容店\t484\t15\n866595058120294\t美娇美容店\t484\t11\n896290058127971\t海波寿司店\t484\t0\n827440358120405\t上海喜创于茶餐饮管理有限公司\t484\t426\n928121558110283\t东北菜馆店铺\t484\t484\n881249158120191\t北大香子串店\t483\t25\n866595058120083\t宗氏水晶店\t483\t9\n866595058120172\t晶盈服装店\t482\t14\n302313058120039\t麦当劳\t480\t354\n8283504581200OT\t三明市梅列区姐妹鸭汤粉店\t480\t471\n85735085812L215\t福建龙岩市新罗区邮政食堂\t478\t416\n866588058120292\t晶盈服装店\t478\t20\n866595058120219\t炭香餐饮店\t477\t18\n812355058140279\t厦门纪里捞面餐饮管理有限公司第一分店\t477\t474\n898210258140843\t庄河市新天地商业城有限公司\t477\t432\n812355058140239\t厦门纪里捞面餐饮管理有限公司第一分店\t477\t451\n866595058120209\t宗氏水晶店\t476\t19\n929341258110003\t浙江江山农村商业银行股份有限公司食堂\t476\t56\n898210158142078\t辽宁科技大学学校食堂（龙源）\t476\t409\n928332758140144\t宁波海曙鼓楼蚝粥道休闲茶吧\t475\t475\n909530258124976\t石林彝族自治县农村信用合作联社-机关食堂\t474\t7\n866602058120152\t金沙够土餐饮店\t474\t10\n822584358128400\t深圳市都乐门餐饮实业有限公司\t474\t32\n812355058140278\t厦门纪里捞面餐饮管理有限公司第一分店\t474\t473\n881249158120163\t花路布车啤酒屋\t474\t30\n866595058120015\t食在川餐饮店\t474\t11\n104433258140012\t中国银行浏阳支行食堂\t473\t307\n822161058127994\t太原市龙凤楼酒店管理有限公司\t473\t473\n822161058127774\t太原市龙凤楼酒店管理有限公司\t473\t473\n866595058120208\t宏远电器经营部\t470\t15\n836451058121326\t济南市1000106/舜泰广场店\t470\t369\nQRA451658120001\t金雅莱餐厅自助餐\t469\t469\nQRA4512581212LA\t济南产业园餐厅家常快餐\t468\t468\n928332758140126\t宁波市江北谈家怡宁牛肉面馆\t467\t467\n812350158120602\t晋安区周麻婆餐饮店\t467\t463\n881581158121056\t鸿艳饺子馆\t466\t26\n822584158129320\t深圳市中快餐饮\t465\t396\n417350358110002\t仙游县鲤南镇人民政府食堂\t464\t333\n881252158120012\t真味香烤肉拌饭\t462\t25\n881581158121096\t胪岗宝华小吃\t462\t31\n898210258140252\t大连高新园区百滋百味中式快餐店\t462\t239\n822331158120865\t晨苑餐厅巴比馒头杭州城院店\t461\t451\n898440358112424\t深圳市美味通餐饮管理有限公司\t459\t442\n41739175812E5AT\t福清市宏路黄珊食堂\t458\t0\n822161058128065\t太原市龙凤楼酒店管理有限公司\t458\t458\n928121558120461\t商户_田艮增\t458\t458\n113341158120066\t滁州市南谯华荣餐厅\t457\t53\nQRA162158132567\t特色炒菜盖饭1-2\t456\t354\n881249158120181\t万山酱大骨店\t456\t21\n898140858120967\t中国邮政储蓄银行股份有限公司运城市分行\t456\t290\n102399058120177\t漳州鼎新餐饮管理有限责任公司\t453\t403\n898460158126622\t海南海航物业管理股份有限公司\t452\t57\n812355058140282\t厦门纪里捞面餐饮管理有限公司第一分店\t451\t441\n822584358129576\t广州中味餐饮管理服务有限公司\t451\t32\nQRA4512581212L8\t济南产业园餐厅鸡米饭\t451\t451\n898210258140253\t大连高新园区百滋百味中式快餐店\t448\t252\n898330858149721\t台州银行股份有限公司衢州分行\t448\t207\n898500058125453\t秀山县月月红餐饮文化有限公司\t446\t6\n105000758122901\t湘潭县易俗河镇清哥食堂\t446\t231\n812355058140281\t厦门纪里捞面餐饮管理有限公司第一分店\t445\t444\n898511158120923\t夹江天福观光茶园有限公司\t444\t233\n92965105812185D\t蓉李记广州奥园广场店\t444\t444\n822161058129601\t太原科技大学北校区西餐厅21号\t443\t443\n812355058140268\t厦门纪里捞面餐饮管理有限公司第一分店\t442\t427\n836451658121461\t济南市1000052/天街店\t441\t367\n896290058121148\t缘尊大酒楼\t441\t2\n92965105812C7EJ\t蓉李记马鞍山万达店\t441\t441\n896290058121121\t膳食酒家店\t438\t0\nQRA4636581407Q0\t泰安西科大炸酱面\t437\t437\n928228358110004\t东升熏肉大饼\t436\t435\n103797058120002\t渭南石羊长安花粮油有限公司（食堂）\t435\t2\n898440358114143\t富金国际企业管理（深圳）有限公司\t434\t419\n898319958128146\t上海新石企业服务有限公司\t434\t225\n897586858140166\t刘德林\t434\t30\n812355058140262\t厦门纪里捞面餐饮管理有限公司第一分店\t433\t410\n896290058121169\t开发区金东店\t433\t1\n812355058140280\t厦门纪里捞面餐饮管理有限公司第一分店\t432\t429\n928332058110206\t宁波市鄞州区中河青球小吃店\t432\t432\n812350158120606\t晋安区周麻婆餐饮店\t431\t427\n928134158140108\t一芳台湾水果茶店铺\t430\t430\n102301058143551\t南京一再升餐饮管理有限公司回味中央门\t430\t426\n822161058129604\t太原科技大学北校区西餐厅24号\t430\t430\n92956305812SSSA\t鲜芋仙\t430\t430\n822161058129603\t太原科技大学北校区西餐厅23号\t429\t429\n822161058129602\t太原科技大学北校区西餐厅22号\t428\t428\nQRA451258126N79\t济南产业园餐厅少帅麻辣烫\t428\t428\n102669058110002\t四川金和瑞祥物业服务有限公司广安分公司\t427\t77\nQRA4512581407PZ\t鑫苑餐厅米线\t427\t427\n113340158120243\t安徽省农行信息技术管理部职工食堂\t426\t83\n301350958120010\t宁德市东侨经济技术开发区豫香面馆\t423\t423\n822161058127819\t太原市龙凤楼酒店管理有限公司\t422\t422\n898610858125259\t中国人民银行榆林市中心支行\t422\t72\n898991958140064\t台州银行股份有限公司临海支行（食堂）\t421\t224\n928000058124731\t商户_何敏旻\t421\t413\n102659058110013\t佳虹经开区二食堂窗口5\t420\t86\n402393358120003\t厦门夏商营养餐有限公司\t419\t274\n105001458126642\t大连高新区元德美食店\t418\t401\n302313058120024\t南京金拱门食品有限公司\t418\t249\n896290058121126\t垫江荷语餐饮店\t418\t1\n92965105812515B\t蓉李记上海南翔五彩城店\t417\t417\n92965105812NHP9\t穿巷上海万象城川菜店\t416\t416\n896290058121139\t开发区裕釜火锅店\t416\t1\n881252158120021\t阿吉婆麻辣烫\t416\t22\n836451658121469\t济南市1000105/大卫国际店\t415\t340\n41739175812DAFB\t福清市龙山街道林小英食堂\t414\t73\n402646258120342\t三亚9楼食堂\t413\t225\n928241158140050\t商户_李帅\t411\t411\n928393158140466\t厦门市思明区陈欧弟餐饮店\t410\t386\n928241358140053\t商户_姜敖宁\t409\t409\nQRA161658124I23\t卫计委充值\t408\t408\n928241558140064\t商户_姜敖宁\t408\t408\n928241158140046\t商户_姜敖宁\t408\t408\n928241858140098\t商户_姚全\t408\t408\n928241658140335\t商户_姜敖宁\t408\t408\nQRA161658124I24\t卫计委超市\t408\t408\n928241758140076\t商户_姚全\t408\t408\n898410158126804\t中国人民银行郑州中心支行金融大酒店\t408\t76\n301350958120011\t高英1杯奶茶店\t407\t407\n104110058141453\t首都机场餐饮\t407\t347\n928241958140072\t商户_董广振\t407\t407\n898410558122696\t华润燃气职工食堂\t407\t256\n928241858140092\t商户_董广振\t407\t407\n102659058110012\t佳虹高新区三餐饮食堂窗口4\t407\t289\n928241858140093\t商户_严成浩\t407\t407\n928241658140338\t商户_严成浩\t407\t407\n928241258140071\t商户_董广振\t406\t406\n928241958140075\t商户_董广振\t406\t406\n928241158140052\t商户_李帅\t406\t406\n928393158120123\t厦门台式永和豆浆餐饮管理有限公司\t406\t387\n928241958140071\t商户_王帅\t406\t406\n928241758140073\t商户_严成浩\t405\t405\nQRA161658124I21\t卫计委中\t404\t404\n928241158140048\t商户_姚全\t404\t404\nQRA161658124I20\t卫计委早\t404\t404\n928241558140063\t商户_王帅\t403\t403\n928241258140073\t商户_严成浩\t403\t403\n92965105812HNE9\t蓉李记安徽六安万达店\t403\t403\n928241158140045\t商户_王帅\t402\t402\nQRA4061581407PU\t邮储银行漳州市分行食堂\t402\t356\n928241258140069\t商户_王帅\t402\t402\nQRA161658124I1S\t小笼包店1\t401\t401\n928241958140073\t商户_姜敖宁\t401\t401\n898330258145508\t宁波海曙静静小吃店\t401\t400\n304336258140002\t长兴泗安田缘饭店\t401\t0\n928241658140352\t商户_李帅\t400\t400\n928241958140070\t商户_王帅\t400\t400\n898511658140054\t中国人民银行广安市中心支行\t400\t368\nQRA161658124I1Q\t医院总店1\t400\t400\n928241258140072\t商户_李福睿\t400\t399\nQRA161658124I22\t卫计委中1\t400\t400\n928241258140080\t商户_姚全\t399\t399\n928241758140071\t商户_董广振\t399\t399\n928241758140077\t商户_李帅\t398\t398\n928241158140051\t商户_李帅\t397\t397\n881581158121966\t乡朋饭馆\t397\t19\n92965105812300I\t蓉李记南京六合欢乐港店\t397\t397\n881241158122105\t闽红华莱士炸鸡汉堡店\t397\t26\n898370658126794\t芝罘区林玲玉小吃部\t396\t396\nQRA3931581297SR\t厦门市思明区福口好小吃店\t396\t49\n102659058130169\t东彦快餐\t396\t393\n928000058133766\t上海市崇明县志鹏小吃店\t396\t396\n8283504581200OP\t三明市梅列区陈木柄小吃店\t393\t367\n102673058121462\t国家税务总局阆中市税务局（食堂2）\t392\t248\n898352258142747\t厦门芸食栈商业管理有限公司\t392\t355\n928241858140088\t商户_李福睿\t392\t392\n928241658140337\t商户_李福睿\t391\t390\n928241758140072\t商户_李福睿\t391\t389\n822266058120104\t鸡西市联通食堂\t390\t122\n102301058122224\t南京丰业工贸实业有限公司1号职工餐1\t389\t61\n102659058110009\t佳虹高新区C生活食堂窗口8\t389\t50\n898210258140263\t大连高新园区百滋百味中式快餐店\t387\t226\n92965105812Q7NC\t蓉李记烟台大悦城店\t386\t386\n92965105812CO8P\t蓉李记石家庄西美花街店\t386\t386\n9296510581224G7\t蓉李记南通华润万象城店\t386\t386\nQRA1616581237QW\t1号楼大餐午-1\t386\t386\nQRA1616581255EG\t山西交警总队档口1\t385\t385\nQRA1616581237QT\t1号楼营养早餐-1\t384\t384\n92965105812E03E\t蓉李记广州国际金融中心店\t383\t383\n92965105812OR8I\t蓉李记长沙富兴CFC广场\t383\t383\nQRA451258126N76\t济南产业园餐厅沙县小吃窗口\t383\t383\n929651058123O59\t蓉李记佛山金沙洲万达店\t382\t382\n92965105812PS28\t蓉李记湖南娄底碧桂园店\t382\t382\n898352258144665\t悦众-悦众自助餐\t382\t379\nQRA4512581407PY\t鑫苑餐厅重庆小面\t382\t382\nQRA1616581237RI\t同昌创业园超市\t382\t382\nQRA1616581255EK\t山西交警总队档口5\t382\t382\n102659058110011\t佳虹一生活区食堂窗口3\t382\t59\nQRA1616581255EH\t山西交警总队档口2\t382\t382\n812350158120605\t晋安区周麻婆餐饮店\t382\t378\n102337058120608\t浙江金昌物业服务有限公司（县支行食堂）\t381\t135\n929651058126G98\t蓉李记长沙喜盈门店\t381\t381\n92965105812Q88J\t蓉李记长沙华创国际广场店\t381\t381\n928241558140070\t商户_姚全\t381\t381\nQRA451658120FFQ\t鑫苑餐厅板面\t381\t381\nQRA1616581255EI\t山西交警总队档口3\t381\t381\nQRA162158124PRR\t学苑餐厅3号窗口\t381\t381\nQRA1616581255EJ\t山西交警总队档口4\t380\t380\n836451058121314\t济南市1000127/草山岭店\t380\t301\n822222058123756\t大连高新区一品灌饼王小吃店\t379\t347\n105001858120297\t广东星巴克咖啡有限公司\t379\t336\n822584258129551\t深圳市家乐缘华旺餐饮有限公司天安云谷店\t379\t39\n822651258122818\t四川格外餐饮有限责任公司\t379\t53\nQRA1616581237QX\t1号楼二青会王朝歌\t378\t378\n898420858122288\t荆门市个体户吴艳萍\t378\t373\nQRA1616581237RK\t同昌创业园档口1\t378\t378\n898352258142750\t厦门芸食栈商业管理有限公司\t378\t358\nQRA1616581237QV\t1号楼大早餐-1\t378\t378\nQRA1616581237QY\t1号楼百度单点李洋\t378\t378\nQRA161658124XHC\t不锈钢外卖\t378\t378\nQRA161658124XHA\t不锈钢午餐-1\t378\t378\n92965105812LQ2M\t蓉李记深圳联投东方店\t378\t378\n92965105812E97J\t蓉李记深圳福田CCP店\t377\t377\nQRA1616581237RJ\t同昌创业园充值\t377\t377\n92965105812LDQO\t蓉李记河南永城金博大广场\t377\t377\nQRA1616581237RH\t同昌创业园外卖\t376\t376\nQRA1616581237QU\t1号楼晚餐-1\t376\t376\nQRA161658124XHB\t不锈钢炒菜\t376\t376\nQRA1616581237RC\t儿童医院一层充值\t376\t376\n898610658121006\t延安饭堂个体赵辽辽\t376\t12\nQRA161658124XH9\t不锈钢午餐\t375\t375\n822584358129704\t深圳市爱人餐饮服务有限公司\t375\t32\n822331158120319\t晨苑餐厅中式自选快餐杭州城院店\t374\t361\nQRA393558123UW1\t厦门杰隆阁餐饮管理有限公司\t374\t372\n928491758122610\t郑州高新区郑大卫玲莘莘超市\t374\t24\n105002158122960\t王炳刚\t373\t371\nQRA1616581255EL\t太原市社保局档口1\t373\t373\n"
+                    }
+                ]
+            },
+            "apps": [],
+            "jobName": "paragraph_1570784210528_1300989519",
+            "id": "20190923-183910_694350426",
+            "dateCreated": "2019-10-11T16:56:50+0800",
+            "dateStarted": "2020-01-20T13:56:35+0800",
+            "dateFinished": "2020-01-20T15:31:58+0800",
+            "status": "FINISHED",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9318"
+        },
+        {
+            "text": "",
+            "user": "xiexiting@unionpay.com",
+            "dateUpdated": "2019-10-11T16:56:51+0800",
+            "config": {
+                "colWidth": 12,
+                "editorMode": "ace/mode/sql",
+                "results": {},
+                "enabled": true,
+                "editorSetting": {
+                    "language": "sql",
+                    "editOnDblClick": false
+                }
+            },
+            "settings": {
+                "params": {},
+                "forms": {}
+            },
+            "apps": [],
+            "jobName": "paragraph_1570784211019_-1605418997",
+            "id": "20190415-135954_1095909799",
+            "dateCreated": "2019-10-11T16:56:51+0800",
+            "status": "FINISHED",
+            "errorMessage": "",
+            "progressUpdateIntervalMs": 500,
+            "$$hashKey": "object:9319"
+        }
+    ],
+    "name": "/开发者专属/脱梦娇/定时任务/二维码周报",
+    "id": "2ENXDD1W6",
+    "angularObjects": {
+        "2DFP3V8Q8:shared_process": [],
+        "2CTNKG6WR:shared_process": [],
+        "2DJHHRF7D:shared_process": [],
+        "2DH7A72HX:shared_process": []
+    },
+    "config": {
+        "looknfeel": "default",
+        "personalizedMode": "false",
+        "cron": "0 10 8 ? 1-12 2 *",
+        "cronExecutingUser": "xiexiting@unionpay.com",
+        "releaseresource": true
+    },
+    "info": {}
+}
