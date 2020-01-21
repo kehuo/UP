@@ -60,12 +60,14 @@ class BaseClass(object):
         """
         res = dict()
         # 1 overview
-        model_1_overview_handler = Overview1(self.csv_data["raw_overview"], self.cfg)
-        res["overview"] = model_1_overview_handler.run()
+        overview_handler = Overview1(self.csv_data["raw_overview"], self.cfg)
+        res["overview"] = overview_handler.run()
+        print(res["overview"])
 
         # 2 transaction_cnt_by_day
         transaction_cnt_by_day_handler = TransactionCntByDay(self.csv_data["raw_transaction_cnt_by_day"], self.cfg)
         res["transaction_cnt_by_day"] = transaction_cnt_by_day_handler.run()
+        print(res["transaction_cnt_by_day"])
         return res
 
     def _handle_model_2(self):
@@ -88,7 +90,15 @@ class BaseClass(object):
         2.5 二维码交易金额分布 --> 一段文字 + 一个表格 qr_transaction_by_amount_of_money.csv
             a. 原始csv数据 1 - raw_qr_transaction_by_amount_of_money.csv
         """
-        res = {}
+        res = dict()
+        # 1 overview
+        overview_handler = Overview1(self.csv_data["raw_overview"], self.cfg)
+        res["overview"] = overview_handler.run()
+
+        # 2 transaction_cnt_by_day
+        transaction_cnt_by_day_handler = TransactionCntByDay(self.csv_data["raw_transaction_cnt_by_day"], self.cfg)
+        res["transaction_cnt_by_day"] = transaction_cnt_by_day_handler.run()
+
         return res
 
     def _handle_model_3(self):

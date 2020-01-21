@@ -118,13 +118,10 @@ class Overview1(object):
         self.control_merchant()
         self.control_out_merchant()
 
-        # 将self.all_str 从字典 转成 字符串
         all_str = ""
         for k, v in self.all_str.items():
             all_str += v
-        # 转成 dataframe 后返回结果
-        res = pd.DataFrame(data={"overview": [all_str]})
-        return res
+        print(all_str)
 
 
 class TransactionCntByDay(object):
@@ -173,6 +170,3 @@ class TransactionCntByDay(object):
 
         # 2 表格
         self.build_csv()
-
-        # 返回一个 dataframe
-        return self.csv
