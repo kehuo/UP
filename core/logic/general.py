@@ -23,7 +23,10 @@ class General(object):
     def _init_sentence_dict(self, service_type):
         """
         该字典用来构造每个表前面的 那一段文字, 按照以下的结构, 对文字进行结构化
-        service: 不同 model 中的具体业务, 如 "支付类交易情况", 即
+        service: 不同 model 中的具体业务, 如 "支付类交易情况".
+
+        注意, 以下 service_sentence_map 中的key, 必须要存在于 daily_report_processor.py 中 general_service_map 的某个model下.
+        因为现在的逻辑已经改成了: 每一个service对应自己的一段话. 也就是说 service 和 service_sentence 是严格一对一的.
         """
 
         service_sentence_map = {
@@ -41,7 +44,8 @@ class General(object):
             "qr_transaction_by_amount_of_money": {},
 
             # model 3 - 手机支付控件交易情况
-            "control_transaction_top_10_merchant": {},
+            "control_transaction_top10_merchant": {},
+            "control_out_transaction_top10_merchant": {},
             "control_out_by_area_cd": {},
             "control_out_by_user_gps": {},
             "control_out_transaction_by_amount_of_money": {}

@@ -4,6 +4,8 @@
     "windows": "C:\\users\\kehu\\dev\\up\\data\\raw\\"
   },
 
+  "minus_day_count": 2,
+
   "final_excel_path": {
     "windows": "C:\\users\\kehu\\dev\\up\\data\\excel\\",
     "linux": "/users/hk/dev/up/data/excel/"

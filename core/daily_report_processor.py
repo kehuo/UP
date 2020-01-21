@@ -30,7 +30,8 @@ class DailyReportProcessor(object):
             "raw_qr_transaction_by_city",
             "raw_qr_transaction_top10_merchant",
 
-            "raw_control_by_merchant_details",
+            "raw_control_transaction_top10_merchant",
+            "raw_control_out_transaction_top10_merchant",
             "raw_control_out_by_area_cd",
             "raw_control_out_by_user_gps",
             "raw_control_out_transaction_by_amount_of_money"
@@ -51,15 +52,20 @@ class DailyReportProcessor(object):
         """
         读取 self.required_csv_name_list 列出的所有csv
         device_type = "windows" or "linux"
+
+        minus_day_count = 今天 - 几天前的csv数据, 在 cfg.json 中配置。 举例:
+        如果今天 = 1月20日, minux_day_count = 2, 那么取的就是 1月18日的csv文件.
         """
         path = self.cfg["raw_csv_path"][device_type]
-        today_time_str = build_date_str(minus_day_count=2, str_type="middle_line")
+        today_time_str = build_date_str(minus_day_count=self.cfg["minus_day_count"],
+                                        str_type="middle_line")
         all_raw_csv_files = os.listdir(path)
 
         for required_one in self.required_csv_name_list:
             the_bingo_one = can_load(all_raw_csv_files, required_one, today_time_str)
             if the_bingo_one is not None:
                 self.csv_data[required_one] = pd.read_csv(path + the_bingo_one)
+
         print("数据读取完成, 一共从%s读取%d个csv文件" % (path, len(self.csv_data)))
         return
 
