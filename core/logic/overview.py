@@ -2,24 +2,24 @@ from common.utils import build_date_str, find_df_value, transfer_sentence_dict_t
 
 
 class Overview(object):
-    def __init__(self, raw_csv, cfg, model_type):
+    def __init__(self, raw_csv, cfg):
         """
         raw_csv: data/raw/raw_overview.csv
         cfg: cfg.json
-        model_type: total / qr / control 一共3种.
 
         self.data: 字典类型. 因为 overview 需要提前计算一些数据, 来填满一段文字中的数据. 这个变量用来存储计算出来的各种数值.
         self.sentence_dict: 字典类型. 是一段文字的结构化形式. 初始是一个空字典, 之后在 _init_sentence_dict 方法中进一步处理.
         """
-        self.raw_csv = raw_csv
+        self.raw_csv = raw_csv["raw_overview"]
         self.cfg = cfg
-        self.model_type = model_type
 
         self.data = {}
         self.sentence_dict = {}
 
-    def _init_sentence_dict(self):
+    def _init_sentence_dict(self, model_type):
         """
+        model_type: total / qr / control 一共3种.
+
         total - 总体交易情况
         qr - 二维码交易情况
         control - 手机支付控件交易情况
@@ -48,7 +48,7 @@ class Overview(object):
             }
         }
 
-        self.sentence_dict = model_sentence_map[self.model_type]
+        self.sentence_dict = model_sentence_map[model_type]
 
     def begin_time(self):
         # model 1.1 -- 日报最开头的时间 (昨天的日期)
@@ -142,7 +142,7 @@ class Overview(object):
 
     # todo -- model 2 qr / model 3 control 的相关函数的编写
 
-    def run(self):
+    def run(self, model_type):
         run_func_map = {
             "total": [
                 # 第一段
@@ -162,10 +162,15 @@ class Overview(object):
             "control": []
         }
 
-        # 根据 model 类型 运行对应的函数
-        for func in run_func_map[self.model_type]:
-            func()
+        # 根据 model type 初始化 sentence_dict
+        self._init_sentence_dict(model_type)
 
-        # 将这段文字构造成 dataframe, 返回.
-        res = transfer_sentence_dict_to_dataframe(self.sentence_dict, pandas_col_name="overview")
+        # 根据 model 类型 运行对应的函数
+        res = None
+        if len(run_func_map[model_type]) > 0:
+            for func in run_func_map[model_type]:
+                func()
+
+            # 将这段文字构造成 dataframe, 返回.
+            res = transfer_sentence_dict_to_dataframe(self.sentence_dict, pandas_col_name="overview")
         return res

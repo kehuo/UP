@@ -9,6 +9,8 @@ service_sentence_map = {
     # model 1
     "transaction_cnt_by_day": {}
 
+    # model 2
+
 }
 
 
@@ -17,7 +19,6 @@ class General(object):
         """
         raw_csv: 字典类型. data/raw/ 下所有 13 csv
         cfg: cfg.json
-        service_type: 每个model中的具体业务, 比如 model 1 中的 "支付类交易情况", model 2 中的 "主要场景交易情况".
 
         self.sentence_dict: 字典类型. 结构化的一段文字.
         self.csv: 最后要生成的表格
@@ -33,7 +34,8 @@ class General(object):
 
     def run(self, model_type, service_type):
         """
-        model_type = "total",
+        service_type: 每个model中的具体业务, 比如 model 1 中的 "支付类交易情况", model 2 中的 "主要场景交易情况".
+
         service_type = "transaction_cnt_by_day"
         1 文字
         2 csv

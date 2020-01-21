@@ -7,12 +7,6 @@ from common.utils import build_date_str, can_load
 from core.logic.overview import Overview
 from core.logic.general import General
 
-from core.logic.model_1 import TransactionCntByDay
-from core.logic.model_2 import QrTransactionCntByScene, QrTransactionByAreaCd, QrTransactionByMerchant, \
-    QrTransactionByAmountOfMoney
-from core.logic.model_3 import ControlTransactionTop10Merchant, ControlOutByAreaCd, ControlOutByUserGps, \
-    ControlOutTransactionByAmountOfMoney
-
 
 class DailyReportProcessor(object):
     """
@@ -47,12 +41,15 @@ class DailyReportProcessor(object):
             "qr": dict(),
             "control": dict()
         }
+
+        self.overview_handler = Overview(self.csv_data, self.cfg)
+        self.general_handler = General(self.csv_data, self.cfg)
         return
 
     def load_csv_data(self, device_type):
         """
         读取 self.required_csv_name_list 列出的所有csv
-        device_type = "windows" or "macbook"
+        device_type = "windows" or "linux"
         """
         path = self.cfg["raw_csv_path"][device_type]
         today_time_str = build_date_str(minus_day_count=1, str_type="middle_line")
@@ -65,9 +62,11 @@ class DailyReportProcessor(object):
         print("数据读取完成, 一共从%s读取%d个csv文件" % (path, len(self.csv_data)))
         return
 
-    def _handle_model_1(self):
+    def run(self):
         """
-        1 处理 总体交易情况
+        日报共 3 个model --> 总体交易情况(total) / 二维码交易情况(qr) / 手机支付控件交易情况(control)
+
+        1 总体交易情况 - total
         1.1 概述 --> 这一般是2-3段文字
             a. 涉及的原始csv数据 - raw_overview.csv
         1.2 支付类交易情况 --> 一段文字 + 一个表格, 表名暂定 transaction_cnt_by_day.csv
@@ -80,31 +79,15 @@ class DailyReportProcessor(object):
                     "csv": pd.DataFrame()
                 }
         }
-        """
-        res = dict()
-        # 1 overview
-        overview_handler = Overview(
-            raw_csv=self.csv_data["raw_overview"],
-            cfg=self.cfg,
-            model_type="total"
-        )
-        res["overview"] = overview_handler.run()
 
-        # 2 transaction_cnt_by_day
-        general_handler = General(self.csv_data, self.cfg)
-        res["transaction_cnt_by_day"] = general_handler.run(model_type="total", service_type="transaction_cnt_by_day")
 
-        self.res_model["total"] = res
-
-    def _handle_model_2(self):
-        """
-        2 处理 二维码交易情况
+        2 二维码交易情况 - qr
         2.1 概述 --> 一般是一句文字.
             a. 原始csv数据 - raw_overview.csv
 
         2.2 主要场景交易情况 --> 一段文字 + 一个表 qr_transaction_cnt_by_scene.csv
             a. 原始csv数据 1 - raw_qr_transaction_cnt_by_scene.csv
-            b. 原始csv数据 2 - raw_qr_transaction_by_merchant_2020_01_19 02_32_57 PM.csv
+            b. 原始csv数据 2 - raw_qr_transaction_by_merchant.csv
 
         2.3 二维码TOP10分公司交易情况 --> 一段文字 + 一个表 qr_transaction_by_area_cd.csv
             a. 原始csv数据 - raw_qr_transaction_by_area_cd.csv
@@ -115,7 +98,6 @@ class DailyReportProcessor(object):
 
         2.5 二维码交易金额分布 --> 一段文字 + 一个表格 qr_transaction_by_amount_of_money.csv
             a. 原始csv数据 1 - raw_qr_transaction_by_amount_of_money.csv
-
 
         res = {
             "overview": pd.DataFrame(),
@@ -140,49 +122,7 @@ class DailyReportProcessor(object):
                     "csv": pd.DataFrame()
                 }
         }
-        """
-        res = dict()
-        # 1 overview
-        overview_handler = Overview(
-            raw_csv=self.csv_data["raw_overview"],
-            cfg=self.cfg,
-            model_type="qr"
-        )
-        res["overview"] = overview_handler.run()
 
-        # 2 qr_transaction_cnt_by_scene
-        qr_transaction_cnt_by_scene_handler = QrTransactionCntByScene(
-            raw_csv={"raw_qr_transaction_cnt_by_scene": self.csv_data["raw_qr_transaction_cnt_by_scene"],
-                     "raw_qr_transaction_by_merchant": self.csv_data["raw_qr_transaction_by_merchant"]},
-            cfg=self.cfg
-        )
-        res["qr_transaction_cnt_by_scene"] = qr_transaction_cnt_by_scene_handler.run()
-
-        # 3 qr_transaction_by_area_cd
-        qr_transaction_by_area_cd_handler = QrTransactionByAreaCd(
-            raw_csv=self.csv_data["raw_qr_transaction_by_area_cd"],
-            cfg=self.cfg
-        )
-        res["qr_transaction_by_area_cd"] = qr_transaction_by_area_cd_handler.run()
-
-        # 4 qr_transaction_by_merchant
-        qr_transaction_by_merchant_handler = QrTransactionByMerchant(
-            raw_csv=self.csv_data["raw_qr_transaction_by_merchant"],
-            cfg=self.cfg
-        )
-        res["qr_transaction_by_merchant"] = qr_transaction_by_merchant_handler.run()
-
-        # 5 qr_transaction_by_amount_of_money
-        qr_transaction_by_amount_of_money_handler = QrTransactionByAmountOfMoney(
-            raw_csv=self.csv_data["raw_qr_transaction_by_amount_of_money"],
-            cfg=self.cfg
-        )
-        res["qr_transaction_by_amount_of_money"] = qr_transaction_by_amount_of_money_handler.run()
-
-        self.res_model["2"] = res
-
-    def _handle_model_3(self):
-        """
         3 手机支付控件交易情况
         3.1 概述 --> 一段文字
             a. 原始csv数据 - raw_overview.csv
@@ -200,61 +140,39 @@ class DailyReportProcessor(object):
         3.5 手机外部支付控件交易金额分布 --> 一段文字 + 一张表 control_out_transaction_by_amount_of_money.csv
             a. 原始csv数据 1 - raw_control_out_transaction_by_amount_of_money.csv
         """
-        res = dict()
+        # 1 定义3个模块要构造的 services
+        general_service_map = {
+            "total": ["transaction_cnt_by_day"],
 
-        # 3.1 overview
-        overview_handler = Overview(
-            raw_csv=self.csv_data["raw_overview"],
-            cfg=self.cfg,
-            model_type="control"
-        )
-        res["overview"] = overview_handler.run()
+            "qr": ["qr_transaction_cnt_by_scene",
+                   "qr_transaction_by_area_cd",
+                   "qr_transaction_by_merchant",
+                   "qr_transaction_by_amount_of_money"],
 
-        # 3.2 control_transaction_by_merchant_details
-        control_transaction_by_merchant_details_handler = ControlTransactionTop10Merchant(
-            raw_csv={
-                "raw_control_transaction_top10_merchant": self.csv_data["raw_control_transaction_top10_merchant"],
-                "raw_control_out_transaction_top10_merchant": self.csv_data["raw_control_out_transaction_top10_merchant"]
-            },
-            cfg=self.cfg
-        )
-        res["control_transaction_by_merchant_details_handler"] = control_transaction_by_merchant_details_handler.run()
+            "control": ["control_by_merchant_details",
+                        "control_out_by_area_cd",
+                        "control_out_by_user_gps",
+                        "control_out_transaction_by_amount_of_money"]
+        }
 
-        # 3.3 control_out_by_area_cd
-        control_out_by_area_cd_handler = ControlOutByAreaCd(
-            raw_csv=self.csv_data["raw_control_out_by_area_cd"],
-            cfg=self.cfg
-        )
-        res["control_out_by_area_cd"] = control_out_by_area_cd_handler.run()
+        # 2 要构造的所有 model 类型
+        model_types = ["total", "qr", "control"]
+        for model_type in model_types:
+            res = dict()
+            # overview
+            res["overview"] = self.overview_handler.run(model_type=model_type)
 
-        # 3.4 control_out_by_user_gps
-        control_out_by_user_gps_handler = ControlOutByUserGps(
-            raw_csv=self.csv_data["raw_control_out_by_user_gps"],
-            cfg=self.cfg
-        )
-        res["control_out_by_user_gps"] = control_out_by_user_gps_handler.run()
-
-        # 3.5 control_out_transaction_by_amount_of_money
-        control_out_transaction_by_amount_of_money_handler = ControlOutTransactionByAmountOfMoney(
-            raw_csv=self.csv_data["raw_control_out_transaction_by_amount_of_money"],
-            cfg=self.cfg
-        )
-        res["control_out_transaction_by_amount_of_money"] = control_out_transaction_by_amount_of_money_handler.run()
-
-        self.res_model["3"] = res
-
-    def run(self):
-        """
-        model_1: 总体交易情况
-        handle_func: 二维码交易情况
-        model_3: 手机支付控件交易情况
-        """
-        self._handle_model_1()
-        # self._handle_model_2()
-        # self._handle_model_3()
+            # general
+            for service in general_service_map[model_type]:
+                res[service] = self.general_handler.run(model_type=model_type, service_type=service)
+            # 写入
+            self.res_model[model_type] = res
 
     def concat(self, device_type):
-        """将 res_model 1/2/3 的所有结果, 写入同一个excel 的多个 sheet 中"""
+        """
+        将 res_model 1/2/3 的所有结果, 写入同一个excel 的多个 sheet 中
+        device_type = linux / windows
+        """
         finale_excel_path = self.cfg["final_excel_path"][device_type]
         final_excel_name = self.cfg["final_excel_name"]
         writer = pd.ExcelWriter(finale_excel_path + final_excel_name)
@@ -269,7 +187,6 @@ class DailyReportProcessor(object):
                     for each_k, each_v in v.items():
                         if isinstance(each_v, pd.DataFrame):
                             total_sheet_name = "model" + model_k + "_" + k + "_" + each_k
-                            print(total_sheet_name)
                             each_v.to_excel(excel_writer=writer, sheet_name=total_sheet_name)
 
                 elif isinstance(v, pd.DataFrame):

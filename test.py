@@ -1,4 +1,4 @@
-from core.daily_report_creator import DailyReportProcessor
+from core.daily_report_processor import DailyReportProcessor
 
 
 def main():
