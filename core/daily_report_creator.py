@@ -34,9 +34,12 @@ class BaseClass(object):
         ]
         return
 
-    def load_csv_data(self):
-        """读取 self.required_csv_name_list 列出的所有csv"""
-        path = self.cfg["raw_csv_path"]
+    def load_csv_data(self, device_type):
+        """
+        读取 self.required_csv_name_list 列出的所有csv
+        device_type = "windows" or "macbook"
+        """
+        path = self.cfg["raw_csv_path"][device_type]
         today_time_str = build_date_str(minus_day_count=1, str_type="middle_line")
         all_raw_csv_files = os.listdir(path)
 
@@ -54,9 +57,6 @@ class BaseClass(object):
             a. 涉及的原始csv数据 - raw_overview.csv
         1.2 支付类交易情况 --> 一段文字 + 一个表格, 表名暂定 transaction_cnt_by_day.csv
             a. 原始csv - raw_transaction_cnt_by_day.csv
-
-        参数解释
-        required_raw_csv: 需要的原始数据
         """
         res = dict()
         # 1 overview

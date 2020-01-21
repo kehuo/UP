@@ -1,5 +1,8 @@
 {
-  "raw_csv_path": "/users/hk/dev/UP/data/raw/",
+  "raw_csv_path": {
+    "macbook": "/users/hk/dev/UP/data/raw/",
+    "windows": "C:\\users\\kehu\\dev\\up\\data\\raw\\"
+  },
 
   "model_1": {
     "overview": {
