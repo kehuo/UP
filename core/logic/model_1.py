@@ -169,11 +169,6 @@ class TransactionCntByDay(object):
         无感支付、人到人转账交易笔数排名前十，占到交易总量的98.94%。
 
         2 表格
-        df_transaction_cnt_by_day=dfs['raw_transaction_cnt_by_day']
-        df_transaction_cnt_by_day['ratio']=df_transaction_cnt_by_day['ratio'].apply(lambda x: format(float(x), '.2%'))
-        df_transaction_cnt_by_day['proportion'] = df_transaction_cnt_by_day['cnt_today'] / df_transaction_cnt_by_day['cnt_today'].sum()
-        df_transaction_cnt_by_day['proportion'] = df_transaction_cnt_by_day['proportion'].apply(lambda x: format(float(x), '.2%'))
-        df_transaction_cnt_by_day=df_transaction_cnt_by_day_print=df_transaction_cnt_by_day.loc[:,['index','cnt_today','proportion','ratio'] ]
         """
         # 1 文字
         sentence_df = self.build_sentence()

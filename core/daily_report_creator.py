@@ -249,8 +249,8 @@ class BaseClass(object):
         model_3: 手机支付控件交易情况
         """
         self._handle_model_1()
-        self._handle_model_2()
-        self._handle_model_3()
+        # self._handle_model_2()
+        # self._handle_model_3()
 
     def concat(self, device_type):
         """将 res_model 1/2/3 的所有结果, 写入同一个excel 的多个 sheet 中"""
@@ -260,11 +260,17 @@ class BaseClass(object):
 
         # 遍历 self.res_model_1/2/3 中的所有 key-value 对, 将每一个csv 作为一个 sheet, 写入 writer
         for model_k, model_v in self.res_model.items():
+            # model_k = "1", model_v = 一个字典
             for k, v in model_v.items():
+                # k = "overview", v可能是dataframe, 也可能是一个字典, 里面包括多个dataframe
                 if isinstance(v, dict):
+                    # v 是字典, 包括多个dataframe
                     for each_k, each_v in v.items():
                         if isinstance(each_v, pd.DataFrame):
-                            each_v.to_excel(excel_writer=writer, sheet_name="model" + model_k + "_" + each_k)
+                            total_sheet_name = "model" + model_k + "_" + k + "_" + each_k
+                            print(total_sheet_name)
+                            each_v.to_excel(excel_writer=writer, sheet_name=total_sheet_name)
+
                 elif isinstance(v, pd.DataFrame):
                     v.to_excel(excel_writer=writer, sheet_name="model" + model_k + "_" + k)
         writer.save()
