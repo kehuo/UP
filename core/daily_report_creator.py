@@ -1,9 +1,10 @@
+import os
 import json
 import pandas as pd
 from common.utils import build_date_str, can_load
 from core.logic.model_1 import Overview1, TransactionCntByDay
-from core.logic.model_2 import Overview2, QrTransactionCntByScene
-import os
+from core.logic.model_2 import Overview2, QrTransactionCntByScene, QrTransactionByAreaCd, QrTransactionByMerchant, \
+    QrTransactionByAmountOfMoney
 
 
 class BaseClass(object):
@@ -109,7 +110,7 @@ class BaseClass(object):
         res = {
             "overview": pd.DataFrame(),
 
-            "transaction_cnt_by_scene": {
+            "qr_transaction_cnt_by_scene": {
                     "sentence": pd.DataFrame(),
                     "csv": pd.DataFrame()
                 },
@@ -138,16 +139,34 @@ class BaseClass(object):
         )
         res["overview"] = overview_handler.run()
 
-        # 2 transaction_cnt_by_scene
-        transaction_cnt_by_day_handler = QrTransactionCntByScene(
+        # 2 qr_transaction_cnt_by_scene
+        qr_transaction_cnt_by_scene_handler = QrTransactionCntByScene(
             raw_csv={"raw_qr_transaction_cnt_by_scene": self.csv_data["raw_qr_transaction_cnt_by_scene"],
                      "raw_qr_transaction_by_merchant": self.csv_data["raw_qr_transaction_by_merchant"]},
             cfg=self.cfg
         )
-        res["transaction_cnt_by_scene"] = transaction_cnt_by_day_handler.run()
+        res["qr_transaction_cnt_by_scene"] = qr_transaction_cnt_by_scene_handler.run()
 
         # 3 qr_transaction_by_area_cd
+        qr_transaction_by_area_cd_handler = QrTransactionByAreaCd(
+            raw_csv=self.csv_data["raw_qr_transaction_by_area_cd"],
+            cfg=self.cfg
+        )
+        res["qr_transaction_by_area_cd"] = qr_transaction_by_area_cd_handler.run()
 
+        # 4 qr_transaction_by_merchant
+        qr_transaction_by_merchant_handler = QrTransactionByMerchant(
+            raw_csv=self.csv_data["raw_qr_transaction_by_merchant"],
+            cfg=self.cfg
+        )
+        res["qr_transaction_by_merchant"] = qr_transaction_by_merchant_handler.run()
+
+        # 5 qr_transaction_by_amount_of_money
+        qr_transaction_by_amount_of_money_handler = QrTransactionByAmountOfMoney(
+            raw_csv=self.csv_data["raw_qr_transaction_by_amount_of_money"],
+            cfg=self.cfg
+        )
+        res["qr_transaction_by_amount_of_money"] = qr_transaction_by_amount_of_money_handler.run()
         return res
 
     def _handle_model_3(self):
