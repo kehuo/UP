@@ -1,5 +1,6 @@
 from flask import render_template, redirect
 from flask_bootstrap import Bootstrap
+import pandas as pd
 
 
 class AppInitializer(object):
@@ -20,6 +21,13 @@ class AppInitializer(object):
         @app.route("/daily_report")
         def daily_report():
             return render_template("daily_report.html")
+
+        @app.route("/table")
+        def table():
+            path = "C:\\users\\kehu\\dev\\up\\data\\raw\\"
+            name = "raw_overview_2020-01-20 03_08_47 PM.csv"
+            df = pd.read_csv(path + name)
+            return render_template("table.html", df=df)
 
     @classmethod
     def bootstrap(cls, app):
