@@ -245,12 +245,9 @@ class DailyReportProcessor(object):
                         # model_k = "control", k = "control_out_by_area_cd", each_k = "sentence"或者"csv"
                         if isinstance(each_v, pd.DataFrame):
                             total_sheet_name = model_k + "_" + k + "_" + each_k
-                            print(excel_sheet_name_map[total_sheet_name])
                             each_v.to_excel(excel_writer=writer, sheet_name=excel_sheet_name_map[total_sheet_name])
 
                 elif isinstance(v, pd.DataFrame):
-                    # model_k = "control", k = "overview"
-                    print(excel_sheet_name_map[model_k + "_" + k])
                     v.to_excel(excel_writer=writer,
                                sheet_name=excel_sheet_name_map[model_k + "_" + k])
         writer.save()

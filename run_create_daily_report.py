@@ -4,7 +4,7 @@ from core.daily_report_processor import DailyReportProcessor
 def main():
     # 配置
     cfg_path = {
-        "linux": "/users/hk/dev/UP/",
+        "linux": "/users/apple/dev/UP/",
         "windows": "C:\\users\\kehu\\dev\\up\\"
     }
     cfg_name = "cfg.json"
