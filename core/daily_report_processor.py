@@ -189,10 +189,50 @@ class DailyReportProcessor(object):
         """
         将 res_model 1/2/3 的所有结果, 写入同一个excel 的多个 sheet 中
         device_type = linux / windows
+
+        注意, 由于excel 的 sheet 名有长度限制, 不能超过31个字符. 所以这里建立一个 map, 将英文名映射为中文名, 用来减少名字长度.
         """
         finale_excel_path = self.cfg["final_excel_path"][device_type]
         final_excel_name = self.cfg["final_excel_name"]
         writer = pd.ExcelWriter(finale_excel_path + final_excel_name)
+
+        excel_sheet_name_map = {
+            # model 1
+            "total_overview": "总体overview",
+            "total_transaction_cnt_by_day_sentence": "支付类交易情况_句",
+            "total_transaction_cnt_by_day_csv": "支付类交易情况_表",
+
+            # model 2
+            "qr_qr_transaction_cnt_by_scene_sentence": "qr主要场景交易情况_句",
+            "qr_qr_transaction_cnt_by_scene_csv": "qr主要场景交易情况_表",
+
+            "qr_qr_transaction_by_area_cd_sentence": "qrTOP10分公司交易情况_句",
+            "qr_qr_transaction_by_area_cd_csv": "qrTOP10分公司交易情况_表",
+
+            "qr_qr_transaction_by_merchant_sentence": "qrTOP10商户交易情况_句",
+            "qr_qr_transaction_by_merchant_csv": "qrTOP10商户交易情况_表",
+
+            "qr_qr_transaction_by_amount_of_money_sentence": "qr交易金额分布_句",
+            "qr_qr_transaction_by_amount_of_money_csv": "qr交易金额分布_表",
+
+            # model 3
+            "control_overview": "控件overview",
+
+            "control_control_transaction_top10_merchant_sentence": "控件TOP10商户交易情况_句",
+            "control_control_transaction_top10_merchant_csv": "控件TOP10商户交易情况_表",
+
+            "control_control_out_transaction_top10_merchant_sentence": "外部控件TOP10商户交易情况_句",
+            "control_control_out_transaction_top10_merchant_csv": "外部控件TOP10商户交易情况_表",
+
+            "control_control_out_by_area_cd_sentence": "外部控件TOP10商户侧分公司_句",
+            "control_control_out_by_area_cd_csv": "外部控件TOP10商户侧分公司_表",
+
+            "control_control_out_by_user_gps_sentence": "外部控件TOP10用户侧分公司_句",
+            "control_control_out_by_user_gps_csv": "外部控件TOP10用户侧分公司_表",
+
+            "control_control_out_transaction_by_amount_of_money_sentence": "外部控件交易金额分布_句",
+            "control_control_out_transaction_by_amount_of_money_csv": "外部控件交易金额分布_表"
+        }
 
         # 遍历 self.res_model_1/2/3 中的所有 key-value 对, 将每一个csv 作为一个 sheet, 写入 writer
         for model_k, model_v in self.res_model.items():
@@ -202,11 +242,17 @@ class DailyReportProcessor(object):
                 if isinstance(v, dict):
                     # v 是字典, 包括多个dataframe
                     for each_k, each_v in v.items():
+                        # model_k = "control", k = "control_out_by_area_cd", each_k = "sentence"或者"csv"
                         if isinstance(each_v, pd.DataFrame):
-                            total_sheet_name = "model" + model_k + "_" + k + "_" + each_k
-                            each_v.to_excel(excel_writer=writer, sheet_name=total_sheet_name)
+                            total_sheet_name = model_k + "_" + k + "_" + each_k
+                            print(excel_sheet_name_map[total_sheet_name])
+                            each_v.to_excel(excel_writer=writer, sheet_name=excel_sheet_name_map[total_sheet_name])
 
                 elif isinstance(v, pd.DataFrame):
-                    v.to_excel(excel_writer=writer, sheet_name="model" + model_k + "_" + k)
+                    # model_k = "control", k = "overview"
+                    print(excel_sheet_name_map[model_k + "_" + k])
+                    v.to_excel(excel_writer=writer,
+                               sheet_name=excel_sheet_name_map[model_k + "_" + k])
         writer.save()
         writer.close()
+        return

@@ -319,11 +319,11 @@ target_text9
 # 外部控件用户侧归属地
 df_control_out_by_user_gps=dfs['raw_control_out_by_user_gps'].sort_values(by="交易笔数" , ascending=False)
 df_control_out_by_user_gps.dropna(axis=0, subset=["branch"], inplace=True)
-df_control_out_by_user_gps['交易笔数占比'] = df_control_out_by_user_gps['交易笔数'] / df_control_out_by_area_cd['交易笔数'].sum()
+df_control_out_by_user_gps['交易笔数占比'] = df_control_out_by_user_gps['交易笔数'] / df_control_out_by_user_gps['交易笔数'].sum()
 df_control_out_by_user_gps['交易笔数环比'] = df_control_out_by_user_gps['交易笔数环比'].apply(lambda x: format(float(x), '.2%'))
 df_control_out_by_user_gps['优惠笔数环比'] = df_control_out_by_user_gps['优惠笔数环比'].apply(lambda x: format(float(x), '.2%'))
 df_control_out_by_user_gps['交易笔数占比'] = df_control_out_by_user_gps['交易笔数占比'].apply(lambda x: format(float(x), '.2%'))
-df_control_out_by_user_gps['优惠笔数占比'] = df_control_out_by_user_gps['优惠交易笔数'] / df_control_out_by_area_cd['交易笔数']
+df_control_out_by_user_gps['优惠笔数占比'] = df_control_out_by_user_gps['优惠交易笔数'] / df_control_out_by_user_gps['交易笔数']
 df_control_out_by_user_gps['优惠笔数占比'] = df_control_out_by_user_gps['优惠笔数占比'].apply(lambda x: format(float(x), '.2%'))
 df_control_out_by_user_gps=df_control_out_by_user_gps.head(10).loc[:,['branch','交易笔数','交易笔数占比','交易笔数环比','优惠交易笔数',
                                                                 '优惠笔数占比','优惠笔数环比'] ] 

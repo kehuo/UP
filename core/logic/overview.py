@@ -40,11 +40,11 @@ class Overview(object):
             },
 
             "qr": {
-                "1": ""
+                "value": ""
             },
 
             "control": {
-                "1": ""
+                "value": ""
             }
         }
 
@@ -78,7 +78,7 @@ class Overview(object):
         }
 
         self.data["new_merchant_cnt"] = data
-        self.sentence_dict["new_merchant_cnt"] = "当日新增交易商户%s+, 环比下降%s, 同比增长%s。" % (
+        self.sentence_dict["new_merchant_cnt"] = "当日新增交易商户%s家, 环比下降%s, 同比增长%s。" % (
             str(round(data["1"] / 10000, 2)),
             str(round(data["2"] * 100, 2)) + "%",
             str(round(data["3"] * 100, 2)) + "%",
@@ -141,6 +141,34 @@ class Overview(object):
         )
 
     # todo -- model 2 qr / model 3 control 的相关函数的编写
+    # 2020-02-08 注释 - model 2的 qr 暂时不需要 overview 字段, 只写control的 overview 函数即可.
+    def model_3(self):
+        """
+        手机控件交易情况
+        """
+
+        # model 3.1 手机控件交易描述
+        df_overview = self.raw_csv
+
+        control_cnt = df_overview['cnt_today'][df_overview['index'] == 'control_cnt'].values[0]
+        control_cnt_by_yesterday = df_overview['ratio_by_yesterday'][df_overview['index'] == 'control_cnt'].values[0]
+        control_cnt_by_last_year = df_overview['ration_by_last_year'][df_overview['index'] == 'control_cnt'].values[0]
+
+        control_out_cnt = df_overview['cnt_today'][df_overview['index'] == 'control_out_cnt'].values[0]
+        control_out_cnt_by_yesterday = df_overview['ratio_by_yesterday'][df_overview['index'] == 'control_out_cnt'].values[0]
+        control_out_cnt_by_last_year = df_overview['ration_by_last_year'][df_overview['index'] == 'control_out_cnt'].values[0]
+
+        target_text = "当日，手机支付控件交易{}万笔，环比下降{}%，同比下降{}%。其中手机外部支付控件交易{}万笔，环比增长{}%，同比下降{}%，占总控件交易笔数的{}%。".format(
+            round(control_cnt / 10000, 2),
+            round(control_cnt_by_yesterday * 100, 2),
+            round(float(control_cnt_by_last_year) * 100, 2),
+            round(control_out_cnt / 10000, 2),
+            round(control_out_cnt_by_yesterday * 100, 2),
+            round(float(control_out_cnt_by_last_year) * 100, 2),
+            round(control_out_cnt / control_cnt * 100, 2)
+        )
+
+        self.sentence_dict["model_3"] = target_text
 
     def run(self, model_type):
         run_func_map = {
@@ -159,7 +187,8 @@ class Overview(object):
 
             "qr": [],
 
-            "control": []
+            # 懒得处理 sentence_dict了, 直接在一个 model_3 函数中处理完成
+            "control": [self.model_3]
         }
 
         # 根据 model type 初始化 sentence_dict
