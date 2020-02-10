@@ -1,3 +1,4 @@
+import traceback
 from datetime import datetime, timedelta
 import pandas as pd
 
@@ -82,3 +83,10 @@ def transfer_sentence_dict_to_dataframe(sentence_dict, pandas_col_name):
     # 转成 dataframe 后返回结果
     df = pd.DataFrame(data={pandas_col_name: [sentence_str]})
     return df
+
+
+def str2number(a_dict):
+    """传入一个字典，将这个字典所有的v, 从str类型转成 float 的数字类型."""
+    for k, v in a_dict.items():
+        a_dict[k] = float(v)
+    return a_dict

@@ -1,4 +1,5 @@
-from common.utils import build_date_str, find_df_value, transfer_sentence_dict_to_dataframe
+import traceback
+from common.utils import build_date_str, find_df_value, transfer_sentence_dict_to_dataframe, str2number
 
 
 class Overview(object):
@@ -52,7 +53,8 @@ class Overview(object):
 
     def begin_time(self):
         # model 1.1 -- 日报最开头的时间 (昨天的日期)
-        self.sentence_dict["yesterday_date"] = build_date_str(minus_day_count=1, str_type="cn")
+        self.sentence_dict["yesterday_date"] = build_date_str(minus_day_count=self.cfg["minus_day_count"],
+                                                              str_type="cn")
 
     def all_merchant_cnt(self):
         # model 1.2 -- 总体交易商户
@@ -61,6 +63,10 @@ class Overview(object):
             "2": find_df_value(self.raw_csv, col="ratio_by_yesterday", row="all_mchnt_cnt"),
             "3": find_df_value(self.raw_csv, col="ration_by_last_year", row="all_mchnt_cnt")
         }
+
+        # 把 表格里的str 全部转成 int 或者 float 数字类型, 否则下面对str进行 round 操作时, 会报错说字符串不支持加减乘除的数字运算.
+        if self.cfg["csv_encode_type"] in ["utf-16", "utf-8"]:
+            data = str2number(data)
 
         self.data["all_merchant_cnt"] = data
         self.sentence_dict["all_merchant_cnt"] = "云闪付APP总体交易商户%s万, 环比下降%s, 同比增长%s。" % (
@@ -76,6 +82,9 @@ class Overview(object):
             "2": find_df_value(self.raw_csv, col="ratio_by_yesterday", row="new_mchnt_cnt"),
             "3": find_df_value(self.raw_csv, col="ration_by_last_year", row="new_mchnt_cnt")
         }
+
+        if self.cfg["csv_encode_type"] in ["utf-16", "utf-8"]:
+            data = str2number(data)
 
         self.data["new_merchant_cnt"] = data
         self.sentence_dict["new_merchant_cnt"] = "当日新增交易商户%s家, 环比下降%s, 同比增长%s。" % (
@@ -105,6 +114,9 @@ class Overview(object):
             "3": find_df_value(self.raw_csv, col="ratio_by_yesterday", row="qr_code_mchnt_cnt")
         }
 
+        if self.cfg["csv_encode_type"] in ["utf-16", "utf-8"]:
+            data = str2number(data)
+
         self.data["qr_code_merchant_cnt"] = data
         self.sentence_dict["qr_code_merchant_cnt"] = "二维码交易商户%s万, 占总交易商户的%s, 环比下降%s;" % (
             str(round(data["1"] / 10000, 2)),
@@ -120,6 +132,9 @@ class Overview(object):
             "3": find_df_value(self.raw_csv, col="ratio_by_yesterday", row="control_mchnt")
         }
 
+        if self.cfg["csv_encode_type"] in ["utf-16", "utf-8"]:
+            data = str2number(data)
+
         self.data["control_merchant"] = data
         self.sentence_dict["control_merchant"] = "手机支付控件交易商户%s家, 占总交易商户的%s, 环比下降%s;" % (
             str(data["1"]),
@@ -133,6 +148,9 @@ class Overview(object):
             "1": find_df_value(self.raw_csv, col="cnt_today", row="control_out_mchnt"),
             "2": find_df_value(self.raw_csv, col="ratio_by_yesterday", row="control_out_mchnt")
         }
+
+        if self.cfg["csv_encode_type"] in ["utf-16", "utf-8"]:
+            data = str2number(data)
 
         self.data["control_out_merchant"] = data
         self.sentence_dict["control_out_merchant"] = "手机外部支付交易商户%s家, 环比下降%s;" % (
@@ -200,6 +218,6 @@ class Overview(object):
             for func in run_func_map[model_type]:
                 func()
 
-            # 将这段文字构造成 dataframe, 返回.
+            # 将这段文字构造成 DataFrame, 返回.
             res = transfer_sentence_dict_to_dataframe(self.sentence_dict, pandas_col_name="overview")
         return res

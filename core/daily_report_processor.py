@@ -64,9 +64,11 @@ class DailyReportProcessor(object):
         for required_one in self.required_csv_name_list:
             the_bingo_one = can_load(all_raw_csv_files, required_one, today_time_str)
             if the_bingo_one is not None:
-                self.csv_data[required_one] = pd.read_csv(path + the_bingo_one)
+                self.csv_data[required_one] = pd.read_csv(path + the_bingo_one, encoding=self.cfg["csv_encode_type"])
 
-        print("数据读取完成, 一共从%s读取%d个csv文件" % (path, len(self.csv_data)))
+        print("数据读取完成, 一共从%s读取%d个csv文件:" % (path, len(self.csv_data)))
+        for i in self.csv_data.keys():
+            print(i)
         return
 
     def _init_handler(self):

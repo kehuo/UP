@@ -42,8 +42,9 @@ def qr_transaction_cnt_by_scene(sentence_dict, all_raw_csv, cfg):
                                                  'cnt_today_y', 'ratio_y', 'proportion_xy']]
 
     # B - 处理 data 和最终的 target_text. 其中 data 是: 最后拼接句子时, 需要的所有相关的变量值.
-    top100_count = all_raw_csv["raw_qr_transaction_by_merchant"]["cnt"].sum()
-    top100_mchnt_count = len(set(all_raw_csv["raw_qr_transaction_by_merchant"]["mchnt_cd"]))
+    # todo 远程办公期间, 拿这个文件很难, 所以由于没有数据, 以下2个top100 count字段暂时不计算 (对应data[8] - data[11])
+    # top100_count = all_raw_csv["raw_qr_transaction_by_merchant"]["cnt"].sum()
+    # top100_mchnt_count = len(set(all_raw_csv["raw_qr_transaction_by_merchant"]["mchnt_cd"]))
     qr_mchnt = df_overview['cnt_today'][df_overview['index'] == 'qr_code_mchnt_cnt'].values[0]
 
     data = {
@@ -56,10 +57,10 @@ def qr_transaction_cnt_by_scene(sentence_dict, all_raw_csv, cfg):
         "6": str(df_scene_new.head(3)['proportion'].values.tolist()[1]),
         "7": str(df_scene_new.head(3)['proportion'].values.tolist()[2]),
 
-        "8": str(round(top100_count / 10000, 2)),
-        "9": str(round(top100_count / qr_code_cnt * 100, 2)) + "%",
-        "10": str(round(top100_mchnt_count / 10000, 2)),
-        "11": str(round(top100_mchnt_count / qr_mchnt * 100, 2)) + "%"
+        # "8": str(round(top100_count / 10000, 2)),
+        # "9": str(round(top100_count / qr_code_cnt * 100, 2)) + "%",
+        # "10": str(round(top100_mchnt_count / 10000, 2)),
+        # "11": str(round(top100_mchnt_count / qr_mchnt * 100, 2)) + "%"
     }
 
     target_text_dict = {
@@ -76,12 +77,12 @@ def qr_transaction_cnt_by_scene(sentence_dict, all_raw_csv, cfg):
             data["7"]
         ),
 
-        "3": "其中各城市TOP100商户交易笔数%s万笔, 占当日二维码总交易笔数的%s; 交易商户%s万, 占二维码交易商户数的%s。" % (
-            data["8"],
-            data["9"],
-            data["10"],
-            data["11"]
-        )
+        # "3": "其中各城市TOP100商户交易笔数%s万笔, 占当日二维码总交易笔数的%s; 交易商户%s万, 占二维码交易商户数的%s。" % (
+        #     data["8"],
+        #     data["9"],
+        #     data["10"],
+        #     data["11"]
+        # )
     }
 
     # 把 target_text_dict 字典拼成一个str类型的长句子

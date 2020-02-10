@@ -4,7 +4,9 @@
     "windows": "C:\\users\\kehu\\dev\\up\\data\\raw\\"
   },
 
-  "minus_day_count": 18,
+  "csv_encode_type": "utf-8",
+
+  "minus_day_count": 0,
 
   "final_excel_path": {
     "windows": "C:\\users\\kehu\\dev\\up\\data\\excel\\",
