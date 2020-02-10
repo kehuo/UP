@@ -10,7 +10,7 @@ def main():
     cfg_name = "cfg.json"
 
     # 实例化 + run
-    curr_device_type = "windows"
+    curr_device_type = "linux"
     drp = DailyReportProcessor(cfg_path[curr_device_type] + cfg_name)
     drp.load_csv_data(device_type=curr_device_type)
     drp.run()
