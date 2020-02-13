@@ -30,15 +30,19 @@ def build_date_str(minus_day_count=0, str_type="bottom_line"):
 
 def can_load(all_raw_csv_name, required_csv_name_one, current_timestamp):
     """
-    :param all_raw_csv_name: 在raw文件夹下的 csv文件名, 如 raw_overview_2020_01_20 09_00_00 PM.csv
+    :param all_raw_csv_name: 一个列表, 包含在raw文件夹下的所有 csv文件名, 如 raw_overview_2020_01_20 09_00_00 PM.csv
     :param current_timestamp: 运行该程序时的时间, str类型, 如 "2020_01_20"
     :param required_csv_name_one: 比如 "raw_overview"
-    :return: 2个条件都符合 > True; 否则返回 False
+    :return: 2个条件都符合 > 返回对应的 完整raw_csv的文件名. 否则返回None
     """
     res = None
     filtered_raw_csv_name = []
     for i in all_raw_csv_name:
         if required_csv_name_one in i:
+            # todo qr_transaction_cnt_by_scene / qr_transaction_cnt_by_scene_top100_in_city 会有问题, 用if特殊处理
+            if required_csv_name_one == "raw_qr_transaction_cnt_by_scene":
+                if "top100_in_city" in i:
+                    continue
             filtered_raw_csv_name.append(i)
 
     for raw_one in filtered_raw_csv_name:

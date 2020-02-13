@@ -69,7 +69,7 @@ class Overview(object):
             data = str2number(data)
 
         self.data["all_merchant_cnt"] = data
-        self.sentence_dict["all_merchant_cnt"] = "云闪付APP总体交易商户%s万, 环比下降%s, 同比增长%s。" % (
+        self.sentence_dict["all_merchant_cnt"] = "云闪付APP总体交易商户%s万, 环比增长%s, 同比增长%s。" % (
             str(round(data["1"] / 10000, 2)),
             str(round(data["2"] * 100, 2)) + "%",
             str(round(data["3"] * 100, 2)) + "%",
@@ -87,8 +87,8 @@ class Overview(object):
             data = str2number(data)
 
         self.data["new_merchant_cnt"] = data
-        self.sentence_dict["new_merchant_cnt"] = "当日新增交易商户%s家, 环比下降%s, 同比增长%s。" % (
-            str(round(data["1"] / 10000, 2)),
+        self.sentence_dict["new_merchant_cnt"] = "当日新增交易商户%s家, 环比增长%s, 同比增长%s。" % (
+            str(round(data["1"] , 2)),
             str(round(data["2"] * 100, 2)) + "%",
             str(round(data["3"] * 100, 2)) + "%",
         )
@@ -118,7 +118,7 @@ class Overview(object):
             data = str2number(data)
 
         self.data["qr_code_merchant_cnt"] = data
-        self.sentence_dict["qr_code_merchant_cnt"] = "二维码交易商户%s万, 占总交易商户的%s, 环比下降%s;" % (
+        self.sentence_dict["qr_code_merchant_cnt"] = "二维码交易商户%s万, 占总交易商户的%s, 环比增长%s；" % (
             str(round(data["1"] / 10000, 2)),
             str(round(data["2"] * 100, 2)) + "%",
             str(round(data["3"] * 100, 2)) + "%",
@@ -136,7 +136,7 @@ class Overview(object):
             data = str2number(data)
 
         self.data["control_merchant"] = data
-        self.sentence_dict["control_merchant"] = "手机支付控件交易商户%s家, 占总交易商户的%s, 环比下降%s;" % (
+        self.sentence_dict["control_merchant"] = "手机支付控件交易商户%s家, 占总交易商户的%s, 环比增长%s；" % (
             str(data["1"]),
             str(round(data["2"] * 100, 2)) + "%",
             str(round(data["3"] * 100, 2)) + "%",
@@ -153,7 +153,7 @@ class Overview(object):
             data = str2number(data)
 
         self.data["control_out_merchant"] = data
-        self.sentence_dict["control_out_merchant"] = "手机外部支付交易商户%s家, 环比下降%s;" % (
+        self.sentence_dict["control_out_merchant"] = "手机外部支付交易商户%s家, 环比增长%s；" % (
             str(data["1"]),
             str(round(data["2"] * 100, 2)) + "%"
         )
@@ -176,7 +176,7 @@ class Overview(object):
         control_out_cnt_by_yesterday = df_overview['ratio_by_yesterday'][df_overview['index'] == 'control_out_cnt'].values[0]
         control_out_cnt_by_last_year = df_overview['ration_by_last_year'][df_overview['index'] == 'control_out_cnt'].values[0]
 
-        target_text = "当日，手机支付控件交易{}万笔，环比下降{}%，同比下降{}%。其中手机外部支付控件交易{}万笔，环比增长{}%，同比下降{}%，占总控件交易笔数的{}%。".format(
+        target_text = "当日，手机支付控件交易{}万笔，环比增长{}%，同比增长{}%。其中手机外部支付控件交易{}万笔，环比增长{}%，同比增长{}%，占总控件交易笔数的{}%。".format(
             round(control_cnt / 10000, 2),
             round(control_cnt_by_yesterday * 100, 2),
             round(float(control_cnt_by_last_year) * 100, 2),

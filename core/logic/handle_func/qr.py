@@ -64,7 +64,7 @@ def qr_transaction_cnt_by_scene(sentence_dict, all_raw_csv, cfg):
     }
 
     target_text_dict = {
-        "1": "当日, 二维码(含乘车码)交易笔数为%s笔, 环比下降%s, 同比增长%s。" % (
+        "1": "当日, 二维码(含乘车码)交易笔数为%s笔, 环比增长%s, 同比增长%s。" % (
             data["1"],
             data["2"],
             data["3"]

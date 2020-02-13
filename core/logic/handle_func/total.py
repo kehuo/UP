@@ -28,7 +28,7 @@ def transaction_cnt_by_day(sentence_dict, all_raw_csv, cfg):
         "3": str(round(csv["cnt_today"][:10].sum() / csv["cnt_today"].sum() * 100, 2)) + "%"
     }
     # 1.1
-    sentence_dict["very_beginning"] = "当日, 云闪付APP发生支付类交易%s万笔" % data["1"]
+    sentence_dict["very_beginning"] = "当日, 云闪付APP发生支付类交易%s万笔。" % data["1"]
     # 1.2
     sentence_dict["trans_type"] = "其中%s交易笔数排名前十，" % data["2"]
     # 1.3

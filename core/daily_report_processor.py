@@ -252,6 +252,6 @@ class DailyReportProcessor(object):
                 elif isinstance(v, pd.DataFrame):
                     v.to_excel(excel_writer=writer,
                                sheet_name=excel_sheet_name_map[model_k + "_" + k])
-        writer.save()
+        # writer.save()
         writer.close()
         return
